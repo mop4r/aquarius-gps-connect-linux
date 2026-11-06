@@ -14,7 +14,7 @@ log "== inicio; uptime $(cut -d. -f1 /proc/uptime) s"
 t0=$(date '+%F %T'); s0=$(date +%s)
 CFG=$(mktemp /tmp/estab.XXXXXX.cfg); cp /home/jogador/.config/retroarch/retroarch.cfg "$CFG"
 sed -i -e '/^config_save_on_exit = /d' -e '/^log_verbosity = /d' "$CFG"
-printf '%s\n' 'config_save_on_exit = "false"' 'log_verbosity = "false"' >> "$CFG"; chmod 644 "$CFG"
+printf '%s\n' 'config_save_on_exit = "false"' 'log_verbosity = "false"' >> "$CFG"; chown jogador: "$CFG"; chmod 600 "$CFG"
 timeout 2400 systemd-run --quiet --wait --collect -p User=jogador -p PAMName=login -p TTYPath=/dev/tty1 \
   -p StandardInput=tty -p StandardOutput=journal -p StandardError=journal \
   -E XDG_RUNTIME_DIR=/run/user/1000 -E LIBSEAT_BACKEND=seatd -E HOME=/home/jogador \

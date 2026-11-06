@@ -30,7 +30,7 @@ for l in 'config_save_on_exit = "false"' 'pause_nonactive = "false"' 'log_verbos
 PRE="/usr/bin/cage -s --"
 [ "${KMS:-0}" = 1 ] && { PRE=""; poe 'video_context_driver = "kms"'; poe 'input_driver = "udev"'; }
 if [ -n "$EXTRA" ]; then IFS=';' read -ra XS <<< "$EXTRA"; for l in "${XS[@]}"; do l=${l# }; [ -n "$l" ] && poe "$l"; done; fi
-chmod 644 "$CFG"
+chown jogador: "$CFG"; chmod 600 "$CFG"
 ocup() { awk '/^cpu /{print $2+$3+$4+$7+$8, $5+$6; exit}' /proc/stat; }   # jiffies ocupado e ocioso
 roda() {   # imprime: segundos ocupado ocioso
   local n=$1 t0 t1 o0 i0 o1 i1
