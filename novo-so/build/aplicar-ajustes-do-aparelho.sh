@@ -24,6 +24,17 @@ c systemctl enable aquarius-vbus.service >/dev/null 2>&1
 # servicos que so custam tempo e RAM num GPS (medido: ~20 MB e ~30 s de boot)
 c systemctl disable exim4 lm-sensors networking e2scrub_reap avahi-daemon.service avahi-daemon.socket \
   cups.service cups.socket cups.path cups-browsed accounts-daemon udisks2 >/dev/null 2>&1 || true
+# 06/11: fwupd (35 MB, 9 s de boot, puxa o udisks2), o gancho de desligamento do unattended-upgrades (21 MB parado;
+# a atualizacao segue pelo timer) e timers inuteis. Boot medido: 1 min 34 s -> 51 s.
+c systemctl disable unattended-upgrades.service man-db.timer exim4-base.timer e2scrub_all.timer >/dev/null 2>&1 || true
+c systemctl mask fwupd.service fwupd-refresh.timer fwupd-refresh.service udisks2.service >/dev/null 2>&1 || true
+# kernel calado na tela (a 115200 o console serial atrasava o boot e o texto aparecia por cima do jogo)
+sed -i 's/loglevel=[0-9]/quiet loglevel=3/' "$R/etc/default/u-boot"
+grep -q 'quiet loglevel=3' "$R/etc/default/u-boot" || { echo "u-boot: loglevel nao trocado" >&2; exit 1; }
+
+# volta automatica (aquarius-vigia + aquarius-tentar) e watchdog de hardware pelo systemd
+chmod 0755 "$R/usr/local/sbin/aquarius-vigia" "$R/usr/local/sbin/aquarius-tentar"
+c systemctl enable aquarius-vigia.service >/dev/null 2>&1
 
 # atalho "Modo jogos" confiavel: o xfce so aceita marcar com a sessao aberta -> roda no 1o login
 install -m 0755 /dev/stdin "$R/usr/local/bin/aquarius-confiar-atalhos" <<'EOF'

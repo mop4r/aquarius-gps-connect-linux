@@ -7,7 +7,7 @@ OUT=${1:?destino}; shift; mkdir -p "$OUT"
 D=${NUCLEOS_SRC:-$HOME/aquarius-nucleos}
 X=arm-linux-gnueabihf-
 P=armv-cortexa8-neon-hardfloat
-J=$(nproc)
+J=${J:-8}
 mk() {  # mk <pasta> <makefile> [args extra]
   local r=$1 m=$2; shift 2
   make -C "$D/$r" -f "$m" clean >/dev/null 2>&1 || true
@@ -24,7 +24,9 @@ for n in $LISTA; do
     snes9x2005) mk snes9x2005 Makefile USE_BLARGG_APU=1 ;;   # "plus": APU mais fiel
     snes9x2010) mk snes9x2010 Makefile.libretro ;;
     gpsp)       mk gpsp Makefile HAVE_DYNAREC=1 CPU_ARCH=arm ;;
-    picodrive)  mk picodrive Makefile.libretro ;;
+    # picodrive compila e RODA um gerador (Cyclone): cruzado, ele vira ARM e roda pelo qemu-user, que trava o WSL em
+    # estado D (06/11/2026). Compilar o picodrive no proprio GPS.
+    picodrive)  echo "picodrive: compilar no GPS (nao cruzado)" ;;
     libretro-fceumm) mk libretro-fceumm Makefile.libretro ;;
     gambatte-libretro) mk gambatte-libretro Makefile.libretro ;;
     *) echo "nucleo desconhecido: $n" ;;
