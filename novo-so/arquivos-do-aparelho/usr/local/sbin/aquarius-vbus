@@ -12,4 +12,7 @@ done
 [ -n "$a" ] || { diz "reg 0x30 nao leu em 90 s"; exit 0; }
 i2cset -f -y 0 0x34 0x30 $(( (a & 0xC4) | 0x03 ))
 diz "reg 0x30 antes=$a depois=$(i2cget -f -y 0 0x34 0x30) (espera ${i}s)"
+# reg 0x36 bits 1:0 = tempo do botao segurado ate o AXP cortar a energia (00=4 s, 01=6 s, 10=8 s, 11=10 s).
+# De fabrica 6 s, mas o logind desliga com 5 s e precisa de alguns segundos: o AXP cortava no meio (FAT corrompida).
+b=$(i2cget -f -y 0 0x34 0x36 2>/dev/null) && i2cset -f -y 0 0x34 0x36 $(( b | 0x03 )) && diz "reg 0x36 antes=$b depois=$(i2cget -f -y 0 0x34 0x36)"
 exit 0

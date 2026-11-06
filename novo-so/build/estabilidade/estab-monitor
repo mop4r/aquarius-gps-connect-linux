@@ -1,0 +1,14 @@
+#!/bin/bash
+# Grava a cada 10 s: hora, uptime, temperatura da CPU e do PMIC (m°C), frequencia (kHz), tensao/corrente da
+# entrada USB (mV/mA), carga, RAM disponivel e swap usada (MB). Saida: /root/estab/monitor.csv
+export LC_ALL=C
+mkdir -p /root/estab; F=/root/estab/monitor.csv
+[ -s "$F" ] || echo "hora,uptime_s,cpu_mC,pmic_mC,freq_kHz,usb_mV,usb_mA,carga1,mem_disp_MB,swap_MB" > "$F"
+le() { cat "$1" 2>/dev/null || echo NA; }
+h() { for d in /sys/class/hwmon/hwmon*; do [ "$(cat "$d/name")" = "$1" ] && { echo "$d"; return; }; done; }
+PM=$(h pmic_temp); US=$(h axp20x_usb)
+while true; do
+  m=$(awk '/MemAvailable/{a=$2}/SwapTotal/{t=$2}/SwapFree/{f=$2}END{printf "%d,%d", a/1024, (t-f)/1024}' /proc/meminfo)
+  echo "$(date +%T),$(cut -d. -f1 /proc/uptime),$(le /sys/class/thermal/thermal_zone0/temp),$(le "$PM/temp1_input"),$(le /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq),$(le "$US/in0_input"),$(le "$US/curr1_input"),$(cut -d' ' -f1 /proc/loadavg),$m" >> "$F"
+  sleep 10
+done
