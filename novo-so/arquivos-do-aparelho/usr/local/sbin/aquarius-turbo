@@ -1,0 +1,54 @@
+#!/bin/sh
+# Turbo do processador do GPS. O DTB lista 1104 MHz como "turbo-mode" (1200 erra conta: tirado): o kernel so usa com
+# /sys/devices/system/cpu/cpufreq/boost = 1, e o boost nasce desligado (todo boot comeca em ate 1008 MHz).
+# uso: aquarius-turbo boot             (servico no boot: religa o turbo aprovado, com trava)
+#      aquarius-turbo confirmar        (timer 10 min depois do boot: este boot com turbo ficou estavel)
+#      aquarius-turbo aprovar 1104000  (liga agora e nos proximos boots)
+#      aquarius-turbo desligar         (volta a 1008 MHz e esquece a aprovacao)
+#      aquarius-turbo estado
+# Trava: se um boot ligou o turbo e nao chegou ao "confirmar" (travou ou reiniciou antes de 10 min),
+# o boot seguinte nao liga e desaprova sozinho.
+set -eu
+E=/var/lib/aquarius-turbo
+B=/sys/devices/system/cpu/cpufreq/boost
+C=/sys/devices/system/cpu/cpu0/cpufreq
+mkdir -p "$E"
+log() { logger -t aquarius-turbo "$*"; echo "$*"; }
+liga() {  # liga <kHz>
+  [ -w "$B" ] || { log "kernel sem boost (DTB sem turbo-mode?)"; return 1; }
+  echo 1 > "$B"; echo "$1" > "$C/scaling_max_freq"
+}
+desliga() { [ -w "$B" ] && { echo 1008000 > "$C/scaling_max_freq"; echo 0 > "$B"; }; return 0; }
+valido() { case "$1" in 1104000) return 0 ;; *) return 1 ;; esac; }
+
+case "${1:-}" in
+boot)
+  [ -f "$E/aprovado" ] || exit 0
+  f=$(head -c 16 "$E/aprovado"); valido "$f" || { log "aprovado invalido: ignorado"; rm -f "$E/aprovado"; exit 0; }
+  if [ -f "$E/sem-confirmar" ]; then
+    log "boot anterior com turbo $f nao confirmou: turbo desaprovado, fica em 1008 MHz"
+    mv -f "$E/aprovado" "$E/reprovado-$(date +%Y%m%d-%H%M%S)"; rm -f "$E/sem-confirmar"; sync; exit 0
+  fi
+  echo "$f" > "$E/sem-confirmar"; sync
+  liga "$f" && log "turbo ligado em $f kHz (falta confirmar)"
+  ;;
+confirmar)
+  [ -f "$E/sem-confirmar" ] && { rm -f "$E/sem-confirmar"; sync; log "turbo confirmado neste boot"; }
+  exit 0
+  ;;
+aprovar)
+  f=${2:-}; valido "$f" || { echo "uso: $0 aprovar 1104000" >&2; exit 2; }
+  # tambem com trava: se travar nos proximos 10 min, o proximo boot desaprova
+  echo "$f" > "$E/aprovado"; echo "$f" > "$E/sem-confirmar"; sync; liga "$f"
+  systemd-run --quiet --collect --on-active=10min /usr/local/sbin/aquarius-turbo confirmar
+  log "turbo aprovado: $f kHz (confirma sozinho em 10 min)"
+  ;;
+desligar)
+  desliga; rm -f "$E/aprovado" "$E/sem-confirmar"; sync; log "turbo desligado (1008 MHz)"
+  ;;
+estado)
+  echo "boost=$(cat "$B" 2>/dev/null || echo ausente) max=$(cat "$C/scaling_max_freq") atual=$(cat "$C/scaling_cur_freq")"
+  echo "aprovado=$(cat "$E/aprovado" 2>/dev/null || echo nenhum) sem-confirmar=$([ -f "$E/sem-confirmar" ] && echo sim || echo nao)"
+  ;;
+*) echo "uso: $0 boot|confirmar|aprovar 1104000|desligar|estado" >&2; exit 2 ;;
+esac

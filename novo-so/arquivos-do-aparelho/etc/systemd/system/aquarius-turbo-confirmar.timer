@@ -1,0 +1,8 @@
+[Unit]
+Description=Confirma o turbo 10 min depois do boot
+
+[Timer]
+OnBootSec=10min
+
+[Install]
+WantedBy=timers.target

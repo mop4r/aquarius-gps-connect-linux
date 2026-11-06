@@ -1,0 +1,11 @@
+[Unit]
+Description=Turbo do processador do GPS (1104 MHz aprovado, com trava contra travamento)
+After=local-fs.target
+ConditionPathExists=/var/lib/aquarius-turbo/aprovado
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/aquarius-turbo boot
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,6 @@
+[Unit]
+Description=Confirma que o boot com turbo ficou estavel
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/aquarius-turbo confirmar
