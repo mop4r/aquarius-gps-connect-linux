@@ -1,0 +1,75 @@
+#!/bin/bash
+# Mede a usabilidade do modo tablet (XFCE): tempo ate a area de trabalho ficar usavel e para abrir
+# programas com o cache frio e quente, mais a RAM livre. Roda como root no GPS.
+# uso: aquarius-bench-tablet sessao   (parte do modo jogos: troca para o tablet e cronometra)
+#      aquarius-bench-tablet apps [nome...]  (com o tablet aberto: abre e fecha cada programa, ou so os nomes dados)
+set -uo pipefail
+export LC_ALL=C
+U=jogador
+agora() { date +%s.%N; }
+dif() { awk -v a="$1" -v b="$2" 'BEGIN{printf "%.1f", b-a}'; }
+livre() { awk '/MemAvailable/{print int($2/1024)}' /proc/meminfo; }
+ocioso() {  # % ocioso da CPU em 2 s
+  local a b; a=$(awk '/^cpu /{print $2+$3+$4+$7+$8, $5+$6}' /proc/stat); sleep 2
+  b=$(awk '/^cpu /{print $2+$3+$4+$7+$8, $5+$6}' /proc/stat)
+  echo "$a $b" | awk '{o=$3-$1; i=$4-$2; print (o+i>0)?int(100*i/(o+i)):0}'
+}
+ambiente() {  # DISPLAY, XAUTHORITY e D-Bus da sessao do jogador
+  local p; p=$(pgrep -u "$U" -x xfce4-session | head -1) || return 1
+  tr '\0' '\n' < "/proc/$p/environ" | grep -E '^(DISPLAY|XAUTHORITY|DBUS_SESSION_BUS_ADDRESS)='
+}
+comousuario() { mapfile -t E < <(ambiente); (cd /home/jogador && runuser -u "$U" -- env HOME=/home/jogador USER=jogador LOGNAME=jogador SHELL=/bin/bash XDG_RUNTIME_DIR=/run/user/1000 "${E[@]}" "$@"); }
+janela() { comousuario xdotool search --onlyvisible --class "$1" 2>/dev/null | head -1; }
+espera_janela() {  # classe limite_s -> 0 se apareceu. Um laco so, ja como o usuario (cada runuser abre sessao PAM e
+  # pesa no A10); o "xdotool search --sync" lancado junto com o programa as vezes nunca volta (LibreOffice frio, 06/11/2026)
+  comousuario timeout "$2" bash -c 'until xdotool search --onlyvisible --class "$1" >/dev/null 2>&1; do sleep 0.25; done' _ "$1"
+}
+
+fecha() {  # encerra o programa e espera sair de verdade (instancia morrendo segura o perfil e a proxima abertura falha)
+  local n=0
+  pkill -u "$U" -f "$1" 2>/dev/null
+  while pgrep -u "$U" -f "$1" >/dev/null && [ "$n" -lt 30 ]; do sleep 0.5; n=$((n+1)); done
+  pkill -9 -u "$U" -f "$1" 2>/dev/null; sleep 2
+}
+
+case "${1:-}" in
+sessao)
+  systemctl is-active -q lightdm && { echo "o tablet ja esta aberto: troque para jogos antes" >&2; exit 2; }
+  sync; echo 3 > /proc/sys/vm/drop_caches
+  t0=$(agora); /usr/local/sbin/aquarius-trocar-modo tablet
+  until pgrep -u "$U" -x xfce4-session >/dev/null; do sleep 0.2; done; t1=$(agora)
+  until ambiente >/dev/null 2>&1 && [ -n "$(janela xfdesktop)" ] && [ -n "$(janela xfce4-panel)" ]; do sleep 0.2; done; t2=$(agora)
+  n=0; while [ "$n" -lt 60 ]; do [ "$(ocioso)" -ge 80 ] && break; n=$((n+1)); done; t3=$(agora)
+  echo "sessao: login $(dif "$t0" "$t1")s, area de trabalho $(dif "$t0" "$t2")s, usavel (CPU ociosa) $(dif "$t0" "$t3")s, RAM livre $(livre) MB"
+  ;;
+apps)
+  ambiente >/dev/null || { echo "tablet nao esta aberto" >&2; exit 2; }
+  # nome|classe da janela|processo a matar|comando
+  while IFS='|' read -r nome classe proc cmd; do
+    [ -n "$nome" ] || continue
+    if [ $# -gt 1 ]; then case " ${*:2} " in *" $nome "*) ;; *) continue ;; esac; fi
+    for cache in frio quente; do
+      fecha "$proc"
+      [ "$cache" = frio ] && { sync; echo 3 > /proc/sys/vm/drop_caches; }
+      m0=$(livre); t0=$(agora)
+      # shellcheck disable=SC2086  # cmd e uma lista fixa deste script
+      comousuario setsid $cmd >/dev/null 2>&1 < /dev/null &
+      if espera_janela "$classe" 240; then
+        t1=$(agora); sleep 3
+        echo "$nome $cache: $(dif "$t0" "$t1")s, RAM usada $(( m0 - $(livre) )) MB"
+      else
+        echo "$nome $cache: nao abriu em 240 s"
+      fi
+    done
+    fecha "$proc"
+  done <<'EOF'
+terminal|xfce4-terminal|xfce4-terminal|xfce4-terminal
+arquivos|thunar|thunar|thunar /home/jogador
+editor|mousepad|mousepad|mousepad
+navegador|firefox|firefox-esr|firefox-esr about:blank
+escritorio|libreoffice|soffice|libreoffice --writer --norestore
+EOF
+  echo "RAM livre no fim: $(livre) MB"
+  ;;
+*) echo "uso: $0 sessao|apps" >&2; exit 2 ;;
+esac
