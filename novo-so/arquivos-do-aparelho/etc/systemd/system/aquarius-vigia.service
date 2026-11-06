@@ -1,0 +1,14 @@
+[Unit]
+Description=Vigia do GPS: volta automatica de mudancas e recuperacao de rede
+After=local-fs.target
+DefaultDependencies=no
+Before=network-pre.target
+
+[Service]
+ExecStart=/usr/local/sbin/aquarius-vigia
+Restart=always
+RestartSec=5
+Nice=-5
+
+[Install]
+WantedBy=multi-user.target

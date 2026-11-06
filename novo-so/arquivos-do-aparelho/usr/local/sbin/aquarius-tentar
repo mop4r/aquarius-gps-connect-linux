@@ -1,0 +1,45 @@
+#!/bin/bash
+# Mudanca com volta automatica (par do aquarius-vigia).
+#   aquarius-tentar inicio "<descricao>" <caminho>...   guarda os caminhos (ou anota que nao existiam) e abre a tentativa
+#   aquarius-tentar estado | confirmar | desfazer
+# Depois do "inicio", mexa nos arquivos e reinicie se precisar. Se rede ou SSH ficarem fora por 5 min (antes ou
+# depois de reiniciar), o vigia devolve os arquivos e reinicia. 10 min saudavel = confirmada sozinha.
+# Nao cobre o que impede o Linux de subir ate o vigia (kernel, DTB, U-Boot, fstab, initramfs).
+set -euo pipefail
+export LC_ALL=C
+[ "$(id -u)" = 0 ] || { echo "rode como root" >&2; exit 2; }
+D=/var/lib/aquarius-vigia; T=$D/tentativa
+mkdir -p "$D"
+cmd=${1:-estado}; shift || true
+case $cmd in
+  inicio)
+    desc=${1:?descricao}; shift
+    [ $# -ge 1 ] || { echo "informe ao menos um caminho" >&2; exit 2; }
+    [ -e "$T/ativa" ] && { echo "ja existe tentativa: $(cat "$T/descricao")  (confirmar ou desfazer antes)" >&2; exit 1; }
+    [ ${#desc} -le 200 ] && [[ $desc != *$'\n'* ]] || { echo "descricao invalida" >&2; exit 2; }
+    rm -rf "$T"; mkdir -p "$T"; : > "$T/ausentes.txt"; lista=()
+    for p in "$@"; do
+      [[ $p == /* && $p != *..* && $p != *$'\n'* ]] || { echo "caminho invalido: $p" >&2; rm -rf "$T"; exit 2; }
+      case $p in /|/proc*|/sys*|/dev*|/run*|/boot*|/var/lib/aquarius-vigia*) echo "caminho nao permitido: $p" >&2; rm -rf "$T"; exit 2;; esac
+      if [ -e "$p" ] || [ -L "$p" ]; then lista+=("$p"); else printf '%s\n' "$p" >> "$T/ausentes.txt"; fi
+    done
+    [ ${#lista[@]} -gt 0 ] && tar -cpf "$T/copia.tar" -P -- "${lista[@]}"
+    printf '%s\n' "$desc" > "$T/descricao"
+    printf 'uptime_inicio=%s\nboot=%s\ndata=%s\n' "$(cut -d. -f1 /proc/uptime)" "$(cat /proc/sys/kernel/random/boot_id)" "$(date -Is)" > "$T/ativa.tmp"
+    sync; mv "$T/ativa.tmp" "$T/ativa"; sync
+    logger -t aquarius-vigia -- "tentativa INICIADA: $desc ($# caminho(s))"
+    echo "tentativa aberta: $desc"; echo "copia: ${#lista[@]} existente(s), $(wc -l < "$T/ausentes.txt") novo(s)";;
+  estado)
+    if [ -f "$T/ativa" ]; then echo "tentativa ATIVA: $(cat "$T/descricao")"; cat "$T/ativa"; else echo "sem tentativa"; fi
+    ls -1dt "$D"/falhou-* "$D"/confirmada-* 2>/dev/null | head -5 || true
+    tail -5 "$D/vigia.log" 2>/dev/null || true;;
+  confirmar)
+    [ -f "$T/ativa" ] || { echo "sem tentativa"; exit 0; }
+    mv "$T" "$D/confirmada-$(date +%Y%m%d-%H%M%S)"; logger -t aquarius-vigia -- "tentativa CONFIRMADA a mao"; echo confirmada;;
+  desfazer)
+    [ -f "$T/ativa" ] || { echo "sem tentativa"; exit 1; }
+    [ -f "$T/copia.tar" ] && tar -xpf "$T/copia.tar" -P
+    while IFS= read -r p; do [[ $p == /* && $p != *..* ]] && rm -rf -- "$p"; done < "$T/ausentes.txt"
+    mv "$T" "$D/falhou-$(date +%Y%m%d-%H%M%S)"; logger -t aquarius-vigia -- "tentativa DESFEITA a mao"; echo desfeita;;
+  *) echo "uso: aquarius-tentar inicio \"<descricao>\" <caminho>... | estado | confirmar | desfazer" >&2; exit 2;;
+esac

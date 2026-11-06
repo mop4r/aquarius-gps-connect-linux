@@ -1,0 +1,128 @@
+#!/bin/bash
+# Vigia do GPS (como o v7s2x-vigia do GTMedia). Roda sempre, como servico, desde o inicio do boot.
+#
+# 1) Tentativa em andamento (criada por aquarius-tentar): o aparelho tem de ficar saudavel
+#    (roteador responde E o sshd escuta na 22). Sem saude por LIMITE_TENTATIVA s (contados do boot ou do
+#    inicio da tentativa) -> devolve os arquivos guardados e reinicia. Saudavel por CONFIRMA s seguidos -> confirma.
+# 2) Sempre: sem roteador por LIMITE_REDE s -> reinicia a rede; por LIMITE_REINICIO s -> reinicia o aparelho
+#    (no maximo MAX_REINICIOS_REDE vezes seguidas; zera depois de CONFIRMA s saudavel). sshd parado -> sobe de novo.
+#
+# Ajustes (opcional) em /etc/default/aquarius-vigia, chave=numero, lido chave a chave (nunca com source).
+set -uo pipefail
+export LC_ALL=C
+D=/var/lib/aquarius-vigia; T=$D/tentativa
+mkdir -p "$D"
+
+cfg() {  # cfg <chave> <padrao>: so aceita inteiro
+  local v; v=$(sed -n "s/^$1=//p" /etc/default/aquarius-vigia 2>/dev/null | tail -1)
+  [[ $v =~ ^[0-9]{1,6}$ ]] && echo "$v" || echo "$2"
+}
+INTERVALO=$(cfg INTERVALO 20)
+LIMITE_TENTATIVA=$(cfg LIMITE_TENTATIVA 300)
+CONFIRMA=$(cfg CONFIRMA 600)
+LIMITE_REDE=$(cfg LIMITE_REDE 300)
+LIMITE_REINICIO=$(cfg LIMITE_REINICIO 900)
+MAX_REINICIOS_REDE=$(cfg MAX_REINICIOS_REDE 3)
+SEM_REINICIO=$(cfg SEM_REINICIO 0)   # 1 = so registra (teste)
+
+log() { logger -t aquarius-vigia -- "$*"; echo "$(date '+%F %T') $*" >> "$D/vigia.log"; }
+agora() { cut -d. -f1 /proc/uptime; }
+
+roteador_ok() {
+  [ -e /run/aquarius-vigia-simular-falha ] && return 1     # so para teste
+  local gw; gw=$(ip -4 route show default 2>/dev/null | awk '{print $3; exit}')
+  [[ $gw =~ ^[0-9.]{7,15}$ ]] || return 1
+  ping -c1 -W3 "$gw" >/dev/null 2>&1 || ping -c1 -W3 "$gw" >/dev/null 2>&1
+}
+ssh_ok() { ss -Hltn 'sport = :22' 2>/dev/null | grep -q .; }
+
+reiniciar() {
+  log "REINICIO: $*"
+  [ "$SEM_REINICIO" = 1 ] && { log "(SEM_REINICIO=1: nao reiniciou)"; return 0; }
+  sync
+  systemctl reboot || true
+  sleep 90
+  log "systemctl reboot nao terminou em 90 s: reboot -f"
+  sync; reboot -f
+}
+
+devolver() {  # devolve a copia da tentativa (arquivos guardados e apaga os que nao existiam)
+  local tag; tag=$(date +%Y%m%d-%H%M%S)
+  if [ -f "$T/copia.tar" ]; then
+    tar -xpf "$T/copia.tar" -P 2>>"$D/vigia.log" || log "aviso: tar devolveu erro"
+  fi
+  if [ -f "$T/ausentes.txt" ]; then
+    while IFS= read -r p; do
+      [[ $p == /* && $p != *..* ]] && rm -rf -- "$p"
+    done < "$T/ausentes.txt"
+  fi
+  mv "$T" "$D/falhou-$tag"
+  ls -1dt "$D"/falhou-* 2>/dev/null | tail -n +6 | xargs -r rm -rf     # guarda as 5 ultimas
+  log "tentativa DESFEITA ($(cat "$D/falhou-$tag/descricao" 2>/dev/null)); copia em $D/falhou-$tag"
+}
+
+ruim_desde=""; bom_desde=""; rede_ruim_desde=""; rede_reiniciada=0; ssh_ruim_desde=""
+log "vigia iniciado (tentativa: $([ -f "$T/ativa" ] && echo sim || echo nao))"
+while true; do
+  t=$(agora)
+  r=0; roteador_ok && r=1
+  s=0; ssh_ok && s=1
+
+  # --- tentativa em andamento ---
+  if [ -f "$T/ativa" ]; then
+    inicio=$(sed -n 's/^uptime_inicio=//p' "$T/ativa"); boot=$(sed -n 's/^boot=//p' "$T/ativa")
+    [ "$boot" != "$(cat /proc/sys/kernel/random/boot_id)" ] && inicio=0     # houve reinicio: conta do boot
+    [[ $inicio =~ ^[0-9]+$ ]] || inicio=0
+    if [ "$r" = 1 ] && [ "$s" = 1 ]; then
+      ruim_desde=""; bom_desde=${bom_desde:-$t}
+      if [ $((t - bom_desde)) -ge "$CONFIRMA" ]; then
+        mv "$T" "$D/confirmada-$(date +%Y%m%d-%H%M%S)"; ls -1dt "$D"/confirmada-* | tail -n +6 | xargs -r rm -rf
+        log "tentativa CONFIRMADA (saudavel por ${CONFIRMA}s)"; bom_desde=""
+      fi
+    else
+      bom_desde=""
+      ref=${ruim_desde:-$t}; [ "$inicio" -gt "$ref" ] && ref=$inicio
+      ruim_desde=$ref
+      if [ $((t - ruim_desde)) -ge "$LIMITE_TENTATIVA" ]; then
+        log "tentativa sem saude por ${LIMITE_TENTATIVA}s (roteador=$r ssh=$s)"
+        devolver; reiniciar "volta para o ultimo que funcionava"; ruim_desde=""
+      fi
+    fi
+  else
+    ruim_desde=""; bom_desde=""
+  fi
+
+  # --- rede, sempre ---
+  if [ "$r" = 1 ]; then
+    rede_ruim_desde=""; rede_reiniciada=0
+    if [ -f "$D/reinicios-rede" ]; then
+      ok_desde=$(sed -n 's/^ok_desde=//p' "$D/reinicios-rede.ok" 2>/dev/null)
+      [[ $ok_desde =~ ^[0-9]+$ ]] || { echo "ok_desde=$t" > "$D/reinicios-rede.ok"; ok_desde=$t; }
+      [ $((t - ok_desde)) -ge "$CONFIRMA" ] && { rm -f "$D/reinicios-rede" "$D/reinicios-rede.ok"; log "rede estavel: zerou o contador de reinicios"; }
+    fi
+  else
+    rm -f "$D/reinicios-rede.ok"
+    rede_ruim_desde=${rede_ruim_desde:-$t}; dt=$((t - rede_ruim_desde))
+    if [ "$dt" -ge "$LIMITE_REDE" ] && [ "$rede_reiniciada" = 0 ]; then
+      log "sem roteador ha ${dt}s: reiniciando a rede"; rede_reiniciada=1
+      systemctl restart NetworkManager || log "falhou reiniciar o NetworkManager"
+    fi
+    if [ "$dt" -ge "$LIMITE_REINICIO" ]; then
+      n=$(cat "$D/reinicios-rede" 2>/dev/null); [[ $n =~ ^[0-9]+$ ]] || n=0
+      if [ "$n" -lt "$MAX_REINICIOS_REDE" ]; then
+        echo $((n + 1)) > "$D/reinicios-rede"
+        reiniciar "sem roteador ha ${dt}s (reinicio de rede $((n + 1))/$MAX_REINICIOS_REDE)"
+      elif [ $((dt % 3600)) -lt "$INTERVALO" ]; then
+        log "sem roteador ha ${dt}s; limite de $MAX_REINICIOS_REDE reinicios seguidos atingido, so espero"
+      fi
+    fi
+  fi
+
+  # --- sshd ---
+  if [ "$s" = 1 ]; then ssh_ruim_desde=""; else
+    ssh_ruim_desde=${ssh_ruim_desde:-$t}
+    if [ $((t - ssh_ruim_desde)) -ge 120 ]; then log "sshd sem escutar ha 120 s: subindo de novo"; systemctl restart ssh; ssh_ruim_desde=""; fi
+  fi
+
+  sleep "$INTERVALO"
+done
