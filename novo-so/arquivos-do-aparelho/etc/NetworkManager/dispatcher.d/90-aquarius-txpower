@@ -1,0 +1,14 @@
+#!/bin/sh
+# Wi-Fi do GPS em 10 dBm (sinal da casa ~ -38 dBm; menos pico de corrente sem bateria).
+# No rtl8192cu, "iw dev wlan0 set txpower" devolve 0 e e IGNORADO: so "iw phy <phy> set txpower" vale (06/11/2026).
+# Ao associar, o driver volta para 20 dBm: por isso reaplica a cada conexao que sobe e confere o valor efetivo.
+[ "$1" = wlan0 ] || exit 0
+case "$2" in up|dhcp4-change|connectivity-change) ;; *) exit 0 ;; esac
+P=$(cat /sys/class/net/wlan0/phy80211/name 2>/dev/null) || exit 0
+iw phy "$P" set txpower fixed 1000 2>/dev/null
+v=$(iw dev wlan0 info 2>/dev/null | sed -n 's/.*txpower \([0-9.]*\).*/\1/p')
+case "$v" in
+  10.00) logger -t aquarius-txpower "wlan0 $2: 10 dBm" ;;
+  *) logger -p user.warning -t aquarius-txpower "wlan0 $2: txpower ficou em '$v'" ;;
+esac
+exit 0

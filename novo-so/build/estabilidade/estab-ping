@@ -1,0 +1,11 @@
+#!/bin/bash
+# Ping ao roteador a cada 5 s; anota so as falhas (com o estado do Wi-Fi) em /root/estab/ping-falhas.txt
+export LC_ALL=C
+F=/root/estab/ping-falhas.txt; mkdir -p /root/estab
+while true; do
+  gw=$(ip -4 route show default | awk '{print $3; exit}')
+  if ! ping -c1 -W2 "$gw" >/dev/null 2>&1; then
+    echo "$(date +%T) falhou gw=${gw:-nenhum} $(iw dev wlan0 link 2>/dev/null | grep -E 'signal|Not connected' | tr -s ' \t' ' ')" >> "$F"
+  fi
+  sleep 5
+done

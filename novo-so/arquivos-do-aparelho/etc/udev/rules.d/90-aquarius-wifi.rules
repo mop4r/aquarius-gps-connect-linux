@@ -1,1 +1,3 @@
-ACTION=="add", SUBSYSTEM=="net", KERNEL=="wlan*", RUN+="/bin/sh -c 'sleep 2; iw dev %k set txpower fixed 1000'"
+# Wi-Fi em 10 dBm ao aparecer o adaptador (o dispatcher 90-aquarius-txpower reaplica a cada conexao).
+# "iw dev ... set txpower" e ignorado pelo rtl8192cu: o script usa o phy.
+ACTION=="add", SUBSYSTEM=="net", KERNEL=="wlan*", RUN+="/etc/NetworkManager/dispatcher.d/90-aquarius-txpower %k up"
