@@ -36,6 +36,11 @@ grep -q 'quiet loglevel=3' "$R/etc/default/u-boot" || { echo "u-boot: loglevel n
 chmod 0755 "$R/usr/local/sbin/aquarius-vigia" "$R/usr/local/sbin/aquarius-tentar"
 c systemctl enable aquarius-vigia.service >/dev/null 2>&1
 
+# turbo 1104 MHz (turbo-mode no DTB): so liga com /var/lib/aquarius-turbo/aprovado, e desaprova sozinho
+# se um boot com turbo nao confirmar em 10 min. Imagem nova sai sem aprovacao (aquarius-turbo aprovar 1104000).
+chmod 0755 "$R/usr/local/sbin/aquarius-turbo"
+c systemctl enable aquarius-turbo.service aquarius-turbo-confirmar.timer >/dev/null 2>&1
+
 # atalho "Modo jogos" confiavel: o xfce so aceita marcar com a sessao aberta -> roda no 1o login
 install -m 0755 /dev/stdin "$R/usr/local/bin/aquarius-confiar-atalhos" <<'EOF'
 #!/bin/sh
