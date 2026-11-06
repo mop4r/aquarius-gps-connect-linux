@@ -1,0 +1,328 @@
+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
+/*
+ * Aquarius Connect 5.0 / Guia Quatro Rodas (placa MTC4553, "A10-EVB-V13", board_ver 113).
+ * Cada valor abaixo vem do script.bin de fabrica (analise/script.fex) ou do driver
+ * original do Android; o mapa completo esta em analise/mapa-port.md.
+ */
+
+/dts-v1/;
+#include "sun4i-a10.dtsi"
+#include "sunxi-common-regulators.dtsi"
+#include <dt-bindings/gpio/gpio.h>
+#include <dt-bindings/input/input.h>
+#include <dt-bindings/interrupt-controller/irq.h>
+#include <dt-bindings/pwm/pwm.h>
+
+/ {
+	model = "Aquarius Connect 5.0 (MTC4553)";
+	compatible = "aquarius,mtc4553", "allwinner,sun4i-a10";
+
+	aliases {
+		serial0 = &uart0;
+	};
+
+	chosen {
+		stdout-path = "serial0:115200n8";
+	};
+
+	/* fex [lcd0_para]: lcd_pwm PB02 (pwm0), 12 kHz, lcd_pwm_pol = 1; lcd_bl_en PH07 */
+	backlight: backlight {
+		compatible = "pwm-backlight";
+		pwms = <&pwm 0 83333 PWM_POLARITY_INVERTED>;
+		brightness-levels = <0 2 4 8 16 32 64 128 255>;
+		default-brightness-level = <7>;
+		enable-gpios = <&pio 7 7 GPIO_ACTIVE_HIGH>; /* PH7 */
+	};
+
+	/* fex [lcd0_para]: lcd_power PH08 */
+	reg_lcd_power: regulator-lcd-power {
+		compatible = "regulator-fixed";
+		regulator-name = "lcd-power";
+		regulator-min-microvolt = <3300000>;
+		regulator-max-microvolt = <3300000>;
+		gpio = <&pio 7 8 GPIO_ACTIVE_HIGH>; /* PH8 */
+		enable-active-high;
+	};
+
+	/*
+	 * fex [lcd0_para]: 800x480, dclk 33 MHz, ht 928, hbp 79, vt 1050 (= 2 x 525
+	 * linhas no formato Allwinner), vbp 29, hspw/vspw 0 (= 1 ciclo).
+	 * hbp/vbp do fex incluem o pulso de sincronismo.
+	 */
+	panel: panel {
+		compatible = "panel-dpi";
+		power-supply = <&reg_lcd_power>;
+		backlight = <&backlight>;
+		width-mm = <108>;
+		height-mm = <65>;
+
+		panel-timing {
+			clock-frequency = <29250000>;	/* 60,04 Hz (928x525); 33 MHz dava 67,7 Hz e os jogos de 60 Hz trepidavam */
+			hactive = <800>;
+			vactive = <480>;
+			hsync-len = <1>;
+			hback-porch = <78>;
+			hfront-porch = <49>;
+			vsync-len = <1>;
+			vback-porch = <28>;
+			vfront-porch = <16>;
+			hsync-active = <0>;
+			vsync-active = <0>;
+			de-active = <1>;
+			pixelclk-active = <1>;
+		};
+
+		port {
+			panel_input: endpoint {
+				remote-endpoint = <&tcon0_out_panel>;
+			};
+		};
+	};
+};
+
+&be0 {
+	status = "okay";
+};
+
+/* fex [audio_para]: audio_used = 1, capture_used = 1, amplificador em PH15 */
+&codec {
+	allwinner,pa-gpios = <&pio 7 15 GPIO_ACTIVE_HIGH>; /* PH15 */
+	status = "okay";
+};
+
+&cpu0 {
+	cpu-supply = <&reg_dcdc2>;
+};
+
+&de {
+	status = "okay";
+};
+
+&ehci0 {
+	status = "okay";
+};
+
+/* usbc2 = Wi-Fi RTL8188CUS interno (fex [usb_wifi_para] usb_wifi_usbc_num = 2) */
+&ehci1 {
+	status = "okay";
+};
+
+/* fex [pmu_para]: AXP209 em twi0, endereco 52 (0x34), irq NMI */
+&i2c0 {
+	status = "okay";
+
+	axp209: pmic@34 {
+		reg = <0x34>;
+		interrupts = <0>;
+	};
+};
+
+/* twi1: acelerometro (MMA7660 / MMA8452) e radio FM do Android */
+&i2c1 {
+	status = "okay";
+
+	/*
+	 * O Android carrega mma7660 e mma8452 e usa o que responder ("gsensor").
+	 * Os dois ficam declarados; o ausente so falha o probe.
+	 */
+	accelerometer@1c {
+		compatible = "fsl,mma8452";
+		reg = <0x1c>; /* fex [gsensor_para] gsensor_twi_addr */
+	};
+
+	accelerometer@4c {
+		compatible = "fsl,mma7660";
+		reg = <0x4c>; /* endereco fixo do MMA7660 */
+	};
+};
+
+/* fex [ctp_para]: ft5x_ts em twi2 0x38, INT PH21, wakeup PB13, X/Y trocados */
+&i2c2 {
+	status = "okay";
+
+	touchscreen@38 {
+		compatible = "edt,edt-ft5406";
+		reg = <0x38>;
+		interrupt-parent = <&pio>;
+		interrupts = <7 21 IRQ_TYPE_EDGE_FALLING>; /* PH21 / EINT21 */
+		/*
+		 * fex ctp_wakeup = PB13<1><default><default><1>: saida em nivel ALTO com o chip acordado.
+		 * Com ACTIVE_LOW o driver punha o pino em nivel baixo e o chip nao respondia (04/11).
+		 */
+		wake-gpios = <&pio 1 13 GPIO_ACTIVE_HIGH>; /* PB13 */
+		touchscreen-size-x = <480>;
+		touchscreen-size-y = <800>;
+		touchscreen-swapped-x-y;
+	};
+};
+
+/*
+ * Botoes do LRADC: tabela sun4i_scankeycodes_113 do sun4i-keyboard.ko (board_ver 113)
+ * e keypad_mapindex: nivel 0-7 -> MENU, 8-14 -> BACK (LRADC de 6 bits, vref 2,0 V).
+ */
+&lradc {
+	vref-supply = <&reg_ldo2>;
+	status = "okay";
+
+	button-100 {
+		label = "Menu";
+		linux,code = <KEY_MENU>;
+		channel = <0>;
+		voltage = <100000>;
+	};
+
+	button-350 {
+		label = "Back";
+		linux,code = <KEY_BACK>;
+		channel = <0>;
+		voltage = <350000>;
+	};
+};
+
+/*
+ * fex [mmc0_para]: 4 bits, deteccao em PH01 sdc_det = port:PH01<0><1>: entrada COM pull-up.
+ * Sem o pull-up o pino flutua e o Linux pode achar que nao ha cartao (no QEMU o pino nao existe).
+ */
+&mmc0 {
+	vmmc-supply = <&reg_vcc3v3>;
+	bus-width = <4>;
+	cd-gpios = <&pio 7 1 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>; /* PH1 */
+	status = "okay";
+};
+
+&ohci0 {
+	status = "okay";
+};
+
+&ohci1 {
+	status = "okay";
+};
+
+&otg_sram {
+	status = "okay";
+};
+
+&pio {
+	lcd_rgb888_pins: lcd-rgb888-pins {
+		pins = "PD0", "PD1", "PD2", "PD3", "PD4", "PD5",
+		       "PD6", "PD7", "PD8", "PD9", "PD10", "PD11",
+		       "PD12", "PD13", "PD14", "PD15", "PD16", "PD17",
+		       "PD18", "PD19", "PD20", "PD21", "PD22", "PD23",
+		       "PD24", "PD25", "PD26", "PD27";
+		function = "lcd0";
+	};
+
+	pwm0_pin: pwm0-pin {
+		pins = "PB2";
+		function = "pwm";
+	};
+};
+
+&pwm {
+	pinctrl-names = "default";
+	pinctrl-0 = <&pwm0_pin>;
+	status = "okay";
+};
+
+/* fex [usbc0] usb_drv_vbus_gpio PB09; [usbc1] PH06; [usbc2] PH03 (alimenta o Wi-Fi) */
+&reg_usb0_vbus {
+	status = "okay";
+};
+
+&reg_usb1_vbus {
+	status = "okay";
+};
+
+&reg_usb2_vbus {
+	regulator-boot-on;
+	status = "okay";
+};
+
+&tcon0 {
+	pinctrl-names = "default";
+	pinctrl-0 = <&lcd_rgb888_pins>;
+	status = "okay";
+};
+
+&tcon0_out {
+	tcon0_out_panel: endpoint@0 {
+		reg = <0>;
+		remote-endpoint = <&panel_input>;
+	};
+};
+
+/* fex [uart_para0]: console em PB22/PB23, 115200 */
+&uart0 {
+	pinctrl-names = "default";
+	pinctrl-0 = <&uart0_pb_pins>;
+	status = "okay";
+};
+
+&usb_otg {
+	dr_mode = "otg";
+	status = "okay";
+};
+
+/* fex [usbc0]: id PH04, deteccao de VBUS PH05 */
+&usbphy {
+	usb0_id_det-gpios = <&pio 7 4 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>; /* PH4 */
+	usb0_vbus_det-gpios = <&pio 7 5 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>; /* PH5 */
+	usb0_vbus_power-supply = <&usb_power_supply>;
+	usb0_vbus-supply = <&reg_usb0_vbus>;
+	usb1_vbus-supply = <&reg_usb1_vbus>;
+	usb2_vbus-supply = <&reg_usb2_vbus>;
+	status = "okay";
+};
+
+#include "axp209.dtsi"
+
+&ac_power_supply {
+	status = "okay";
+};
+
+/* fex [pmu_para]: bateria de 1200 mAh, corte em 3,3 V */
+&battery_power_supply {
+	status = "okay";
+};
+
+/* fex [target]: dcdc2 1,40 V (CPU), dcdc3 1,25 V, ldo2 3,0 V, ldo3/ldo4 2,8 V */
+&reg_dcdc2 {
+	regulator-always-on;
+	regulator-min-microvolt = <1000000>;
+	regulator-max-microvolt = <1500000>;
+	regulator-name = "vdd-cpu";
+};
+
+&reg_dcdc3 {
+	regulator-always-on;
+	regulator-min-microvolt = <1000000>;
+	regulator-max-microvolt = <1400000>;
+	regulator-name = "vdd-int-dll";
+};
+
+&reg_ldo1 {
+	regulator-name = "vdd-rtc";
+};
+
+&reg_ldo2 {
+	regulator-always-on;
+	regulator-min-microvolt = <3000000>;
+	regulator-max-microvolt = <3000000>;
+	regulator-name = "avcc";
+};
+
+&reg_ldo3 {
+	regulator-min-microvolt = <2800000>;
+	regulator-max-microvolt = <2800000>;
+	regulator-name = "ldo3";
+};
+
+&reg_ldo4 {
+	regulator-min-microvolt = <2800000>;
+	regulator-max-microvolt = <2800000>;
+	regulator-name = "ldo4";
+};
+
+&usb_power_supply {
+	status = "okay";
+};

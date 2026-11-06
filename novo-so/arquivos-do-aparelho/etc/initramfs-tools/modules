@@ -1,0 +1,20 @@
+# List of modules that you want to include in your initramfs.
+# They will be loaded at boot time in the order below.
+#
+# Syntax:  module_name [args ...]
+#
+# You must run update-initramfs(8) to effect this change.
+#
+# Examples:
+#
+# raid1
+# sd_mod
+sunxi_mmc
+axp20x_i2c
+axp20x_regulator
+sun4i_drm
+sun4i_backend
+sun4i_tcon
+pwm_sun4i
+pwm_bl
+panel_simple

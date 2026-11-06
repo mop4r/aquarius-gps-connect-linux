@@ -1,0 +1,12 @@
+[Unit]
+Description=AXP209: tira o limite de corrente da USB (como o Android de fabrica)
+DefaultDependencies=no
+After=systemd-modules-load.service
+Before=sysinit.target NetworkManager.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/aquarius-vbus
+
+[Install]
+WantedBy=sysinit.target

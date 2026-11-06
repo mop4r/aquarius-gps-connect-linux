@@ -1,0 +1,15 @@
+#!/bin/sh
+# AXP209 reg 0x30 como o Android de fabrica: sem limite de corrente (bits 1:0 = 11, pmu_usbcur_limit=0)
+# e V_HOLD 4,0 V (bits 5:3 = 000, pmu_usbvol=4000). Sem bateria, o padrao (V_HOLD 4,4 V) apaga o GPS.
+# O AXP so aparece no I2C ~37 s depois do boot.
+diz() { echo "aquarius-vbus: $*" > /dev/kmsg; }
+i=0; a=
+while [ $i -lt 90 ]; do
+  modprobe i2c-dev 2>/dev/null
+  a=$(i2cget -f -y 0 0x34 0x30 2>/dev/null) && break
+  i=$((i + 1)); sleep 1
+done
+[ -n "$a" ] || { diz "reg 0x30 nao leu em 90 s"; exit 0; }
+i2cset -f -y 0 0x34 0x30 $(( (a & 0xC4) | 0x03 ))
+diz "reg 0x30 antes=$a depois=$(i2cget -f -y 0 0x34 0x30) (espera ${i}s)"
+exit 0

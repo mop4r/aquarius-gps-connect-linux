@@ -1,0 +1,630 @@
+﻿===== id
+uid=0(root) gid=0(root)
+
+===== uname -a
+/system/bin/sh: uname: not found
+
+===== cat /proc/cpuinfo
+Processor	: ARMv7 Processor rev 2 (v7l)
+
+BogoMIPS	: 954.17
+
+Features	: swp half thumb fastmult vfp edsp neon vfpv3 
+
+CPU implementer	: 0x41
+
+CPU architecture: 7
+
+CPU variant	: 0x3
+
+CPU part	: 0xc08
+
+CPU revision	: 2
+
+
+
+Hardware	: sun4i
+
+Revision	: 0000
+
+Serial		: (omitido)
+
+===== cat /proc/meminfo | head -3
+/system/bin/sh: head: not found
+
+write: Broken pipe
+
+===== cat /proc/partitions
+major minor  #blocks  name
+
+
+
+  93        0      16384 nanda
+
+  93        8       2048 nandb
+
+  93       16      32768 nandc
+
+  93       24     524288 nandd
+
+  93       32    1048576 nande
+
+  93       40       1024 nandf
+
+  93       48      32768 nandg
+
+  93       56     262144 nandh
+
+  93       64    5861376 nandi
+
+ 179        0    1943552 mmcblk0
+
+ 179        1    1943486 mmcblk0p1
+
+===== cat /proc/mtd
+/proc/mtd: No such file or directory
+
+===== cat /proc/cmdline
+console=ttyS0,115200 rw init=/init loglevel=3
+
+===== getprop
+[android.hardware.location.gps]: [1]
+
+[dalvik.vm.heapgrowthlimit]: [48m]
+
+[dalvik.vm.heapsize]: [256m]
+
+[dalvik.vm.heapstartsize]: [5m]
+
+[dalvik.vm.stack-trace-file]: [/data/anr/traces.txt]
+
+[debug.egl.hw]: [1]
+
+[dev.bootcomplete]: [1]
+
+[dhcp.wlan0.dns1]: [192.168.0.4]
+
+[dhcp.wlan0.dns2]: [9.9.9.9]
+
+[dhcp.wlan0.dns3]: []
+
+[dhcp.wlan0.dns4]: []
+
+[dhcp.wlan0.gateway]: [192.168.0.1]
+
+[dhcp.wlan0.ipaddress]: [192.168.0.187]
+
+[dhcp.wlan0.leasetime]: [86400]
+
+[dhcp.wlan0.mask]: [255.255.255.0]
+
+[dhcp.wlan0.pid]: [469]
+
+[dhcp.wlan0.reason]: [REBOOT]
+
+[dhcp.wlan0.result]: [failed]
+
+[dhcp.wlan0.server]: [192.168.0.1]
+
+[gsm.current.phone-type]: [1]
+
+[gsm.operator.alpha]: []
+
+[gsm.operator.iso-country]: []
+
+[gsm.operator.isroaming]: [false]
+
+[gsm.operator.numeric]: []
+
+[gsm.sim.operator.alpha]: []
+
+[gsm.sim.operator.iso-country]: []
+
+[gsm.sim.operator.numeric]: []
+
+[gsm.sim.state]: [UNKNOWN]
+
+[gsm.version.ril-impl]: [aw-dataonly-ril-0.1]
+
+[hwui.render_dirty_regions]: [false]
+
+[init.svc.adbd]: [running]
+
+[init.svc.bootanim]: [stopped]
+
+[init.svc.console]: [running]
+
+[init.svc.dbus]: [running]
+
+[init.svc.debuggerd]: [running]
+
+[init.svc.dhcpcd_eth]: [stopped]
+
+[init.svc.dhcpcd_wlan0]: [running]
+
+[init.svc.drm]: [running]
+
+[init.svc.installd]: [running]
+
+[init.svc.keystore]: [running]
+
+[init.svc.media]: [running]
+
+[init.svc.netd]: [running]
+
+[init.svc.preinstall]: [stopped]
+
+[init.svc.ril-daemon]: [running]
+
+[init.svc.servicemanager]: [running]
+
+[init.svc.surfaceflinger]: [running]
+
+[init.svc.sysconfig]: [stopped]
+
+[init.svc.u3gmonitor]: [running]
+
+[init.svc.vold]: [running]
+
+[init.svc.wpa_supplicant]: [running]
+
+[init.svc.zygote]: [running]
+
+[net.bt.name]: [Android]
+
+[net.change]: [net.dnschange]
+
+[net.dns1]: [192.168.0.4]
+
+[net.dns2]: [9.9.9.9]
+
+[net.dnschange]: [1]
+
+[net.hostname]: [android-34b5edca8596387]
+
+[net.qtaguid_enabled]: [1]
+
+[net.tcp.buffersize.default]: [4096,87380,110208,4096,16384,110208]
+
+[net.tcp.buffersize.edge]: [4093,26280,35040,4096,16384,35040]
+
+[net.tcp.buffersize.gprs]: [4092,8760,11680,4096,8760,11680]
+
+[net.tcp.buffersize.hspa]: [4094,87380,262144,4096,16384,262144]
+
+[net.tcp.buffersize.lte]: [524288,1048576,2097152,262144,524288,1048576]
+
+[net.tcp.buffersize.umts]: [4094,87380,110208,4096,16384,110208]
+
+[net.tcp.buffersize.wifi]: [524288,1048576,2097152,262144,524288,1048576]
+
+[net.wlan0.dns1]: [49.0.0.0]
+
+[net.wlan0.dns2]: [57.0.0.0]
+
+[persist.sys.country]: [BR]
+
+[persist.sys.language]: [pt]
+
+[persist.sys.profiler_ms]: [0]
+
+[persist.sys.strictmode.disable]: [1]
+
+[persist.sys.strictmode.visual]: [0]
+
+[persist.sys.timezone]: [America/Sao_Paulo]
+
+[persist.sys.usb.config]: [mass_storage,adb]
+
+[ro.allow.mock.location]: [1]
+
+[ro.baseband]: [unknown]
+
+[ro.board.platform]: [exDroid]
+
+[ro.bootloader]: [unknown]
+
+[ro.bootmode]: [unknown]
+
+[ro.build.characteristics]: [tablet]
+
+[ro.build.date.utc]: [1339489987]
+
+[ro.build.date]: [Tue Jun 12 16:33:07 CST 2012]
+
+[ro.build.description]: [crane_11x-eng 4.0.3 IML74K 20120612]
+
+[ro.build.display.id]: [crane_11x-eng 4.0.3 IML74K 20121018]
+
+[ro.build.fingerprint]: [softwinners/crane_11x/crane-11x:4.0.3/IML74K/20120612:eng/test-keys]
+
+[ro.build.host]: [ubuntu]
+
+[ro.build.id]: [IML74K]
+
+[ro.build.product]: [crane-11x]
+
+[ro.build.tags]: [test-keys]
+
+[ro.build.type]: [eng]
+
+[ro.build.user]: [lishao]
+
+[ro.build.version.codename]: [REL]
+
+[ro.build.version.incremental]: [20120612]
+
+[ro.build.version.release]: [4.0.3]
+
+[ro.build.version.sdk]: [15]
+
+[ro.carrier]: [unknown]
+
+[ro.com.android.dateformat]: [MM-dd-yyyy]
+
+[ro.config.alarm_alert]: [Alarm_Classic.ogg]
+
+[ro.config.notification_sound]: [pixiedust.ogg]
+
+[ro.config.ringtone]: [Ring_Synth_04.ogg]
+
+[ro.crypto.fs_flags]: [0x00000406]
+
+[ro.crypto.fs_mnt_point]: [/data]
+
+[ro.crypto.fs_options]: [barrier=0]
+
+[ro.crypto.fs_real_blkdev]: [/dev/block/nande]
+
+[ro.crypto.fs_type]: [ext4]
+
+[ro.crypto.state]: [unencrypted]
+
+[ro.debuggable]: [1]
+
+[ro.display.switch]: [1]
+
+[ro.factorytest]: [0]
+
+[ro.hardware]: [sun4i]
+
+[ro.kernel.android.checkjni]: [0]
+
+[ro.opengles.version]: [131072]
+
+[ro.product.board]: [crane]
+
+[ro.product.brand]: [softwinners]
+
+[ro.product.cpu.abi2]: [armeabi]
+
+[ro.product.cpu.abi]: [armeabi-v7a]
+
+[ro.product.device]: [crane-11x]
+
+[ro.product.firmware]: [1.2]
+
+[ro.product.locale.language]: [pt]
+
+[ro.product.locale.region]: [BR]
+
+[ro.product.manufacturer]: [Aquarius]
+
+[ro.product.model]: [MTC4553]
+
+[ro.product.name]: [crane_11x]
+
+[ro.revision]: [0]
+
+[ro.runtime.firstboot]: [1793760438238]
+
+[ro.secure]: [0]
+
+[ro.serialno]: []
+
+[ro.setupwizard.mode]: [OPTIONAL]
+
+[ro.sf.lcd_density]: [120]
+
+[ro.wifi.channels]: []
+
+[rw.bluetooth.status]: [0]
+
+[service.adb.tcp.port]: [5555]
+
+[sys.boot_completed]: [1]
+
+[sys.usb.config]: [mass_storage,adb]
+
+[sys.usb.state]: [mass_storage,adb]
+
+[system_init.startsurfaceflinger]: [0]
+
+[wifi.interface]: [wlan0]
+
+[wifi.supplicant_scan_interval]: [15]
+
+===== mount
+rootfs / rootfs rw 0 0
+
+tmpfs /dev tmpfs rw,nosuid,relatime,mode=755 0 0
+
+devpts /dev/pts devpts rw,relatime,mode=600,ptmxmode=000 0 0
+
+proc /proc proc rw,relatime 0 0
+
+sysfs /sys sysfs rw,relatime 0 0
+
+tmpfs /mnt/asec tmpfs rw,relatime,mode=755,gid=1000 0 0
+
+tmpfs /mnt/obb tmpfs rw,relatime,mode=755,gid=1000 0 0
+
+/dev/block/nandd /system ext4 rw,nodev,noatime,user_xattr,barrier=0,data=ordered 0 0
+
+/dev/block/nande /data ext4 rw,nosuid,nodev,noatime,user_xattr,barrier=0,journal_checksum,data=ordered,noauto_da_alloc 0 0
+
+/dev/block/nandh /cache ext4 rw,nosuid,nodev,noatime,user_xattr,barrier=0,journal_checksum,data=ordered,noauto_da_alloc 0 0
+
+/dev/block/vold/93:64 /mnt/flash vfat rw,dirsync,nosuid,nodev,noexec,relatime,uid=1000,gid=1015,fmask=0000,dmask=0000,allow_utime=0022,codepage=cp437,iocharset=ascii,shortname=mixed,utf8,errors=remount-ro 0 0
+
+/dev/block/vold/93:64 /mnt/secure/asec vfat rw,dirsync,nosuid,nodev,noexec,relatime,uid=1000,gid=1015,fmask=0000,dmask=0000,allow_utime=0022,codepage=cp437,iocharset=ascii,shortname=mixed,utf8,errors=remount-ro 0 0
+
+tmpfs /mnt/flash/.android_secure tmpfs ro,relatime,size=0k,mode=000 0 0
+
+/dev/block/vold/179:1 /mnt/sdcard vfat rw,dirsync,nosuid,nodev,noexec,relatime,uid=1000,gid=1023,fmask=0000,dmask=0000,allow_utime=0022,codepage=cp437,iocharset=ascii,shortname=mixed,utf8,errors=remount-ro 0 0
+
+===== ls -l /dev/block
+brw------- root     root       7,   0 2009-12-31 22:00 loop0
+
+brw------- root     root       7,   1 2009-12-31 22:00 loop1
+
+brw------- root     root       7,   2 2009-12-31 22:00 loop2
+
+brw------- root     root       7,   3 2009-12-31 22:00 loop3
+
+brw------- root     root       7,   4 2009-12-31 22:00 loop4
+
+brw------- root     root       7,   5 2009-12-31 22:00 loop5
+
+brw------- root     root       7,   6 2009-12-31 22:00 loop6
+
+brw------- root     root       7,   7 2009-12-31 22:00 loop7
+
+brw------- root     root     179,   0 2009-12-31 22:00 mmcblk0
+
+brw------- root     root     179,   1 2009-12-31 22:00 mmcblk0p1
+
+brw------- root     root      93,   0 2009-12-31 22:00 nanda
+
+brw------- root     root      93,   8 2009-12-31 22:00 nandb
+
+brw------- root     root      93,  16 2009-12-31 22:00 nandc
+
+brw------- root     root      93,  24 2009-12-31 22:00 nandd
+
+brw------- root     root      93,  32 2009-12-31 22:00 nande
+
+brw-rw-rw- system   system    93,  40 2009-12-31 22:00 nandf
+
+brw------- root     root      93,  48 2009-12-31 22:00 nandg
+
+brw------- root     root      93,  56 2009-12-31 22:00 nandh
+
+brw------- root     root      93,  64 2009-12-31 22:00 nandi
+
+drwxr-xr-x root     root              2009-12-31 22:00 platform
+
+brw------- root     root       1,   0 2009-12-31 22:00 ram0
+
+brw------- root     root       1,   1 2009-12-31 22:00 ram1
+
+drwxr-xr-x root     root              2009-12-31 22:00 vold
+
+===== ls /dev/nand* /dev/block/nand*
+/dev/nand*: No such file or directory
+
+/dev/block/nanda
+
+/dev/block/nandb
+
+/dev/block/nandc
+
+/dev/block/nandd
+
+/dev/block/nande
+
+/dev/block/nandf
+
+/dev/block/nandg
+
+/dev/block/nandh
+
+/dev/block/nandi
+
+===== which su busybox
+/system/bin/sh: which: not found
+
+===== ls /system/xbin
+add-property-tag
+
+agent
+
+attest
+
+avinfo
+
+avtest
+
+bdaddr
+
+btool
+
+bttest
+
+check-lost+found
+
+cpueater
+
+daemonize
+
+dbus-monitor
+
+dbus-send
+
+dexdump
+
+directiotest
+
+hciconfig
+
+hcidump
+
+hcitool
+
+hstest
+
+iwconfig
+
+iwlist
+
+iwpriv
+
+l2ping
+
+l2test
+
+latencytop
+
+librank
+
+lmptest
+
+micro_bench
+
+nc
+
+netperf
+
+netserver
+
+opcontrol
+
+oprofiled
+
+procmem
+
+procrank
+
+rawbu
+
+rctest
+
+rfcomm
+
+sane_schedstat
+
+scotest
+
+scp
+
+sdptest
+
+showmap
+
+showslab
+
+sqlite3
+
+ssh
+
+strace
+
+su
+
+tcpdump
+
+timeinfo
+
+===== wm size
+/system/bin/sh: wm: not found
+
+===== dumpsys window | grep -i -m3 init=
+/system/bin/sh: grep: not found
+
+===== ls /proc/device-tree
+/proc/device-tree: No such file or directory
+
+===== ls /mnt /mnt/*
+asec
+
+flash
+
+obb
+
+sdcard
+
+secure
+
+udisk
+
+Alarms
+
+Android
+
+DCIM
+
+Download
+
+Guia_Quatro_Rodas
+
+LOST.DIR
+
+Movies
+
+Music
+
+Notifications
+
+Pictures
+
+Podcasts
+
+Ringtones
+
+device.nng
+
+media
+
+LOST.DIR
+
+System Volume Information
+
+TerminalEmulator.apk
+
+iGO
+
+asec
+
+staging
+
+===== df
+Filesystem             Size   Used   Free   Blksize
+
+/dev                   145M    44K   145M   4096
+
+/mnt/asec              145M     0K   145M   4096
+
+/mnt/obb               145M     0K   145M   4096
+
+/system                503M   282M   221M   4096
+
+/data                 1007M   696M   311M   4096
+
+/cache                 251M     4M   247M   4096
+
+/mnt/flash               5G   829M     4G   4096
+
+/mnt/secure/asec         5G   829M     4G   4096
+
+/mnt/sdcard              1G   420M     1G   32768
+

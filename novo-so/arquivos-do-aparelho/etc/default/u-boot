@@ -1,0 +1,7 @@
+U_BOOT_UPDATE="true"
+U_BOOT_PROMPT="1"
+U_BOOT_TIMEOUT="10"
+U_BOOT_ROOT="root=LABEL=AQ-ROOT"
+U_BOOT_PARAMETERS="rootfstype=ext4 rootwait rw console=ttyS0,115200 console=tty1 net.ifnames=0 panic=10 loglevel=4 apparmor=0"
+U_BOOT_FDT="aquarius/sun4i-a10-aquarius-mtc4553.dtb"
+U_BOOT_FDT_DIR="/dtbs/"

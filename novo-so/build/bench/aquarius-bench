@@ -1,0 +1,50 @@
+#!/bin/bash
+# Mede um nucleo+jogo no LCD do GPS dentro do cage, como o modo jogos roda.
+# uso: aquarius-bench <nucleo.so> <jogo> ['chave = "valor";...']
+#   MODO=real  (padrao) vsync e som ligados: velocidade real (alvo ~60) e % de CPU do sistema
+#   MODO=livre sem vsync/som (no Wayland o cage ainda limita a ~60 quando a GPU acompanha)
+#   KMS=1      RetroArch direto no DRM/KMS, sem o cage (o toque vira ponteiro unico: so para comparar)
+# Duas rodadas (N1 e N2 quadros); a diferenca desconta o tempo de abrir o jogo.
+# Antes: touch /run/aquarius-trocando; systemctl stop lightdm aquarius-retroarch
+set -euo pipefail
+export LC_ALL=C
+[ -e /run/aquarius-trocando ] || { echo "crie /run/aquarius-trocando e pare aquarius-retroarch e lightdm antes" >&2; exit 2; }
+CORE=${1:?nucleo}; ROM=${2:?jogo}; EXTRA=${3:-}
+case "$CORE" in */*|*..*) echo "nucleo invalido" >&2; exit 2;; esac
+CP=""; for d in /usr/local/lib/libretro /usr/lib/arm-linux-gnueabihf/libretro; do [ -f "$d/$CORE" ] && { CP="$d/$CORE"; break; }; done
+[ -n "$CP" ] || { echo "nucleo nao existe" >&2; exit 2; }
+[ -f "$ROM" ] || { echo "jogo nao existe" >&2; exit 2; }
+N1=${N1:-300}; N2=${N2:-2100}; MODO=${MODO:-real}
+# Copia da config do jogador (--config): o RetroArch grava a config ao sair (config_save_on_exit) e
+# com --appendconfig as chaves do teste iam parar na config de verdade (aconteceu em 06/11/2026).
+CFG=$(mktemp /tmp/bench.XXXXXX.cfg); trap 'rm -f "$CFG"' EXIT
+cp /home/jogador/.config/retroarch/retroarch.cfg "$CFG"
+poe() {  # poe "chave = \"valor\"": troca a linha da chave (ou acrescenta); chave so [a-z0-9_]
+  local l=$1 k=${1%% *}
+  [[ $k =~ ^[a-z0-9_]+$ ]] || { echo "chave invalida: $k" >&2; exit 2; }
+  sed -i "/^$k = /d" "$CFG"; printf '%s\n' "$l" >> "$CFG"
+}
+for l in 'config_save_on_exit = "false"' 'pause_nonactive = "false"' 'log_verbosity = "false"' \
+         'savestate_auto_load = "false"' 'savestate_auto_save = "false"'; do poe "$l"; done
+[ "$MODO" = livre ] && for l in 'video_vsync = "false"' 'audio_sync = "false"' 'audio_driver = "null"' 'fastforward_ratio = "0.000000"'; do poe "$l"; done
+PRE="/usr/bin/cage -s --"
+[ "${KMS:-0}" = 1 ] && { PRE=""; poe 'video_context_driver = "kms"'; poe 'input_driver = "udev"'; }
+if [ -n "$EXTRA" ]; then IFS=';' read -ra XS <<< "$EXTRA"; for l in "${XS[@]}"; do l=${l# }; [ -n "$l" ] && poe "$l"; done; fi
+chmod 644 "$CFG"
+ocup() { awk '/^cpu /{print $2+$3+$4+$7+$8, $5+$6; exit}' /proc/stat; }   # jiffies ocupado e ocioso
+roda() {   # imprime: segundos ocupado ocioso
+  local n=$1 t0 t1 o0 i0 o1 i1
+  read -r o0 i0 < <(ocup); t0=$(date +%s.%N)
+  timeout 400 systemd-run --quiet --wait --collect -p User=jogador -p PAMName=login -p TTYPath=/dev/tty1 \
+    -p StandardInput=tty -p StandardOutput=journal -p StandardError=journal -E XDG_RUNTIME_DIR=/run/user/1000 -E LIBSEAT_BACKEND=seatd -E HOME=/home/jogador \
+    $PRE /usr/bin/retroarch -L "$CP" --config "$CFG" --max-frames="$n" "$ROM" >/dev/null 2>&1 || true
+  t1=$(date +%s.%N); read -r o1 i1 < <(ocup)
+  awk -v t0="$t0" -v t1="$t1" -v o="$((o1-o0))" -v i="$((i1-i0))" 'BEGIN{printf "%.3f %d %d\n", t1-t0, o, i}'
+}
+roda 120 >/dev/null   # aquecimento: a 1a abertura le o nucleo e o jogo do cartao (cache frio) e distorce
+read -r a oa ia < <(roda "$N1")
+read -r b ob ib < <(roda "$N2")
+awk -v a="$a" -v b="$b" -v oa="$oa" -v ob="$ob" -v ia="$ia" -v ib="$ib" -v n1="$N1" -v n2="$N2" 'BEGIN{
+  d=b-a; if(d<=1){print "erro t1="a" t2="b; exit 1}
+  o=ob-oa; i=ib-ia; c=(o+i>0)?100*o/(o+i):0
+  printf "fps=%.1f cpu=%.0f%% (t%d=%ss t%d=%ss)\n",(n2-n1)/d,c,n1,a,n2,b}'

@@ -1,0 +1,100 @@
+#!/bin/sh
+# initramfs (init-bottom): a raiz montou. Grava uma foto do dmesg, para o laco do premount e instala
+# em /run (tmpfs que segue para o sistema) um servico que grava o journal inteiro em /boot/diag/journal.txt
+# desde o inicio do systemd. Nada e escrito na particao ext4.
+PREREQ=""
+prereqs() { echo "$PREREQ"; }
+case "$1" in prereqs) prereqs; exit 0 ;; esac
+diz() { echo "aquarius-diag: $*" > /dev/kmsg 2>/dev/null; }
+
+if [ -d /run/aqdiag/diag ]; then
+  { echo "== $(cat /proc/uptime) raiz montada em ${rootmnt:-/root}"; dmesg; } > /run/aqdiag/diag/initramfs-fim.txt 2>&1
+  sync
+fi
+touch /run/aqdiag-parar
+
+mkdir -p /run/systemd/system/sysinit.target.wants
+cat > /run/aquarius-diag-journal.sh <<'EOF'
+#!/bin/sh
+# espera o /boot (FAT do cartao) montar pelo fstab
+for i in $(seq 1 120); do mountpoint -q /boot && break; sleep 1; done
+mountpoint -q /boot || exit 0
+mkdir -p /boot/diag
+journalctl -b -o short-monotonic --no-hostname > /boot/diag/journal.txt 2>&1
+journalctl -b -f -n 0 -o short-monotonic --no-hostname >> /boot/diag/journal.txt 2>&1 &
+J=$!
+fim=$(( $(cut -d. -f1 /proc/uptime) + 600 ))
+while [ "$(cut -d. -f1 /proc/uptime)" -lt "$fim" ]; do
+  sync /boot/diag/journal.txt 2>/dev/null || sync
+  sleep 2
+done
+kill $J 2>/dev/null; sync
+EOF
+chmod 0755 /run/aquarius-diag-journal.sh
+cat > /run/systemd/system/aquarius-diag-journal.service <<'EOF'
+[Unit]
+Description=Diagnostico: grava o journal em /boot/diag/journal.txt (10 min)
+DefaultDependencies=no
+After=systemd-journald.service
+Wants=systemd-journald.service
+
+[Service]
+Type=simple
+ExecStart=/bin/sh /run/aquarius-diag-journal.sh
+EOF
+ln -sf ../aquarius-diag-journal.service /run/systemd/system/sysinit.target.wants/aquarius-diag-journal.service
+diz "registrador do journal instalado"
+
+# Energia: sem bateria, o AXP209 so tem a USB, e o limite de corrente padrao da VBUS (~500 mA) derruba
+# o aparelho quando o Wi-Fi liga o radio. O Android de fabrica usava pmu_usbcur_limit=0 (sem limite).
+# Registrador 0x30 do AXP209, bits 1:0 = 11 -> sem limite. Roda antes de qualquer coisa do systemd.
+cat > /run/aquarius-vbus.sh <<'EOF2'
+#!/bin/sh
+# O AXP209 so aparece no I2C quando o driver do barramento carrega (~37 s): espera ate 90 s.
+diz() { echo "aquarius-vbus: $*" > /dev/kmsg; }
+i=0; a=
+while [ $i -lt 90 ]; do
+  modprobe i2c-dev 2>/dev/null
+  a=$(i2cget -f -y 0 0x34 0x30 2>/dev/null) && break
+  i=$((i + 1)); sleep 1
+done
+if [ -n "$a" ]; then
+  # bits 1:0 = 11 (sem limite de corrente); bits 5:3 = 000 (V_HOLD 4,0 V, como pmu_usbvol=4000 do Android;
+  # o padrao 4,4 V corta a entrada quando a fonte cede e, sem bateria, o GPS apaga). Bits 7 e 6 mantidos.
+  i2cset -f -y 0 0x34 0x30 $(( (a & 0xC4) | 0x03 ))
+  diz "reg 0x30 antes=$a depois=$(i2cget -f -y 0 0x34 0x30) (espera ${i}s)"
+  exit 0
+fi
+# so se o registrador nao leu: caminho oficial do driver (ate 900 mA; pior que "sem limite")
+diz "reg 0x30 nao leu em 90 s"
+f=/sys/class/power_supply/axp20x-usb/input_current_limit
+[ -w "$f" ] && echo 900000 > "$f" 2>/dev/null && diz "input_current_limit=$(cat $f)"
+exit 0
+EOF2
+chmod 0755 /run/aquarius-vbus.sh
+cat > /run/systemd/system/aquarius-vbus.service <<'EOF2'
+[Unit]
+Description=AXP209: tira o limite de corrente da USB (como o Android de fabrica)
+DefaultDependencies=no
+After=systemd-modules-load.service
+Before=sysinit.target NetworkManager.service
+
+[Service]
+Type=oneshot
+ExecStart=/bin/sh /run/aquarius-vbus.sh
+EOF2
+ln -sf ../aquarius-vbus.service /run/systemd/system/sysinit.target.wants/aquarius-vbus.service
+# Botao liga/desliga: toque curto NAO desliga (o padrao do systemd desligava; no Android apagava a tela);
+# segurar = desliga
+mkdir -p /run/systemd/logind.conf.d
+printf '[Login]\nHandlePowerKey=ignore\nHandlePowerKeyLongPress=poweroff\n' > /run/systemd/logind.conf.d/50-aquarius-botao.conf
+
+# O Wi-Fi so sobe depois do limite liberado
+mkdir -p /run/systemd/system/NetworkManager.service.d
+printf '[Unit]\nAfter=aquarius-vbus.service\nWants=aquarius-vbus.service\n' > /run/systemd/system/NetworkManager.service.d/vbus.conf
+
+# Potencia do radio Wi-Fi menor (10 dBm) assim que a interface aparece: menos pico de corrente sem bateria
+mkdir -p /run/udev/rules.d
+echo 'ACTION=="add", SUBSYSTEM=="net", KERNEL=="wlan*", RUN+="/bin/sh -c '"'"'sleep 2; iw dev %k set txpower fixed 1000; echo aquarius-wifi: txpower 10 dBm em %k > /dev/kmsg'"'"'"' > /run/udev/rules.d/90-aquarius-wifi.rules
+diz "limite da VBUS: servico instalado"
+exit 0

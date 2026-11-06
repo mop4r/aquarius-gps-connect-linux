@@ -1,0 +1,12 @@
+Jogo: RHDE: Furniture Fight
+Autor: Damian Yerrick (pinobatch)
+Licença: GNU All-Permissive
+Texto da licença: https://github.com/pinobatch/rhde-nes/blob/master/LICENSE.txt
+Origem: https://github.com/pinobatch/rhde-nes
+========================================================================
+
+Copying and distribution of this file, with or without
+modification, are permitted in any medium without royalty provided
+the copyright notice and this notice are preserved in all source
+code copies.  This file is offered as-is, without any warranty.
+

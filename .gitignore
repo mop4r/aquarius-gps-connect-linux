@@ -1,0 +1,24 @@
+# Nunca no git: backup do aparelho, firmware/mapas do fabricante, binarios grandes (vao para Releases)
+sd-card-dump/
+firmware-estoque/
+arquivos/
+apks/
+robocopy.log
+analise/gps/binarios/
+analise/gps/decompilado/
+ferramentas/busybox-*
+# jogos homebrew: baixar pelas fontes do CATALOGO.md (licencas variadas)
+novo-so/jogos-livres/**/*.gb
+novo-so/jogos-livres/**/*.gbc
+novo-so/jogos-livres/**/*.gba
+novo-so/jogos-livres/**/*.nes
+novo-so/jogos-livres/**/*.sfc
+novo-so/jogos-livres/**/*.smc
+novo-so/jogos-livres/**/*.sms
+novo-so/jogos-livres/**/*.gg
+novo-so/jogos-livres/**/*.bin
+*.img
+*.img.gz
+*.so
+*.dtb
+*.o

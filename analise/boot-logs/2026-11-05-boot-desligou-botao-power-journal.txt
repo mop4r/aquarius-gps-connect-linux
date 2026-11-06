@@ -1,0 +1,1258 @@
+[   27.591272] kernel: Booting Linux on physical CPU 0x0
+[   27.591735] kernel: Linux version 6.12.115+deb13.1-armmp (debian-kernel@lists.debian.org) (arm-linux-gnueabihf-gcc-14 (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44) #1 SMP Debian 6.12.115-2 (2026-11-01)
+[   27.608249] kernel: CPU: ARMv7 Processor [413fc082] revision 2 (ARMv7), cr=10c5387d
+[   27.608607] kernel: CPU: PIPT / VIPT nonaliasing data cache, VIPT aliasing instruction cache
+[   27.608807] kernel: OF: fdt: Machine model: Aquarius Connect 5.0 (MTC4553)
+[   27.608981] kernel: Memory policy: Data cache writeback
+[   27.609193] kernel: efi: UEFI not found.
+[   27.609357] kernel: Reserved memory: created CMA memory pool at 0x4a000000, size 96 MiB
+[   27.609516] kernel: OF: reserved mem: initialized node default-pool, compatible id shared-dma-pool
+[   27.609674] kernel: OF: reserved mem: 0x4a000000..0x4fffffff (98304 KiB) map reusable default-pool
+[   27.609834] kernel: Zone ranges:
+[   27.609992] kernel:   DMA      [mem 0x0000000040000000-0x000000005dffffff]
+[   27.610149] kernel:   Normal   empty
+[   27.610312] kernel:   HighMem  empty
+[   27.610589] kernel: Movable zone start for each node
+[   27.610762] kernel: Early memory node ranges
+[   27.610922] kernel:   node   0: [mem 0x0000000040000000-0x000000005dffffff]
+[   27.611080] kernel: Initmem setup node 0 [mem 0x0000000040000000-0x000000005dffffff]
+[   27.611239] kernel: CPU: All CPU(s) started in SVC mode.
+[   27.611395] kernel: percpu: Embedded 20 pages/cpu s50444 r8192 d23284 u81920
+[   27.611550] kernel: pcpu-alloc: s50444 r8192 d23284 u81920 alloc=20*4096
+[   27.611717] kernel: pcpu-alloc: [0] 0 
+[   27.611883] kernel: Kernel command line: root=LABEL=AQ-ROOT rootfstype=ext4 rootwait rw console=ttyS0,115200 console=tty1 net.ifnames=0 panic=10 loglevel=7 apparmor=0
+[   27.616483] kernel: Dentry cache hash table entries: 65536 (order: 6, 262144 bytes, linear)
+[   27.616755] kernel: Inode-cache hash table entries: 32768 (order: 5, 131072 bytes, linear)
+[   27.616929] kernel: Built 1 zonelists, mobility grouping on.  Total pages: 122880
+[   27.617147] kernel: allocated 491520 bytes of page_ext
+[   27.617315] kernel: mem auto-init: stack:all(zero), heap alloc:on, heap free:off
+[   27.617474] kernel: SLUB: HWalign=64, Order=0-3, MinObjects=0, CPUs=1, Nodes=1
+[   27.617632] kernel: ftrace: allocating 44126 entries in 130 pages
+[   27.617789] kernel: ftrace: allocated 130 pages with 2 groups
+[   27.617944] kernel: rcu: Hierarchical RCU implementation.
+[   27.618105] kernel: rcu:         RCU restricting CPUs from NR_CPUS=8 to nr_cpu_ids=1.
+[   27.618264] kernel:         Rude variant of Tasks RCU enabled.
+[   27.618421] kernel:         Tracing variant of Tasks RCU enabled.
+[   27.618577] kernel: rcu: RCU calculated value of scheduler-enlistment delay is 25 jiffies.
+[   27.618740] kernel: rcu: Adjusting geometry for rcu_fanout_leaf=16, nr_cpu_ids=1
+[   27.618906] kernel: RCU Tasks Rude: Setting shift to 0 and lim to 1 rcu_task_cb_adjust=1 rcu_task_cpu_ids=1.
+[   27.619070] kernel: RCU Tasks Trace: Setting shift to 0 and lim to 1 rcu_task_cb_adjust=1 rcu_task_cpu_ids=1.
+[   27.619235] kernel: NR_IRQS: 16, nr_irqs: 16, preallocated irqs: 16
+[   27.619479] kernel: rcu: srcu_init: Setting srcu_struct sizes based on contention.
+[   27.619644] kernel: clocksource: jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 7645041785100000 ns
+[   27.619803] kernel: sched_clock: 32 bits at 24MHz, resolution 41ns, wraps every 89478484971ns
+[   27.619988] kernel: clocksource: timer: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 79635851949 ns
+[   27.624643] kernel: Console: colour dummy device 80x25
+[   27.624869] kernel: printk: legacy console [tty1] enabled
+[   27.625060] kernel: Calibrating delay loop... 1001.47 BogoMIPS (lpj=2002944)
+[   27.625243] kernel: CPU: Testing write buffer coherency: ok
+[   27.625421] kernel: CPU0: Spectre v2: firmware did not set auxiliary control register IBE bit, system vulnerable
+[   27.625608] kernel: pid_max: default: 32768 minimum: 301
+[   27.625785] kernel: LSM: initializing lsm=lockdown,capability,landlock,yama,selinux,tomoyo,bpf,ipe,ima,evm
+[   27.625965] kernel: landlock: Up and running.
+[   27.626172] kernel: Yama: disabled by default; enable with sysctl kernel.yama.*
+[   27.626353] kernel: SELinux:  Initializing.
+[   27.626530] kernel: TOMOYO Linux initialized
+[   27.626710] kernel: LSM support for eBPF active
+[   27.626887] kernel: Mount-cache hash table entries: 1024 (order: 0, 4096 bytes, linear)
+[   27.627064] kernel: Mountpoint-cache hash table entries: 1024 (order: 0, 4096 bytes, linear)
+[   27.627243] kernel: CPU0: thread -1, cpu 0, socket -1, mpidr 0
+[   27.627421] kernel: Setting up static identity map for 0x40300000 - 0x403000ac
+[   27.627599] kernel: rcu: Hierarchical SRCU implementation.
+[   27.627802] kernel: rcu:         Max phase no-delay instances is 1000.
+[   27.627985] kernel: EFI services will not be available.
+[   27.636783] kernel: smp: Bringing up secondary CPUs ...
+[   27.637010] kernel: smp: Brought up 1 node, 1 CPU
+[   27.637198] kernel: SMP: Total of 1 processors activated (1001.47 BogoMIPS).
+[   27.637379] kernel: CPU: All CPU(s) started in SVC mode.
+[   27.637564] kernel: Memory: 340680K/491520K available (12288K kernel code, 1798K rwdata, 4204K rodata, 2048K init, 425K bss, 50544K reserved, 98304K cma-reserved, 0K highmem)
+[   27.637747] kernel: devtmpfs: initialized
+[   27.637927] kernel: VFP support v0.3: implementor 41 architecture 3 part 30 variant c rev 3
+[   27.638170] kernel: futex hash table entries: 256 (order: 2, 16384 bytes, linear)
+[   27.638355] kernel: pinctrl core: initialized pinctrl subsystem
+[   27.638535] kernel: DMI not present or invalid.
+[   27.638713] kernel: NET: Registered PF_NETLINK/PF_ROUTE protocol family
+[   27.638893] kernel: DMA: preallocated 256 KiB pool for atomic coherent allocations
+[   27.639071] kernel: audit: initializing netlink subsys (disabled)
+[   27.639252] kernel: thermal_sys: Registered thermal governor 'fair_share'
+[   27.639430] kernel: thermal_sys: Registered thermal governor 'bang_bang'
+[   27.639607] kernel: thermal_sys: Registered thermal governor 'step_wise'
+[   27.639810] kernel: thermal_sys: Registered thermal governor 'user_space'
+[   27.639991] kernel: thermal_sys: Registered thermal governor 'power_allocator'
+[   27.651118] kernel: No ATAGs?
+[   27.651334] kernel: hw-breakpoint: debug architecture 0x4 unsupported.
+[   27.651524] kernel: audit: type=2000 audit(0.108:1): state=initialized audit_enabled=0 res=1
+[   27.651710] kernel: Serial: AMBA PL011 UART driver
+[   27.651892] kernel: /soc/lcd-controller@1c0c000: Fixed dependency cycle(s) with /soc/display-backend@1e40000
+[   27.656338] kernel: /soc/lcd-controller@1c0c000: Fixed dependency cycle(s) with /soc/display-backend@1e60000
+[   27.656655] kernel: /soc/lcd-controller@1c0d000: Fixed dependency cycle(s) with /soc/display-backend@1e40000
+[   27.656857] kernel: /soc/lcd-controller@1c0d000: Fixed dependency cycle(s) with /soc/display-backend@1e60000
+[   27.657040] kernel: /soc/display-frontend@1e00000: Fixed dependency cycle(s) with /soc/display-backend@1e40000
+[   27.657222] kernel: /soc/display-frontend@1e00000: Fixed dependency cycle(s) with /soc/display-backend@1e60000
+[   27.657403] kernel: /soc/display-frontend@1e20000: Fixed dependency cycle(s) with /soc/display-backend@1e40000
+[   27.657585] kernel: /soc/display-frontend@1e20000: Fixed dependency cycle(s) with /soc/display-backend@1e60000
+[   27.657765] kernel: /soc/display-backend@1e40000: Fixed dependency cycle(s) with /soc/lcd-controller@1c0d000
+[   27.657946] kernel: /soc/display-backend@1e40000: Fixed dependency cycle(s) with /soc/lcd-controller@1c0c000
+[   27.658151] kernel: /soc/display-backend@1e40000: Fixed dependency cycle(s) with /soc/display-frontend@1e20000
+[   27.658334] kernel: /soc/display-backend@1e40000: Fixed dependency cycle(s) with /soc/display-frontend@1e00000
+[   27.658514] kernel: /soc/display-backend@1e60000: Fixed dependency cycle(s) with /soc/lcd-controller@1c0d000
+[   27.658693] kernel: /soc/display-backend@1e60000: Fixed dependency cycle(s) with /soc/lcd-controller@1c0c000
+[   27.658872] kernel: /soc/display-backend@1e60000: Fixed dependency cycle(s) with /soc/display-frontend@1e20000
+[   27.659054] kernel: /soc/display-backend@1e60000: Fixed dependency cycle(s) with /soc/display-frontend@1e00000
+[   27.659233] kernel: /soc/lcd-controller@1c0c000: Fixed dependency cycle(s) with /soc/display-backend@1e40000
+[   27.659411] kernel: /soc/lcd-controller@1c0c000: Fixed dependency cycle(s) with /soc/display-backend@1e60000
+[   27.659588] kernel: /soc/lcd-controller@1c0d000: Fixed dependency cycle(s) with /soc/display-backend@1e40000
+[   27.659785] kernel: /soc/lcd-controller@1c0d000: Fixed dependency cycle(s) with /soc/display-backend@1e60000
+[   27.659964] kernel: /soc/display-frontend@1e00000: Fixed dependency cycle(s) with /soc/display-backend@1e40000
+[   27.684523] kernel: /soc/display-frontend@1e00000: Fixed dependency cycle(s) with /soc/display-backend@1e60000
+[   27.684788] kernel: /soc/display-frontend@1e20000: Fixed dependency cycle(s) with /soc/display-backend@1e40000
+[   27.684980] kernel: /soc/display-frontend@1e20000: Fixed dependency cycle(s) with /soc/display-backend@1e60000
+[   27.685161] kernel: /soc/display-frontend@1e20000: Fixed dependency cycle(s) with /soc/display-backend@1e40000
+[   27.685334] kernel: /soc/display-frontend@1e00000: Fixed dependency cycle(s) with /soc/display-backend@1e40000
+[   27.685507] kernel: /soc/lcd-controller@1c0d000: Fixed dependency cycle(s) with /soc/display-backend@1e40000
+[   27.685677] kernel: /soc/lcd-controller@1c0c000: Fixed dependency cycle(s) with /soc/display-backend@1e40000
+[   27.685848] kernel: /soc/display-backend@1e40000: Fixed dependency cycle(s) with /soc/lcd-controller@1c0d000
+[   27.686024] kernel: /soc/display-backend@1e40000: Fixed dependency cycle(s) with /soc/lcd-controller@1c0c000
+[   27.686262] kernel: /soc/display-backend@1e40000: Fixed dependency cycle(s) with /soc/display-frontend@1e20000
+[   27.686448] kernel: /soc/display-backend@1e40000: Fixed dependency cycle(s) with /soc/display-frontend@1e00000
+[   27.686633] kernel: /soc/display-frontend@1e20000: Fixed dependency cycle(s) with /soc/display-backend@1e60000
+[   27.686872] kernel: /soc/display-frontend@1e00000: Fixed dependency cycle(s) with /soc/display-backend@1e60000
+[   27.687061] kernel: /soc/lcd-controller@1c0d000: Fixed dependency cycle(s) with /soc/display-backend@1e60000
+[   27.687237] kernel: /soc/lcd-controller@1c0c000: Fixed dependency cycle(s) with /soc/display-backend@1e60000
+[   27.687408] kernel: /soc/display-backend@1e60000: Fixed dependency cycle(s) with /soc/lcd-controller@1c0d000
+[   27.687583] kernel: /soc/display-backend@1e60000: Fixed dependency cycle(s) with /soc/lcd-controller@1c0c000
+[   27.687758] kernel: /soc/display-backend@1e60000: Fixed dependency cycle(s) with /soc/display-frontend@1e20000
+[   27.687940] kernel: /soc/display-backend@1e60000: Fixed dependency cycle(s) with /soc/display-frontend@1e00000
+[   27.696448] kernel: /soc/lcd-controller@1c0c000: Fixed dependency cycle(s) with /panel
+[   27.696715] kernel: /panel: Fixed dependency cycle(s) with /soc/lcd-controller@1c0c000
+[   27.696912] kernel: kprobes: kprobe jump-optimization is enabled. All kprobes are optimized if possible.
+[   27.697097] kernel: iommu: Default domain type: Translated
+[   27.697278] kernel: iommu: DMA domain TLB invalidation policy: strict mode
+[   27.697458] kernel: pps_core: LinuxPPS API ver. 1 registered
+[   27.697637] kernel: pps_core: Software ver. 5.3.6 - Copyright 2005-2007 Rodolfo Giometti <giometti@linux.it>
+[   27.697818] kernel: PTP clock support registered
+[   27.697997] kernel: NetLabel: Initializing
+[   27.698201] kernel: NetLabel:  domain hash size = 128
+[   27.698385] kernel: NetLabel:  protocols = UNLABELED CIPSOv4 CALIPSO
+[   27.698565] kernel: NetLabel:  unlabeled traffic allowed by default
+[   27.698747] kernel: vgaarb: loaded
+[   27.698926] kernel: clocksource: Switched to clocksource timer
+[   27.699103] kernel: VFS: Disk quotas dquot_6.6.0
+[   27.699284] kernel: VFS: Dquot-cache hash table entries: 1024 (order 0, 4096 bytes)
+[   27.699465] kernel: NET: Registered PF_INET protocol family
+[   27.699643] kernel: IP idents hash table entries: 8192 (order: 4, 65536 bytes, linear)
+[   27.699844] kernel: tcp_listen_portaddr_hash hash table entries: 512 (order: 0, 4096 bytes, linear)
+[   27.708394] kernel: Table-perturb hash table entries: 65536 (order: 6, 262144 bytes, linear)
+[   27.708693] kernel: TCP established hash table entries: 4096 (order: 2, 16384 bytes, linear)
+[   27.708896] kernel: TCP bind hash table entries: 4096 (order: 4, 65536 bytes, linear)
+[   27.709083] kernel: TCP: Hash tables configured (established 4096 bind 4096)
+[   27.709265] kernel: MPTCP token hash table entries: 512 (order: 1, 8192 bytes, linear)
+[   27.709445] kernel: UDP hash table entries: 256 (order: 1, 8192 bytes, linear)
+[   27.709625] kernel: UDP-Lite hash table entries: 256 (order: 1, 8192 bytes, linear)
+[   27.709857] kernel: NET: Registered PF_UNIX/PF_LOCAL protocol family
+[   27.710045] kernel: NET: Registered PF_XDP protocol family
+[   27.710227] kernel: PCI: CLS 0 bytes, default 64
+[   27.710406] kernel: Trying to unpack rootfs image as initramfs...
+[   27.710585] kernel: Initialise system trusted keyrings
+[   27.710766] kernel: Key type blacklist registered
+[   27.710952] kernel: workingset: timestamp_bits=14 max_order=17 bucket_order=3
+[   27.711132] kernel: zbud: loaded
+[   27.711314] kernel: fuse: init (API version 7.41)
+[   27.711520] kernel: integrity: Platform Keyring initialized
+[   27.711705] kernel: integrity: Machine keyring initialized
+[   27.711884] kernel: Key type asymmetric registered
+[   27.720359] kernel: Asymmetric key parser 'x509' registered
+[   27.720633] kernel: Freeing initrd memory: 23244K
+[   27.720834] kernel: Block layer SCSI generic (bsg) driver version 0.4 loaded (major 248)
+[   27.721019] kernel: io scheduler mq-deadline registered
+[   27.721203] kernel: ledtrig-cpu: registered to indicate activity on CPUs
+[   27.721382] kernel: Serial: 8250/16550 driver, 5 ports, IRQ sharing enabled
+[   27.721614] kernel: Serial: AMBA driver
+[   27.721801] kernel: STM32 USART driver initialized
+[   27.721984] kernel: mousedev: PS/2 mouse device common for all mice
+[   27.736669] kernel: sunxi-rtc 1c20d00.rtc: registered as rtc0
+[   27.738964] kernel: sunxi-rtc 1c20d00.rtc: setting system clock to 2010-01-01T00:00:19 UTC (1262304019)
+[   27.739259] kernel: hw perfevents: enabled with armv7_cortex_a8 PMU driver, 5 (8000000f) counters available
+[   27.739457] kernel: NET: Registered PF_INET6 protocol family
+[   27.739639] kernel: Segment Routing with IPv6
+[   27.739876] kernel: In-situ OAM (IOAM) with IPv6
+[   27.748497] kernel: mip6: Mobile IPv6
+[   27.748798] kernel: NET: Registered PF_PACKET protocol family
+[   27.748998] kernel: mpls_gso: MPLS GSO support
+[   27.749183] kernel: ThumbEE CPU extension supported.
+[   27.749362] kernel: Registering SWP/SWPB emulation handler
+[   27.749545] kernel: registered taskstats version 1
+[   27.749727] kernel: Loading compiled-in X.509 certificates
+[   27.749909] kernel: Loaded X.509 cert 'Build time autogenerated kernel key: 3cebbe119089322aca8b81528be265dba70a6717'
+[   27.750146] kernel: Key type .fscrypt registered
+[   27.750342] kernel: Key type fscrypt-provisioning registered
+[   27.750522] kernel: Key type encrypted registered
+[   27.750702] kernel: ima: No TPM chip found, activating TPM-bypass!
+[   27.750886] kernel: ima: Allocated hash algorithm: sha256
+[   27.751067] kernel: ima: No architecture policies found
+[   27.751249] kernel: evm: Initialising EVM extended attributes:
+[   27.751426] kernel: evm: security.selinux
+[   27.751630] kernel: evm: security.SMACK64 (disabled)
+[   27.751814] kernel: evm: security.SMACK64EXEC (disabled)
+[   27.751993] kernel: evm: security.SMACK64TRANSMUTE (disabled)
+[   27.768282] kernel: evm: security.SMACK64MMAP (disabled)
+[   27.768511] kernel: evm: security.apparmor
+[   27.768700] kernel: evm: security.ima
+[   27.768879] kernel: evm: security.capability
+[   27.769064] kernel: evm: HMAC attrs: 0x1
+[   27.771140] kernel: gpio gpiochip0: Static allocation of GPIO base is deprecated, use dynamic allocation.
+[   27.777616] kernel: sun4i-pinctrl 1c20800.pinctrl: initialized sunXi PIO driver
+[   27.779742] kernel: sun4i-pinctrl 1c20800.pinctrl: supply vcc-pb not found, using dummy regulator
+[   27.784201] kernel: printk: legacy console [ttyS0] disabled
+[   27.784486] kernel: 1c28000.serial: ttyS0 at MMIO 0x1c28000 (irq = 53, base_baud = 1500000) is a U6_16550A
+[   27.784693] kernel: printk: legacy console [ttyS0] enabled
+[   27.786765] kernel: sun4i-pinctrl 1c20800.pinctrl: supply vcc-ph not found, using dummy regulator
+[   27.787042] kernel: clk: Disabling unused clocks
+[   27.787242] kernel: PM: genpd: Disabling unused power domains
+[   27.787483] kernel: Freeing unused kernel image (initmem) memory: 2048K
+[   27.787673] kernel: Run /init as init process
+[   27.787852] kernel:   with arguments:
+[   27.804200] kernel:     /init
+[   27.804493] kernel:   with environment:
+[   27.804687] kernel:     HOME=/
+[   27.804876] kernel:     TERM=linux
+[   27.806936] kernel: sun4i-pinctrl 1c20800.pinctrl: supply vcc-pf not found, using dummy regulator
+[   27.813390] kernel: sunxi-mmc 1c0f000.mmc: Got CD GPIO
+[   27.815502] kernel: sunxi-mmc 1c0f000.mmc: initialized, max. request size: 2048 KB
+[   27.815786] kernel: mmc0: host does not support reading read-only switch, assuming write-enable
+[   27.815986] kernel: mmc0: new high speed SDHC card at address 59b4
+[   27.836564] kernel: mmcblk0: mmc0:59b4 SS08G 7.41 GiB
+[   27.836798] kernel:  mmcblk0: p1 p2
+[   27.836987] kernel: usbcore: registered new interface driver usbfs
+[   27.837174] kernel: usbcore: registered new interface driver hub
+[   27.837413] kernel: usbcore: registered new device driver usb
+[   27.839589] kernel: panel-simple panel: Specify missing bus_format
+[   27.850083] kernel: panel-simple panel: Expected bpc in {6,8} but got: 0
+[   27.850414] kernel: Warning! ehci_hcd should always be loaded before uhci_hcd and ohci_hcd, not after
+[   27.860969] kernel: sun4i-pinctrl 1c20800.pinctrl: supply vcc-pd not found, using dummy regulator
+[   27.863176] kernel: sun4i-drm display-engine: bound 1e00000.display-frontend (ops sun4i_frontend_driver_exit [sun4i_frontend])
+[   27.877819] kernel: lima 1c40000.gpu: gp - mali400 version major 1 minor 1
+[   27.888355] kernel: sun4i-drm display-engine: bound 1e20000.display-frontend (ops sun4i_frontend_driver_exit [sun4i_frontend])
+[   27.890751] kernel: lima 1c40000.gpu: pp0 - mali400 version major 1 minor 1
+[   27.904653] kernel: sun4i-drm display-engine: bound 1e60000.display-backend (ops sun4i_backend_platform_driver_exit [sun4i_backend])
+[   27.906835] kernel: lima 1c40000.gpu: l2_cache0 32K, 4-way, 64byte cache line, 64bit external bus
+[   27.913307] kernel: lima 1c40000.gpu: bus rate = 168000000
+[   27.915453] kernel: lima 1c40000.gpu: mod rate = 384000000
+[   27.942894] kernel: sun4i-drm display-engine: bound 1e40000.display-backend (ops sun4i_backend_platform_driver_exit [sun4i_backend])
+[   27.943225] kernel: [drm] Initialized lima 1.1.0 for 1c40000.gpu on minor 1
+[   27.946508] kernel: sun4i-drm display-engine: bound 1c0c000.lcd-controller (ops sun4i_tcon_platform_driver_exit [sun4i_tcon])
+[   27.953413] kernel: sun4i-drm display-engine: No panel or bridge found... RGB output disabled
+[   27.955536] kernel: sun4i-drm display-engine: bound 1c0d000.lcd-controller (ops sun4i_tcon_platform_driver_exit [sun4i_tcon])
+[   27.955812] kernel: [drm] Initialized sun4i-drm 1.0.0 for display-engine on minor 0
+[   27.972227] kernel: Console: switching to colour frame buffer device 100x30
+[   27.974447] kernel: sun4i-drm display-engine: [drm] fb0: sun4i-drmdrmfb frame buffer device
+[   27.974738] aquarius-diag: inicio
+[   27.974966] aquarius-diag: gravando em /dev/disk/by-label/AQ-BOOT
+[   27.975224] kernel: EXT4-fs (mmcblk0p2): 1 orphan inode deleted
+[   27.975415] kernel: EXT4-fs (mmcblk0p2): recovery complete
+[   27.975601] kernel: EXT4-fs (mmcblk0p2): mounted filesystem 93d55388-e283-4bd3-b25d-fcaa4bcf52a5 r/w with ordered data mode. Quota mode: none.
+[   27.975786] aquarius-diag: registrador do journal instalado
+[   27.975971] aquarius-diag: limite da VBUS: servico instalado
+[   27.980524] kernel: Not activating Mandatory Access Control as /sbin/tomoyo-init does not exist.
+[   27.980785] systemd[1]: System time advanced to timestamp on /var/lib/systemd/timesync/clock: Wed 2026-11-04 23:57:24 -03
+[   27.981082] systemd[1]: Inserted module 'autofs4'
+[   27.981297] kernel: random: crng init done
+[   27.981508] systemd[1]: systemd 257.13-1~deb13u1 running in system mode (+PAM +AUDIT +SELINUX +APPARMOR +IMA +IPE +SMACK +SECCOMP +GCRYPT -GNUTLS +OPENSSL +ACL +BLKID +CURL +ELFUTILS +FIDO2 +IDN2 -IDN +IPTC +KMOD +LIBCRYPTSETUP +LIBCRYPTSETUP_PLUGINS +LIBFDISK +PCRE2 +PWQUALITY +P11KIT +QRENCODE +TPM2 +BZIP2 +LZ4 +XZ +ZLIB +ZSTD -BPF_FRAMEWORK -BTF -XKBCOMMON -UTMP +SYSVINIT +LIBARCHIVE)
+[   27.981706] systemd[1]: Detected architecture arm.
+[   27.981899] systemd[1]: Hostname set to <aquarius>.
+[   27.988178] kernel: platform 1c14400.usb: deferred probe pending: (reason unknown)
+[   27.990439] kernel: platform 1c1c400.usb: deferred probe pending: (reason unknown)
+[   28.005227] kernel: platform 1c1c000.usb: deferred probe pending: (reason unknown)
+[   28.005588] systemd[1]: Queued start job for default target graphical.target.
+[   28.005833] systemd[1]: Created slice system-getty.slice - Slice /system/getty.
+[   28.006044] systemd[1]: Created slice system-modprobe.slice - Slice /system/modprobe.
+[   28.006249] systemd[1]: Created slice system-serial\x2dgetty.slice - Slice /system/serial-getty.
+[   28.006449] systemd[1]: Created slice system-systemd\x2dfsck.slice - Slice /system/systemd-fsck.
+[   28.006645] systemd[1]: Created slice user.slice - User and Session Slice.
+[   28.006839] systemd[1]: Started systemd-ask-password-wall.path - Forward Password Requests to Wall Directory Watch.
+[   28.007095] systemd[1]: Set up automount proc-sys-fs-binfmt_misc.automount - Arbitrary Executable File Formats File System Automount Point.
+[   28.007303] systemd[1]: Expecting device dev-disk-by\x2dlabel-AQ\x2dBOOT.device - /dev/disk/by-label/AQ-BOOT...
+[   28.007518] systemd[1]: Expecting device dev-ttyS0.device - /dev/ttyS0...
+[   28.007766] systemd[1]: Reached target nss-user-lookup.target - User and Group Name Lookups.
+[   28.007965] systemd[1]: Reached target remote-fs.target - Remote File Systems.
+[   28.028507] systemd[1]: Reached target slices.target - Slice Units.
+[   28.028782] systemd[1]: Reached target swap.target - Swaps.
+[   28.029039] systemd[1]: Listening on systemd-creds.socket - Credential Encryption/Decryption.
+[   28.029251] systemd[1]: Listening on systemd-initctl.socket - initctl Compatibility Named Pipe.
+[   28.029448] systemd[1]: Listening on systemd-journald-dev-log.socket - Journal Socket (/dev/log).
+[   28.029646] systemd[1]: Listening on systemd-journald.socket - Journal Sockets.
+[   28.029844] systemd[1]: systemd-pcrextend.socket - TPM PCR Measurements skipped, unmet condition check ConditionSecurity=measured-uki
+[   28.030040] systemd[1]: systemd-pcrlock.socket - Make TPM PCR Policy skipped, unmet condition check ConditionSecurity=measured-uki
+[   28.030235] systemd[1]: Listening on systemd-udevd-control.socket - udev Control Socket.
+[   28.030428] systemd[1]: Listening on systemd-udevd-kernel.socket - udev Kernel Socket.
+[   28.030623] systemd[1]: dev-hugepages.mount - Huge Pages File System skipped, unmet condition check ConditionPathExists=/sys/kernel/mm/hugepages
+[   28.030845] systemd[1]: Mounting dev-mqueue.mount - POSIX Message Queue File System...
+[   28.031042] systemd[1]: Mounting run-lock.mount - Legacy Locks Directory /run/lock...
+[   28.031234] systemd[1]: Mounting sys-kernel-debug.mount - Kernel Debug File System...
+[   28.031429] systemd[1]: Mounting sys-kernel-tracing.mount - Kernel Trace File System...
+[   28.031623] systemd[1]: tmp.mount: Directory /tmp to mount over is not empty, mounting anyway.
+[   28.031815] systemd[1]: Mounting tmp.mount - Temporary Directory /tmp...
+[   28.040295] systemd[1]: Starting kmod-static-nodes.service - Create List of Static Device Nodes...
+[   28.040653] systemd[1]: Starting modprobe@configfs.service - Load Kernel Module configfs...
+[   28.040928] systemd[1]: Starting modprobe@drm.service - Load Kernel Module drm...
+[   28.041146] systemd[1]: Starting modprobe@efi_pstore.service - Load Kernel Module efi_pstore...
+[   28.041348] systemd[1]: Starting modprobe@fuse.service - Load Kernel Module fuse...
+[   28.041544] systemd[1]: systemd-fsck-root.service - File System Check on Root Device skipped, unmet condition check ConditionPathIsReadWrite=!/
+[   28.041764] systemd[1]: systemd-hibernate-clear.service - Clear Stale Hibernate Storage Info skipped, unmet condition check ConditionPathExists=/sys/firmware/efi/efivars/HibernateLocation-8cf2644b-4b0b-428f-9387-6d876050dc67
+[   28.041961] systemd[1]: Starting systemd-journald.service - Journal Service...
+[   28.042181] systemd[1]: Starting systemd-modules-load.service - Load Kernel Modules...
+[   28.042382] systemd[1]: systemd-pcrmachine.service - TPM PCR Machine ID Measurement skipped, unmet condition check ConditionSecurity=measured-uki
+[   28.042578] systemd[1]: Starting systemd-remount-fs.service - Remount Root and Kernel File Systems...
+[   28.042773] systemd[1]: systemd-tpm2-setup-early.service - Early TPM SRK Setup skipped, unmet condition check ConditionSecurity=measured-uki
+[   28.042969] systemd[1]: Starting systemd-udev-load-credentials.service - Load udev Rules from Credentials...
+[   28.043162] systemd[1]: Starting systemd-udev-trigger.service - Coldplug All udev Devices...
+[   28.043356] systemd[1]: Mounted dev-mqueue.mount - POSIX Message Queue File System.
+[   28.043545] systemd[1]: Mounted run-lock.mount - Legacy Locks Directory /run/lock.
+[   28.043753] kernel: i2c_dev: i2c /dev entries driver
+[   28.043939] kernel: EXT4-fs (mmcblk0p2): re-mounted 93d55388-e283-4bd3-b25d-fcaa4bcf52a5.
+[   28.052439] systemd[1]: Mounted sys-kernel-debug.mount - Kernel Debug File System.
+[   28.052698] systemd[1]: Mounted sys-kernel-tracing.mount - Kernel Trace File System.
+[   28.053209] systemd-journald[598]: Collecting audit messages is disabled.
+[   28.053806] systemd[1]: Mounted tmp.mount - Temporary Directory /tmp.
+[   28.054027] systemd[1]: Finished kmod-static-nodes.service - Create List of Static Device Nodes.
+[   28.054230] systemd[1]: modprobe@configfs.service: Deactivated successfully.
+[   28.054428] systemd[1]: Finished modprobe@configfs.service - Load Kernel Module configfs.
+[   28.054620] systemd[1]: modprobe@drm.service: Deactivated successfully.
+[   28.054814] systemd[1]: Finished modprobe@drm.service - Load Kernel Module drm.
+[   28.055006] systemd[1]: modprobe@efi_pstore.service: Deactivated successfully.
+[   28.055199] systemd[1]: Finished modprobe@efi_pstore.service - Load Kernel Module efi_pstore.
+[   28.055423] systemd[1]: modprobe@fuse.service: Deactivated successfully.
+[   28.055616] systemd-journald[598]: Journal started
+[   28.055973] systemd-journald[598]: Runtime Journal (/run/log/journal/61afd3dd8d93422ea5389e5b43345f40) is 584K, max 4.5M, 3.9M free.
+[   28.083860] systemd[1]: Finished modprobe@fuse.service - Load Kernel Module fuse.
+[   27.318070] systemd-modules-load[599]: Inserted module 'i2c_dev'
+[   28.129775] systemd[1]: Started systemd-journald.service - Journal Service.
+[   28.190444] systemd[1]: Finished systemd-modules-load.service - Load Kernel Modules.
+[   28.208856] systemd[1]: Finished systemd-remount-fs.service - Remount Root and Kernel File Systems.
+[   28.225700] systemd[1]: Finished systemd-udev-load-credentials.service - Load udev Rules from Credentials.
+[   28.416948] systemd[1]: Mounting sys-fs-fuse-connections.mount - FUSE Control File System...
+[   28.460881] systemd[1]: Mounting sys-kernel-config.mount - Kernel Configuration File System...
+[   28.521389] systemd[1]: Started aquarius-diag-journal.service - Diagnostico: grava o journal em /boot/diag/journal.txt (10 min).
+[   28.617335] systemd[1]: Starting aquarius-vbus.service - AXP209: tira o limite de corrente da USB (como o Android de fabrica)...
+[   28.641279] systemd[1]: systemd-hwdb-update.service - Rebuild Hardware Database skipped, unmet condition check ConditionNeedsUpdate=/etc
+[   28.750376] systemd[1]: Starting systemd-journal-flush.service - Flush Journal to Persistent Storage...
+[   28.756669] systemd[1]: systemd-pstore.service - Platform Persistent Storage Archival skipped, unmet condition check ConditionDirectoryNotEmpty=/sys/fs/pstore
+[   28.889459] systemd[1]: Starting systemd-random-seed.service - Load/Save OS Random Seed...
+[   29.041413] systemd[1]: Starting systemd-sysctl.service - Apply Kernel Variables...
+[   29.206176] systemd[1]: Starting systemd-tmpfiles-setup-dev-early.service - Create Static Device Nodes in /dev gracefully...
+[   29.232848] systemd[1]: systemd-tpm2-setup.service - TPM SRK Setup skipped, unmet condition check ConditionSecurity=measured-uki
+[   29.796778] systemd[1]: Mounted sys-fs-fuse-connections.mount - FUSE Control File System.
+[   29.806039] systemd[1]: Mounted sys-kernel-config.mount - Kernel Configuration File System.
+[   30.067209] systemd-journald[598]: Time spent on flushing to /var/log/journal/61afd3dd8d93422ea5389e5b43345f40 is 137.376ms for 345 entries.
+[   30.067209] systemd-journald[598]: System Journal (/var/log/journal/61afd3dd8d93422ea5389e5b43345f40) is 61.6M, max 711.9M, 650.3M free.
+[   31.881597] systemd-journald[598]: Received client request to flush runtime journal.
+[   31.882301] systemd-journald[598]: File /var/log/journal/61afd3dd8d93422ea5389e5b43345f40/system.journal corrupted or uncleanly shut down, renaming and replacing.
+[   30.414815] systemd[1]: Finished systemd-udev-trigger.service - Coldplug All udev Devices.
+[   30.492544] systemd[1]: Starting ifupdown-pre.service - Helper to synchronize boot up for ifupdown...
+[   30.608979] systemd[1]: Finished systemd-sysctl.service - Apply Kernel Variables.
+[   30.779795] systemd[1]: Finished systemd-random-seed.service - Load/Save OS Random Seed.
+[   30.805985] systemd[1]: Finished ifupdown-pre.service - Helper to synchronize boot up for ifupdown.
+[   30.917777] systemd[1]: Finished systemd-tmpfiles-setup-dev-early.service - Create Static Device Nodes in /dev gracefully.
+[   30.945921] systemd[1]: systemd-sysusers.service - Create System Users skipped, no trigger condition checks were met.
+[   30.978852] systemd[1]: Starting systemd-resolved.service - Network Name Resolution...
+[   31.036549] systemd[1]: Starting systemd-timesyncd.service - Network Time Synchronization...
+[   31.066275] systemd[1]: Starting systemd-tmpfiles-setup-dev.service - Create Static Device Nodes in /dev...
+[   31.404387] systemd[1]: Finished systemd-tmpfiles-setup-dev.service - Create Static Device Nodes in /dev.
+[   31.419482] systemd[1]: Reached target local-fs-pre.target - Preparation for Local File Systems.
+[   31.437238] systemd[1]: Starting systemd-udevd.service - Rule-based Manager for Device Events and Files...
+[   31.940731] systemd[1]: Finished systemd-journal-flush.service - Flush Journal to Persistent Storage.
+[   32.385413] systemd-udevd[654]: Using default interface naming scheme 'v257'.
+[   32.713172] systemd[1]: Started systemd-timesyncd.service - Network Time Synchronization.
+[   32.735285] systemd[1]: Reached target time-set.target - System Time Set.
+[   32.750927] systemd-resolved[649]: Positive Trust Anchors:
+[   32.767521] systemd-resolved[649]: . IN DS 20326 8 2 e06d44b80b8f1d39a95c0b0d7c65d08458e880409bbc683457104237c7f8ec8d
+[   32.767617] systemd-resolved[649]: . IN DS 38696 8 2 683d2d0acb8c9b712a1948b27f741219298d0a450d612c483af444a4c0fb2b16
+[   32.767973] systemd-resolved[649]: Negative trust anchors: home.arpa 10.in-addr.arpa 16.172.in-addr.arpa 17.172.in-addr.arpa 18.172.in-addr.arpa 19.172.in-addr.arpa 20.172.in-addr.arpa 21.172.in-addr.arpa 22.172.in-addr.arpa 23.172.in-addr.arpa 24.172.in-addr.arpa 25.172.in-addr.arpa 26.172.in-addr.arpa 27.172.in-addr.arpa 28.172.in-addr.arpa 29.172.in-addr.arpa 30.172.in-addr.arpa 31.172.in-addr.arpa 170.0.0.192.in-addr.arpa 171.0.0.192.in-addr.arpa 168.192.in-addr.arpa d.f.ip6.arpa ipv4only.arpa resolver.arpa corp home internal intranet lan local private test
+[   32.809071] systemd-udevd[654]: /usr/lib/udev/rules.d/90-alsa-restore.rules:18 GOTO="alsa_restore_std" has no matching label, ignoring.
+[   32.811984] systemd-udevd[654]: /usr/lib/udev/rules.d/90-alsa-restore.rules:18 The line has no effect any more, dropping.
+[   32.813864] systemd-udevd[654]: /usr/lib/udev/rules.d/90-alsa-restore.rules:22 GOTO="alsa_restore_std" has no matching label, ignoring.
+[   32.813906] systemd-udevd[654]: /usr/lib/udev/rules.d/90-alsa-restore.rules:22 The line has no effect any more, dropping.
+[   32.906578] systemd[1]: Started systemd-udevd.service - Rule-based Manager for Device Events and Files.
+[   32.961622] systemd[1]: Starting plymouth-start.service - Show Plymouth Boot Screen...
+[   33.665776] systemd-resolved[649]: Using system hostname 'aquarius'.
+[   33.689333] systemd[1]: Started plymouth-start.service - Show Plymouth Boot Screen.
+[   33.699125] systemd[1]: Started systemd-resolved.service - Network Name Resolution.
+[   33.713710] systemd[1]: systemd-ask-password-console.path - Dispatch Password Requests to Console Directory Watch skipped, unmet condition check ConditionPathExists=!/run/plymouth/pid
+[   33.725216] systemd[1]: Started systemd-ask-password-plymouth.path - Forward Password Requests to Plymouth Directory Watch.
+[   33.730309] systemd[1]: Reached target nss-lookup.target - Host and Network Name Lookups.
+[   34.405949] systemd[1]: Found device dev-ttyS0.device - /dev/ttyS0.
+[   35.455883] systemd[1]: Condition check resulted in dev-disk-by\x2dlabel-AQ\x2dBOOT.device - /dev/disk/by-label/AQ-BOOT being skipped.
+[   35.741496] systemd[1]: Starting systemd-fsck@dev-disk-by\x2dlabel-AQ\x2dBOOT.service - File System Check on /dev/disk/by-label/AQ-BOOT...
+[   35.828243] kernel: usb1-vbus: disabling
+[   35.836224] kernel: usb2-vbus: disabling
+[   36.136432] systemd[1]: Finished systemd-fsck@dev-disk-by\x2dlabel-AQ\x2dBOOT.service - File System Check on /dev/disk/by-label/AQ-BOOT.
+[   36.169449] systemd[1]: Mounting boot.mount - /boot...
+[   36.399738] systemd[1]: Mounted boot.mount - /boot.
+[   36.430227] systemd[1]: Reached target local-fs.target - Local File Systems.
+[   36.476779] systemd[1]: Listening on systemd-sysext.socket - System Extension Image Management.
+[   36.482484] systemd-timesyncd[651]: Network configuration changed, trying to establish connection.
+[   36.483649] systemd[1]: apparmor.service - Load AppArmor profiles skipped, unmet condition check ConditionSecurity=apparmor
+[   36.529588] systemd[1]: Starting networking.service - Raise network interfaces...
+[   36.581302] systemd[1]: Starting plymouth-read-write.service - Tell Plymouth To Write Out Runtime Data...
+[   36.669477] systemd[1]: Starting systemd-binfmt.service - Set Up Additional Binary Formats...
+[   36.761477] systemd[1]: Starting systemd-tmpfiles-setup.service - Create System Files and Directories...
+[   37.336804] systemd[1]: Finished plymouth-read-write.service - Tell Plymouth To Write Out Runtime Data.
+[   37.364366] systemd[1]: Received SIGRTMIN+20 from PID 216 (plymouthd).
+[   37.617497] systemd[1]: proc-sys-fs-binfmt_misc.automount: Got automount request for /proc/sys/fs/binfmt_misc, triggered by 717 (systemd-binfmt)
+[   37.698276] systemd[1]: Mounting proc-sys-fs-binfmt_misc.mount - Arbitrary Executable File Formats File System...
+[   37.890534] systemd-tmpfiles[718]: /usr/lib/tmpfiles.d/legacy.conf:14: Duplicate line for path "/run/lock", ignoring.
+[   38.539607] systemd[1]: Mounted proc-sys-fs-binfmt_misc.mount - Arbitrary Executable File Formats File System.
+[   38.541815] systemd-timesyncd[651]: Network configuration changed, trying to establish connection.
+[   38.542400] systemd-timesyncd[651]: Network configuration changed, trying to establish connection.
+[   38.573048] systemd-timesyncd[651]: Network configuration changed, trying to establish connection.
+[   38.574311] systemd-timesyncd[651]: Network configuration changed, trying to establish connection.
+[   38.635717] systemd[1]: Finished systemd-binfmt.service - Set Up Additional Binary Formats.
+[   38.774740] systemd[1]: Finished systemd-tmpfiles-setup.service - Create System Files and Directories.
+[   38.895442] systemd[1]: ldconfig.service - Rebuild Dynamic Linker Cache skipped, no trigger condition checks were met.
+[   38.906190] systemd[1]: systemd-firstboot.service - First Boot Wizard skipped, unmet condition check ConditionFirstBoot=yes
+[   38.915723] systemd[1]: first-boot-complete.target - First Boot Complete skipped, unmet condition check ConditionFirstBoot=yes
+[   38.921727] systemd[1]: systemd-journal-catalog-update.service - Rebuild Journal Catalog skipped, unmet condition check ConditionNeedsUpdate=/var
+[   38.923553] systemd[1]: systemd-machine-id-commit.service - Save Transient machine-id to Disk skipped, unmet condition check ConditionPathIsMountPoint=/etc/machine-id
+[   38.934360] systemd[1]: systemd-update-done.service - Update is Completed skipped, no trigger condition checks were met.
+[   39.076407] systemd[1]: Finished networking.service - Raise network interfaces.
+[   39.464278] systemd[1]: Created slice system-systemd\x2dbacklight.slice - Slice /system/systemd-backlight.
+[   39.513560] systemd[1]: Starting systemd-backlight@backlight:backlight.service - Load/Save Screen Backlight Brightness of backlight:backlight...
+[   39.860704] systemd[1]: Finished systemd-backlight@backlight:backlight.service - Load/Save Screen Backlight Brightness of backlight:backlight.
+[   40.724337] kernel: mc: Linux media interface: v0.10
+[   41.675950] kernel: sunxi-wdt 1c20c90.watchdog: Watchdog enabled (timeout=16 sec, nowayout=0)
+[   42.299877] kernel: sun4i-ss 1c15000.crypto-engine: no reset control found
+[   42.391483] kernel: sun4i-ss 1c15000.crypto-engine: Die ID 7
+[   42.520240] kernel: axp20x-i2c 0-0034: AXP20x variant AXP209 found
+[   43.121711] kernel: ldo4: Bringing 3300000uV into 2800000-2800000uV
+[   43.223697] kernel: videodev: Linux video capture interface: v2.00
+[   43.283446] kernel: axp20x-i2c 0-0034: AXP20X driver loaded
+[   43.286160] aquarius-vbus: reg 0x30 antes=0x60 depois=0x63 (espera 12s)
+[   43.306494] systemd[1]: aquarius-vbus.service: Deactivated successfully.
+[   43.316630] systemd[1]: Finished aquarius-vbus.service - AXP209: tira o limite de corrente da USB (como o Android de fabrica).
+[   43.318531] systemd[1]: Reached target sysinit.target - System Initialization.
+[   43.345771] systemd[1]: Started cups.path - CUPS Scheduler.
+[   43.355743] systemd[1]: Started anacron.timer - Trigger anacron every hour.
+[   43.359903] systemd[1]: Started apt-daily.timer - Daily apt download activities.
+[   43.374545] systemd[1]: Started apt-daily-upgrade.timer - Daily apt upgrade and clean activities.
+[   43.385604] systemd[1]: Started apt-listchanges.timer - Try hourly to initialize apt-listchanges database for APT.
+[   43.397001] systemd[1]: Started dpkg-db-backup.timer - Daily dpkg database backup timer.
+[   43.406472] kernel: input: 1c22800.lradc as /devices/platform/soc/1c22800.lradc/input/input0
+[   43.461743] systemd[1]: Started e2scrub_all.timer - Periodic ext4 Online Metadata Check for All Filesystems.
+[   43.487273] systemd[1]: Started exim4-base.timer - Daily exim4-base housekeeping.
+[   43.514213] systemd[1]: Started fstrim.timer - Discard unused filesystem blocks once a week.
+[   43.528709] systemd[1]: Started fwupd-refresh.timer - Refresh fwupd metadata regularly.
+[   43.557063] systemd[1]: Started man-db.timer - Daily man-db regeneration.
+[   43.568405] systemd[1]: Started systemd-tmpfiles-clean.timer - Daily Cleanup of Temporary Directories.
+[   43.569216] systemd[1]: Reached target paths.target - Path Units.
+[   43.569786] systemd[1]: Reached target timers.target - Timer Units.
+[   43.583627] systemd[1]: Listening on avahi-daemon.socket - Avahi mDNS/DNS-SD Stack Activation Socket.
+[   43.602511] systemd[1]: Listening on cups.socket - CUPS Scheduler.
+[   43.616856] systemd[1]: Listening on dbus.socket - D-Bus System Message Bus Socket.
+[   43.686044] systemd[1]: Listening on sshd-unix-local.socket - OpenSSH Server Socket (systemd-ssh-generator, AF_UNIX Local).
+[   43.708780] systemd[1]: Listening on systemd-hostnamed.socket - Hostname Service Socket.
+[   43.711019] systemd[1]: Reached target sockets.target - Socket Units.
+[   43.724823] systemd[1]: systemd-pcrphase-sysinit.service - TPM PCR Barrier (Initialization) skipped, unmet condition check ConditionSecurity=measured-uki
+[   43.728211] systemd[1]: Reached target basic.target - Basic System.
+[   43.734415] systemd[1]: System is tainted: unmerged-bin
+[   43.781523] systemd[1]: Starting accounts-daemon.service - Accounts Service...
+[   43.829947] systemd[1]: Started anacron.service - Run anacron jobs.
+[   43.851882] systemd[1]: aquarius-expandir.service - Expande a particao raiz ate o fim do cartao (uma vez) skipped, unmet condition check ConditionPathExists=!/var/lib/aquarius-expandido
+[   43.861101] systemd[1]: aquarius-sshkeys.service - Gera chaves de host do SSH no primeiro boot skipped, unmet condition check ConditionPathExists=!/etc/ssh/ssh_host_ed25519_key
+[   43.937487] systemd[1]: Starting avahi-daemon.service - Avahi mDNS/DNS-SD Stack...
+[   44.061225] systemd[1]: Started cron.service - Regular background program processing daemon.
+[   44.206995] systemd[1]: Starting dbus.service - D-Bus System Message Bus...
+[   44.366215] systemd[1]: Starting e2scrub_reap.service - Remove Stale Online ext4 Metadata Check Snapshots...
+[   44.391559] systemd[1]: getty-static.service - getty on tty2-tty6 if dbus and logind are not available skipped, unmet condition check ConditionPathExists=!/usr/bin/dbus-daemon
+[   44.732222] systemd[1]: Starting lm-sensors.service - Initialize hardware monitoring sensors...
+[   44.806420] anacron[825]: Anacron 2.3 started on 2026-11-04
+[   44.855710] anacron[825]: Normal exit (0 jobs run)
+[   44.957533] systemd[1]: Started seatd.service - Seat management daemon.
+[   45.013105] systemd[1]: sshd-keygen.service - Generate sshd host keys on first boot skipped, unmet condition check ConditionFirstBoot=yes
+[   45.307468] avahi-daemon[826]: Found user 'avahi' (UID 104) and group 'avahi' (GID 111).
+[   45.321134] avahi-daemon[826]: Successfully dropped root privileges.
+[   45.331679] avahi-daemon[826]: avahi-daemon 0.8 starting up.
+[   45.403835] cron[827]: (CRON) INFO (pidfile fd = 3)
+[   45.448168] cron[827]: (CRON) INFO (Running @reboot jobs)
+[   45.625769] systemd[1]: Starting systemd-logind.service - User Login Management...
+[   45.639145] systemd[1]: systemd-pcrphase.service - TPM PCR Barrier (User) skipped, unmet condition check ConditionSecurity=measured-uki
+[   45.867083] systemd[1]: Starting udisks2.service - Disk Manager...
+[   46.117755] avahi-daemon[826]: Successfully called chroot().
+[   46.117956] avahi-daemon[826]: Successfully dropped remaining capabilities.
+[   46.130183] avahi-daemon[826]: No service file found in /etc/avahi/services.
+[   46.141213] avahi-daemon[826]: Joining mDNS multicast group on interface lo.IPv6 with address ::1.
+[   46.141440] avahi-daemon[826]: New relevant interface lo.IPv6 for mDNS.
+[   46.141494] avahi-daemon[826]: Joining mDNS multicast group on interface lo.IPv4 with address 127.0.0.1.
+[   46.141560] avahi-daemon[826]: New relevant interface lo.IPv4 for mDNS.
+[   46.141598] avahi-daemon[826]: Network interface enumeration completed.
+[   46.141662] avahi-daemon[826]: Registering new address record for ::1 on lo.*.
+[   46.141999] avahi-daemon[826]: Registering new address record for 127.0.0.1 on lo.IPv4.
+[   46.217828] systemd[1]: Starting zramswap.service - Linux zramswap setup...
+[   46.430247] dbus-daemon[828]: [system] Activating systemd to hand-off: service name='org.freedesktop.PolicyKit1' unit='polkit.service' requested by ':1.3' (uid=0 pid=824 comm="/usr/libexec/accounts-daemon" label="kernel")
+[   46.573031] seatd[832]: 00:00:00.000 [INFO] [seatd/seat.c:48] Created VT-bound seat seat0
+[   46.573031] seatd[832]: 00:00:00.006 [INFO] [seatd/seatd.c:194] seatd started
+[   46.578663] systemd[1]: Started dbus.service - D-Bus System Message Bus.
+[   47.005552] systemd[1]: anacron.service: Deactivated successfully.
+[   47.095652] systemd[1]: e2scrub_reap.service: Deactivated successfully.
+[   47.098160] avahi-daemon[826]: Server startup complete. Host name is aquarius.local. Local service cookie is 1974393804.
+[   47.165282] systemd[1]: Finished e2scrub_reap.service - Remove Stale Online ext4 Metadata Check Snapshots.
+[   47.491735] root[853]: Starting Zram
+[   47.506783] zramswap[853]: <13>Nov  4 23:57:52 root: Starting Zram
+[   47.680583] udisksd[838]: udisks daemon version 2.10.1 starting
+[   47.761358] dbus-daemon[828]: [system] Successfully activated service 'org.freedesktop.systemd1'
+[   47.817699] systemd[1]: Starting NetworkManager.service - Network Manager...
+[   47.993295] systemd[1]: Starting wpa_supplicant.service - WPA supplicant...
+[   48.059563] systemd[1]: Started avahi-daemon.service - Avahi mDNS/DNS-SD Stack.
+[   48.738567] systemd[1]: Starting polkit.service - Authorization Manager...
+[   48.909543] kernel: zram: Added device: zram0
+[   48.980299] kernel: zram0: detected capacity change from 0 to 699408
+[   49.249248] zramswap[870]: Setting up swapspace version 1, size = 341,5 MiB (358092800 bytes)
+[   49.249248] zramswap[870]: no label, UUID=03f54bb3-8997-4806-a6d2-af7346749b85
+[   49.493314] kernel: Adding 349700k swap on /dev/zram0.  Priority:100 extents:1 across:349700k SS
+[   49.527765] systemd-logind[837]: New seat seat0.
+[   49.662502] systemd[1]: Started systemd-logind.service - User Login Management.
+[   49.744616] systemd[1]: Finished zramswap.service - Linux zramswap setup.
+[   49.956709] sensors[852]: sun4i_ts-isa-1c25000
+[   49.956709] sensors[852]: Adapter: ISA adapter
+[   49.956709] sensors[852]: SoC temperature:  +42.4°C
+[   49.989576] systemd[1]: Finished lm-sensors.service - Initialize hardware monitoring sensors.
+[   50.101760] wpa_supplicant[868]: Successfully initialized wpa_supplicant
+[   50.117603] systemd[1]: Started wpa_supplicant.service - WPA supplicant.
+[   50.224281] kernel: mma7660 1-004c: mounting matrix not found: using identity...
+[   50.313996] kernel: edt_ft5x06 2-0038: supply vcc not found, using dummy regulator
+[   50.369428] kernel: edt_ft5x06 2-0038: supply iovcc not found, using dummy regulator
+[   50.467621] kernel: input: generic ft5x06 (85) as /devices/platform/soc/1c2b400.i2c/i2c-2/2-0038/input/input2
+[   50.804286] kernel: axp20x-gpio axp20x-gpio: DMA mask not set
+[   51.088625] NetworkManager[866]: <info>  [1793847476.5700] NetworkManager (version 1.52.1) is starting... (boot:04774f46-313a-48fc-a3c3-63a33f15657b)
+[   51.088866] NetworkManager[866]: <info>  [1793847476.5748] Read config: /etc/NetworkManager/NetworkManager.conf, /usr/lib/NetworkManager/conf.d/no-mac-addr-change.conf
+[   51.179384] kernel: axp20x-gpio axp20x-gpio: AXP209 pinctrl and GPIO driver loaded
+[   51.257798] NetworkManager[866]: <info>  [1793847476.7437] manager[0x153a0c8]: monitoring kernel firmware directory '/lib/firmware'.
+[   51.260655] NetworkManager[866]: <info>  [1793847476.7465] monitoring ifupdown state file '/run/network/ifstate'.
+[   51.279828] dbus-daemon[828]: [system] Activating via systemd: service name='org.freedesktop.hostname1' unit='dbus-org.freedesktop.hostname1.service' requested by ':1.8' (uid=0 pid=866 comm="/usr/sbin/NetworkManager --no-daemon" label="kernel")
+[   51.390098] systemd[1]: Starting systemd-hostnamed.service - Hostname Service...
+[   51.480760] kernel: input: axp20x-pek as /devices/platform/soc/1c2ac00.i2c/i2c-0/0-0034/axp20x-pek/input/input1
+[   51.672266] kernel: axp20x-adc axp20x-adc: DMA mask not set
+[   51.679835] polkitd[869]: Started polkitd version 126
+[   51.864414] kernel: axp20x-ac-power-supply axp20x-ac-power-supply: DMA mask not set
+[   51.846938] polkitd[869]: Loading rules from directory /etc/polkit-1/rules.d
+[   51.870490] polkitd[869]: Loading rules from directory /run/polkit-1/rules.d
+[   51.871038] polkitd[869]: Error opening rules directory: Error opening directory “/run/polkit-1/rules.d”: No such file or directory (g-file-error-quark, 4)
+[   51.878704] polkitd[869]: Loading rules from directory /usr/local/share/polkit-1/rules.d
+[   51.879091] polkitd[869]: Error opening rules directory: Error opening directory “/usr/local/share/polkit-1/rules.d”: No such file or directory (g-file-error-quark, 4)
+[   51.879306] polkitd[869]: Loading rules from directory /usr/share/polkit-1/rules.d
+[   51.926769] kernel: axp20x-battery-power-supply axp20x-battery-power-supply: DMA mask not set
+[   51.948955] polkitd[869]: Finished loading, compiling and executing 6 rules
+[   51.951664] systemd[1]: Started polkit.service - Authorization Manager.
+[   51.974603] dbus-daemon[828]: [system] Successfully activated service 'org.freedesktop.PolicyKit1'
+[   52.011621] polkitd[869]: Acquired the name org.freedesktop.PolicyKit1 on the system bus
+[   52.053666] accounts-daemon[824]: started daemon version 23.13.9
+[   52.106474] systemd[1]: Started accounts-daemon.service - Accounts Service.
+[   52.562600] systemd[1]: Started udisks2.service - Disk Manager.
+[   52.643575] udisksd[838]: Acquired the name org.freedesktop.UDisks2 on the system message bus
+[   52.792238] kernel: sunxi_cedrus: module is from the staging directory, the quality is unknown, you have been warned.
+[   52.844187] kernel: axp20x-usb-power-supply axp20x-usb-power-supply: DMA mask not set
+[   53.236931] dbus-daemon[828]: [system] Successfully activated service 'org.freedesktop.hostname1'
+[   53.240860] systemd[1]: Started systemd-hostnamed.service - Hostname Service.
+[   53.316209] kernel: cedrus 1c0e000.video-codec: Device registered as /dev/video0
+[   53.356192] kernel: usb_phy_generic usb_phy_generic.0.auto: dummy supplies not allowed for exclusive requests (id=vbus)
+[   53.358781] kernel: ohci-platform 1c14400.usb: Generic Platform OHCI controller
+[   53.374268] kernel: ehci-platform 1c1c000.usb: EHCI Host Controller
+[   53.390848] kernel: ehci-platform 1c1c000.usb: new USB bus registered, assigned bus number 1
+[   53.397447] kernel: ehci-platform 1c1c000.usb: irq 64, io mem 0x01c1c000
+[   53.399936] kernel: ehci-platform 1c1c000.usb: USB 2.0 started, EHCI 1.00
+[   53.423083] kernel: usb usb1: New USB device found, idVendor=1d6b, idProduct=0002, bcdDevice= 6.12
+[   53.435691] kernel: usb usb1: New USB device strings: Mfr=3, Product=2, SerialNumber=1
+[   53.437905] kernel: usb usb1: Product: EHCI Host Controller
+[   53.439718] kernel: usb usb1: Manufacturer: Linux 6.12.115+deb13.1-armmp ehci_hcd
+[   53.470101] kernel: usb usb1: SerialNumber: 1c1c000.usb
+[   53.494356] kernel: hub 1-0:1.0: USB hub found
+[   53.502464] kernel: hub 1-0:1.0: 1 port detected
+[   53.530231] kernel: ohci-platform 1c14400.usb: new USB bus registered, assigned bus number 2
+[   53.553764] kernel: ohci-platform 1c14400.usb: irq 62, io mem 0x01c14400
+[   53.568456] kernel: musb-hdrc musb-hdrc.1.auto: MUSB HDRC host driver
+[   53.571011] kernel: musb-hdrc musb-hdrc.1.auto: new USB bus registered, assigned bus number 3
+[   53.605734] kernel: usb usb3: New USB device found, idVendor=1d6b, idProduct=0002, bcdDevice= 6.12
+[   53.607901] kernel: usb usb3: New USB device strings: Mfr=3, Product=2, SerialNumber=1
+[   53.619413] kernel: usb usb3: Product: MUSB HDRC host driver
+[   53.654589] kernel: usb usb3: Manufacturer: Linux 6.12.115+deb13.1-armmp musb-hcd
+[   53.679021] kernel: usb usb3: SerialNumber: musb-hdrc.1.auto
+[   53.689057] kernel: hub 3-0:1.0: USB hub found
+[   53.691668] kernel: hub 3-0:1.0: 1 port detected
+[   53.694515] kernel: usb usb2: New USB device found, idVendor=1d6b, idProduct=0001, bcdDevice= 6.12
+[   53.705090] kernel: usb usb2: New USB device strings: Mfr=3, Product=2, SerialNumber=1
+[   53.707126] kernel: usb usb2: Product: Generic Platform OHCI controller
+[   53.709379] kernel: usb usb2: Manufacturer: Linux 6.12.115+deb13.1-armmp ohci_hcd
+[   53.711275] kernel: usb usb2: SerialNumber: 1c14400.usb
+[   53.773342] kernel: hub 2-0:1.0: USB hub found
+[   53.775849] kernel: hub 2-0:1.0: 1 port detected
+[   53.792576] kernel: ohci-platform 1c1c400.usb: Generic Platform OHCI controller
+[   53.795047] kernel: ehci-platform 1c14000.usb: EHCI Host Controller
+[   53.822523] kernel: ehci-platform 1c14000.usb: new USB bus registered, assigned bus number 4
+[   53.861419] kernel: ohci-platform 1c1c400.usb: new USB bus registered, assigned bus number 5
+[   53.863757] kernel: ohci-platform 1c1c400.usb: irq 63, io mem 0x01c1c400
+[   53.874477] kernel: ehci-platform 1c14000.usb: irq 65, io mem 0x01c14000
+[   53.880773] kernel: ehci-platform 1c14000.usb: USB 2.0 started, EHCI 1.00
+[   53.883110] kernel: usb usb4: New USB device found, idVendor=1d6b, idProduct=0002, bcdDevice= 6.12
+[   53.895983] kernel: usb usb4: New USB device strings: Mfr=3, Product=2, SerialNumber=1
+[   53.903066] kernel: usb usb4: Product: EHCI Host Controller
+[   53.914356] kernel: usb usb4: Manufacturer: Linux 6.12.115+deb13.1-armmp ehci_hcd
+[   53.920572] kernel: usb usb4: SerialNumber: 1c14000.usb
+[   53.922502] kernel: hub 4-0:1.0: USB hub found
+[   53.945513] kernel: hub 4-0:1.0: 1 port detected
+[   53.948111] kernel: usb usb5: New USB device found, idVendor=1d6b, idProduct=0001, bcdDevice= 6.12
+[   53.962562] kernel: usb usb5: New USB device strings: Mfr=3, Product=2, SerialNumber=1
+[   53.981147] kernel: usb usb5: Product: Generic Platform OHCI controller
+[   53.983226] kernel: usb usb5: Manufacturer: Linux 6.12.115+deb13.1-armmp ohci_hcd
+[   53.993219] kernel: usb usb5: SerialNumber: 1c1c400.usb
+[   53.995175] kernel: hub 5-0:1.0: USB hub found
+[   54.020675] kernel: hub 5-0:1.0: 1 port detected
+[   54.023061] kernel: mma8452 1-001c: mounting matrix not found: using identity...
+[   54.033595] kernel: mma8452 1-001c: supply vdd not found, using dummy regulator
+[   54.054345] kernel: mma8452 1-001c: supply vddio not found, using dummy regulator
+[   54.059754] kernel: usb 1-1: new high-speed USB device number 2 using ehci-platform
+[   54.066730] kernel: usb 1-1: New USB device found, idVendor=0bda, idProduct=8176, bcdDevice= 2.00
+[   54.081069] kernel: usb 1-1: New USB device strings: Mfr=1, Product=2, SerialNumber=3
+[   54.082958] kernel: usb 1-1: Product: 802.11n WLAN Adapter
+[   54.097622] kernel: usb 1-1: Manufacturer: Realtek
+[   54.099421] kernel: usb 1-1: SerialNumber: 00e04c000001
+[   53.431727] NetworkManager[866]: <info>  [1793847478.9176] hostname: hostname: using hostnamed
+[   53.431876] NetworkManager[866]: <info>  [1793847478.9178] hostname: static hostname changed from (none) to "aquarius"
+[   53.482784] NetworkManager[866]: <info>  [1793847478.9686] dns-mgr: init: dns=systemd-resolved rc-manager=unmanaged (auto), plugin=systemd-resolved
+[   53.893763] NetworkManager[866]: <info>  [1793847479.3796] manager[0x153a0c8]: rfkill: Wi-Fi hardware radio set enabled
+[   53.893966] NetworkManager[866]: <info>  [1793847479.3799] manager[0x153a0c8]: rfkill: WWAN hardware radio set enabled
+[   53.964773] NetworkManager[866]: <info>  [1793847479.4506] Loaded device plugin: NMWifiFactory (/usr/lib/arm-linux-gnueabihf/NetworkManager/1.52.1/libnm-device-plugin-wifi.so)
+[   54.095165] NetworkManager[866]: <info>  [1793847479.5810] Loaded device plugin: NMWwanFactory (/usr/lib/arm-linux-gnueabihf/NetworkManager/1.52.1/libnm-device-plugin-wwan.so)
+[   54.143647] NetworkManager[866]: <info>  [1793847479.6295] Loaded device plugin: NMBluezManager (/usr/lib/arm-linux-gnueabihf/NetworkManager/1.52.1/libnm-device-plugin-bluetooth.so)
+[   54.222246] NetworkManager[866]: <info>  [1793847479.7059] Loaded device plugin: NMTeamFactory (/usr/lib/arm-linux-gnueabihf/NetworkManager/1.52.1/libnm-device-plugin-team.so)
+[   54.247448] NetworkManager[866]: <info>  [1793847479.7333] Loaded device plugin: NMAtmManager (/usr/lib/arm-linux-gnueabihf/NetworkManager/1.52.1/libnm-device-plugin-adsl.so)
+[   54.263994] NetworkManager[866]: <info>  [1793847479.7499] manager: rfkill: Wi-Fi enabled by radio killswitch; enabled by state file
+[   54.273372] NetworkManager[866]: <info>  [1793847479.7592] manager: rfkill: WWAN enabled by radio killswitch; enabled by state file
+[   54.305261] NetworkManager[866]: <info>  [1793847479.7911] manager: Networking is enabled by state file
+[   54.314242] dbus-daemon[828]: [system] Activating via systemd: service name='org.freedesktop.nm_dispatcher' unit='dbus-org.freedesktop.nm-dispatcher.service' requested by ':1.8' (uid=0 pid=866 comm="/usr/sbin/NetworkManager --no-daemon" label="kernel")
+[   54.338941] NetworkManager[866]: <info>  [1793847479.8248] settings: Loaded settings plugin: ifupdown ("/usr/lib/arm-linux-gnueabihf/NetworkManager/1.52.1/libnm-settings-plugin-ifupdown.so")
+[   54.346386] NetworkManager[866]: <info>  [1793847479.8322] settings: Loaded settings plugin: keyfile (internal)
+[   54.346608] NetworkManager[866]: <info>  [1793847479.8326] ifupdown: management mode: unmanaged
+[   54.346817] NetworkManager[866]: <info>  [1793847479.8328] ifupdown:       interface-parser: parsing file /etc/network/interfaces
+[   54.346991] NetworkManager[866]: <info>  [1793847479.8330] ifupdown:       interface-parser: source line includes interfaces file(s) /etc/network/interfaces.d/*
+[   54.347449] NetworkManager[866]: <info>  [1793847479.8334] ifupdown: interfaces file /etc/network/interfaces.d/* doesn't exist
+[   54.347580] NetworkManager[866]: <info>  [1793847479.8336] ifupdown:       interface-parser: finished parsing file /etc/network/interfaces
+[   54.497618] NetworkManager[866]: <info>  [1793847479.9835] dhcp: init: Using DHCP client 'internal'
+[   54.501270] systemd[1]: Starting NetworkManager-dispatcher.service - Network Manager Script Dispatcher Service...
+[   54.526374] NetworkManager[866]: <info>  [1793847480.0122] manager: (lo): new Loopback device (/org/freedesktop/NetworkManager/Devices/1)
+[   54.617494] NetworkManager[866]: <info>  [1793847480.1034] device (lo): state change: unmanaged -> unavailable (reason 'connection-assumed', managed-type: 'external')
+[   54.658770] NetworkManager[866]: <info>  [1793847480.1446] device (lo): state change: unavailable -> disconnected (reason 'connection-assumed', managed-type: 'external')
+[   54.701143] NetworkManager[866]: <info>  [1793847480.1870] device (lo): Activation: starting connection 'lo' (ca32221d-3ff1-4e76-8dba-0530581b2a60)
+[   54.752580] NetworkManager[866]: <info>  [1793847480.2384] bus-manager: acquired D-Bus service "org.freedesktop.NetworkManager"
+[   54.930778] NetworkManager[866]: <info>  [1793847480.4166] device (lo): state change: disconnected -> prepare (reason 'none', managed-type: 'external')
+[   54.955359] NetworkManager[866]: <info>  [1793847480.4412] device (lo): state change: prepare -> config (reason 'none', managed-type: 'external')
+[   54.988440] NetworkManager[866]: <info>  [1793847480.4743] device (lo): state change: config -> ip-config (reason 'none', managed-type: 'external')
+[   54.991487] NetworkManager[866]: <info>  [1793847480.4774] modem-manager: oFono is not available
+[   55.012682] NetworkManager[866]: <info>  [1793847480.4985] device (lo): state change: ip-config -> ip-check (reason 'none', managed-type: 'external')
+[   55.305589] systemd[1]: Started NetworkManager.service - Network Manager.
+[   55.344489] systemd[1]: Reached target network.target - Network.
+[   55.417118] systemd[1]: Starting NetworkManager-wait-online.service - Network Manager Wait Online...
+[   55.559193] systemd[1]: Starting cups.service - CUPS Scheduler...
+[   55.713965] dbus-daemon[828]: [system] Successfully activated service 'org.freedesktop.nm_dispatcher'
+[   55.747360] systemd[1]: Starting ssh.service - OpenBSD Secure Shell server...
+[   55.926802] systemd[1]: Starting systemd-user-sessions.service - Permit User Sessions...
+[   56.115774] systemd[1]: Started unattended-upgrades.service - Unattended Upgrades Shutdown.
+[   56.211532] systemd-logind[837]: Watching system buttons on /dev/input/event2 (axp20x-pek)
+[   56.570592] NetworkManager[866]: <info>  [1793847482.0564] device (lo): state change: ip-check -> secondaries (reason 'none', managed-type: 'external')
+[   56.587615] NetworkManager[866]: <info>  [1793847482.0721] device (lo): state change: secondaries -> activated (reason 'none', managed-type: 'external')
+[   56.629188] NetworkManager[866]: <info>  [1793847482.1150] device (lo): Activation: successful, device activated.
+[   56.663466] NetworkManager[866]: <info>  [1793847482.1493] manager: startup complete
+[   57.348115] systemd[1]: Started NetworkManager-dispatcher.service - Network Manager Script Dispatcher Service.
+[   57.655178] systemd[1]: Reached target usb-gadget.target - Hardware activated USB gadget.
+[   57.702057] systemd[1]: Listening on systemd-rfkill.socket - Load/Save RF Kill Switch Status /dev/rfkill Watch.
+[   57.849801] systemd[1]: Finished systemd-user-sessions.service - Permit User Sessions.
+[   58.017587] systemd[1]: Starting aquarius-modo.service - Escolhe o modo (jogos ou tablet) e abre a interface...
+[   58.197361] systemd[1]: Starting plymouth-quit-wait.service - Hold until boot process finishes up...
+[   58.464162] systemd[1]: Starting plymouth-quit.service - Terminate Plymouth Boot Screen...
+[   58.594548] systemd[1]: Started cups.service - CUPS Scheduler.
+[   58.771495] systemd[1]: Finished NetworkManager-wait-online.service - Network Manager Wait Online.
+[   59.205030] systemd[1]: Reached target network-online.target - Network is Online.
+[   59.344284] aquarius-modo-boot[940]: modo escolhido: jogos
+[   59.465083] systemd[1]: Started cups-browsed.service - Make remote CUPS printers available locally.
+[   59.776546] systemd[1]: Starting exim4.service - exim Mail Transport Agent...
+[   60.060595] systemd[1]: Finished plymouth-quit-wait.service - Hold until boot process finishes up.
+[   60.232615] systemd[1]: Finished plymouth-quit.service - Terminate Plymouth Boot Screen.
+[   60.287946] systemd[1]: Received SIGRTMIN+21 from PID 216 (n/a).
+[   60.586656] sshd[956]: Server listening on 0.0.0.0 port 22.
+[   60.599643] sshd[956]: Server listening on :: port 22.
+[   60.650938] systemd[1]: Started ssh.service - OpenBSD Secure Shell server.
+[   60.954454] systemd[1]: Starting aquarius-retroarch.service - RetroArch em tela cheia no LCD...
+[   61.153029] systemd[1]: Started serial-getty@ttyS0.service - Serial Getty on ttyS0.
+[   61.215266] systemd[1]: Reached target getty.target - Login Prompts.
+[   61.567662] systemd[1]: aquarius-modo.service: Deactivated successfully.
+[   61.660796] systemd[1]: Finished aquarius-modo.service - Escolhe o modo (jogos ou tablet) e abre a interface.
+[   62.835792] systemd[1]: alsa-state.service - Manage Sound Card State (restore and store) skipped, unmet condition check ConditionPathExists=/etc/alsa/state-daemon.conf
+[   62.882120] systemd[1]: Starting alsa-restore.service - Save/Restore Sound Card State...
+[   63.160822] alsactl[1044]: alsa-lib parser.c:2796:(load_toplevel_config) Unable to find the top-level configuration file '/usr/share/alsa/ucm2/ucm.conf'.
+[   63.174341] alsactl[1044]: alsa-lib main.c:1554:(snd_use_case_mgr_open) error: failed to import hw:0 use case configuration -2
+[   63.206566] systemd[1]: Finished alsa-restore.service - Save/Restore Sound Card State.
+[   63.227131] systemd[1]: Reached target sound.target - Sound Card.
+[   63.852513] (as-jogos)[1019]: pam_unix(login:session): session opened for user jogador(uid=1000) by jogador(uid=0)
+[   64.128482] systemd[1]: Created slice user-1000.slice - User Slice of UID 1000.
+[   64.209029] systemd[1]: Starting user-runtime-dir@1000.service - User Runtime Directory /run/user/1000...
+[   64.612527] systemd-logind[837]: New session 1 of user jogador.
+[   65.219747] systemd[1]: Finished user-runtime-dir@1000.service - User Runtime Directory /run/user/1000.
+[   65.342009] systemd[1]: Starting user@1000.service - User Manager for UID 1000...
+[   65.604620] (systemd)[1160]: pam_unix(systemd-user:session): session opened for user jogador(uid=1000) by jogador(uid=0)
+[   65.683264] systemd-logind[837]: New session 2 of user jogador.
+[   65.939594] systemd[1]: NetworkManager-dispatcher.service: Deactivated successfully.
+[   68.121168] kernel: cfg80211: Loading compiled-in X.509 certificates for regulatory database
+[   68.329250] kernel: Loaded X.509 cert 'benh@debian.org: 577e021cb980e0e820821ba7b54b4961b8b4fadf'
+[   68.348677] kernel: Loaded X.509 cert 'romain.perier@gmail.com: 3abbc6ec146e09d1b6016ab9d6cf71dd233f0328'
+[   68.373868] kernel: Loaded X.509 cert 'sforshee: 00b28ddf47aef9cea7'
+[   68.374788] kernel: Loaded X.509 cert 'wens: 61c038651aabdcf94bd0ac7ff06c7248db18c600'
+[   68.546638] systemd[1160]: Queued start job for default target default.target.
+[   68.618780] systemd[1160]: Created slice app.slice - User Application Slice.
+[   68.631273] systemd[1160]: Created slice session.slice - User Core Session Slice.
+[   68.631695] systemd[1160]: Reached target paths.target - Paths.
+[   68.636470] systemd[1160]: Reached target timers.target - Timers.
+[   68.659090] systemd[1160]: Starting dbus.socket - D-Bus User Message Bus Socket...
+[   68.672812] systemd[1160]: Listening on dirmngr.socket - GnuPG network certificate management daemon.
+[   68.705133] systemd[1160]: Starting gcr-ssh-agent.socket - GCR ssh-agent wrapper...
+[   68.706377] systemd[1160]: Listening on gnome-keyring-daemon.socket - GNOME Keyring daemon.
+[   68.714696] systemd[1160]: Listening on gpg-agent-browser.socket - GnuPG cryptographic agent and passphrase cache (access for web browsers).
+[   68.715802] systemd[1160]: Listening on gpg-agent-extra.socket - GnuPG cryptographic agent and passphrase cache (restricted).
+[   68.758684] systemd[1160]: Starting gpg-agent-ssh.socket - GnuPG cryptographic agent (ssh-agent emulation)...
+[   68.816485] systemd[1160]: Starting gpg-agent.socket - GnuPG cryptographic agent and passphrase cache...
+[   68.817554] systemd[1160]: Listening on keyboxd.socket - GnuPG public key management service.
+[   68.818492] systemd[1160]: Listening on pk-debconf-helper.socket - debconf communication socket.
+[   68.819593] systemd[1160]: Listening on pulseaudio.socket - Sound System.
+[   68.833261] systemd[1160]: Listening on speech-dispatcher.socket - Speech Dispatcher Socket.
+[   68.885876] systemd[1160]: Starting ssh-agent.socket - OpenSSH Agent socket...
+[   70.206573] systemd[1160]: Listening on dbus.socket - D-Bus User Message Bus Socket.
+[   70.479975] systemd[1160]: Listening on gpg-agent-ssh.socket - GnuPG cryptographic agent (ssh-agent emulation).
+[   70.571769] systemd[1160]: Listening on gcr-ssh-agent.socket - GCR ssh-agent wrapper.
+[   70.575093] systemd[1160]: Listening on gpg-agent.socket - GnuPG cryptographic agent and passphrase cache.
+[   70.582332] systemd[1160]: Listening on ssh-agent.socket - OpenSSH Agent socket.
+[   70.615519] systemd[1160]: Reached target sockets.target - Sockets.
+[   70.621026] systemd[1160]: Reached target basic.target - Basic System.
+[   70.625976] systemd[1]: Started user@1000.service - User Manager for UID 1000.
+[   70.661683] systemd[1160]: Starting pulseaudio.service - Sound Service...
+[   70.665501] systemd[1]: Started session-1.scope - Session 1 of User jogador.
+[   71.357820] kernel: rtl8192cu: Chip version 0x10
+[   71.369101] systemd[1]: Started exim4.service - exim Mail Transport Agent.
+[   71.377135] systemd[1]: Reached target multi-user.target - Multi-User System.
+[   71.378605] systemd[1]: Reached target graphical.target - Graphical Interface.
+[   71.419917] systemd[1]: Starting aquarius-relatorio.service - Relatorio de hardware do boot em /boot/logs...
+[   71.857646] dbus-daemon[828]: [system] Activating via systemd: service name='org.freedesktop.RealtimeKit1' unit='rtkit-daemon.service' requested by ':1.23' (uid=1000 pid=1331 comm="/usr/bin/pulseaudio --daemonize=no --log-target=jo" label="kernel")
+[   71.959779] systemd[1]: Starting rtkit-daemon.service - RealtimeKit Scheduling Policy Service...
+[   72.276636] kernel: rtl8192cu: Board Type 0
+[   72.321617] kernel: rtl_usb: rx_max_size 15360, rx_urb_num 8, in_ep 1
+[   72.335932] systemd[1]: Started aquarius-retroarch.service - RetroArch em tela cheia no LCD.
+[   72.347762] systemd[1]: session-1.scope: Deactivated successfully.
+[   72.395969] kernel: rtl8192cu: Loading firmware rtlwifi/rtl8192cufw_TMSC.bin
+[   72.405888] systemd-logind[837]: Session 1 logged out. Waiting for processes to exit.
+[   72.464260] kernel: ieee80211 phy0: Selected rate control algorithm 'rtl_rc'
+[   72.460537] systemd-logind[837]: Removed session 1.
+[   72.518130] kernel: usbcore: registered new interface driver rtl8192cu
+[   72.510926] systemd[1]: Starting systemd-rfkill.service - Load/Save RF Kill Switch Status...
+[   72.538912] NetworkManager[866]: <info>  [1793847498.0248] device (wlan0): driver supports Access Point (AP) mode
+[   72.619494] NetworkManager[866]: <info>  [1793847498.1053] manager: (wlan0): new 802.11 Wi-Fi device (/org/freedesktop/NetworkManager/Devices/2)
+[   73.182236] (cage)[1338]: pam_unix(login:session): session opened for user jogador(uid=1000) by jogador(uid=0)
+[   73.194007] dbus-daemon[828]: [system] Successfully activated service 'org.freedesktop.RealtimeKit1'
+[   73.222142] rtkit-daemon[1337]: Successfully called chroot.
+[   73.213564] systemd[1]: Started rtkit-daemon.service - RealtimeKit Scheduling Policy Service.
+[   73.222365] rtkit-daemon[1337]: Successfully dropped privileges.
+[   73.222416] rtkit-daemon[1337]: Successfully limited resources.
+[   73.225762] rtkit-daemon[1337]: Canary thread running.
+[   73.243225] rtkit-daemon[1337]: Running.
+[   73.250032] rtkit-daemon[1337]: Watchdog thread running.
+[   73.419714] systemd-logind[837]: New session 3 of user jogador.
+[   73.426695] (udev-worker)[672]: Network interface NamePolicy= disabled on kernel command line.
+[   73.429529] systemd[1]: Started session-3.scope - Session 3 of User jogador.
+[   73.497468] NetworkManager[866]: <info>  [1793847498.9834] rfkill0: found Wi-Fi radio killswitch (at /sys/devices/platform/soc/1c1c000.usb/usb1/1-1/1-1:1.0/ieee80211/phy0/rfkill0) (driver rtl8192cu)
+[   73.499813] systemd[1]: Started systemd-rfkill.service - Load/Save RF Kill Switch Status.
+[   73.952775] seatd[832]: 00:00:27.381 [INFO] [seatd/server.c:145] New client connected (pid: 1338, uid: 1000, gid: 1000)
+[   73.952775] seatd[832]: 00:00:27.381 [INFO] [seatd/seat.c:239] Added client 1 to seat0
+[   73.976433] seatd[832]: 00:00:27.393 [INFO] [seatd/seat.c:563] Opened client 1 on seat0
+[   74.362962] rtkit-daemon[1337]: Successfully made thread 1331 of process 1331 owned by '1000' high priority at nice level -11.
+[   74.363162] rtkit-daemon[1337]: Supervising 1 threads of 1 processes of 1 users.
+[   74.914142] systemd[1160]: Starting dbus.service - D-Bus User Message Bus...
+[   75.287947] systemd[1160]: Started dbus.service - D-Bus User Message Bus.
+[   75.969168] NetworkManager[866]: <info>  [1793847501.4550] device (wlan0): state change: unmanaged -> unavailable (reason 'managed', managed-type: 'external')
+[   76.032255] kernel: rtl8192cu: MAC auto ON okay!
+[   76.233081] kernel: rtl8192cu: Tx queue select: 0x05
+[   77.660861] NetworkManager[866]: <info>  [1793847503.1467] device (wlan0): set-hw-addr: set MAC address to xx:xx:xx:xx:xx:xx (scanning)
+[   77.680095] kernel: rtl8192cu: MAC auto ON okay!
+[   77.817191] kernel: rtl8192cu: Tx queue select: 0x05
+[   78.529145] systemd[1]: systemd-rfkill.service: Deactivated successfully.
+[   78.849275] rtkit-daemon[1337]: Supervising 1 threads of 1 processes of 1 users.
+[   78.940379] rtkit-daemon[1337]: Successfully made thread 1376 of process 1331 owned by '1000' RT at priority 5.
+[   78.940584] rtkit-daemon[1337]: Supervising 2 threads of 1 processes of 1 users.
+[   78.987382] dbus-daemon[828]: [system] Activating via systemd: service name='org.freedesktop.nm_dispatcher' unit='dbus-org.freedesktop.nm-dispatcher.service' requested by ':1.8' (uid=0 pid=866 comm="/usr/sbin/NetworkManager --no-daemon" label="kernel")
+[   79.058476] systemd[1]: Starting NetworkManager-dispatcher.service - Network Manager Script Dispatcher Service...
+[   79.094969] rtkit-daemon[1337]: Supervising 2 threads of 1 processes of 1 users.
+[   79.261894] rtkit-daemon[1337]: Successfully made thread 1378 of process 1331 owned by '1000' RT at priority 5.
+[   79.262095] rtkit-daemon[1337]: Supervising 3 threads of 1 processes of 1 users.
+[   79.542229] systemd[1160]: Started pulseaudio.service - Sound Service.
+[   79.550947] systemd[1160]: Reached target default.target - Main User Target.
+[   79.558583] systemd[1160]: Startup finished in 13.694s.
+[   79.672256] NetworkManager[866]: <info>  [1793847505.1580] device (wlan0): supplicant interface state: internal-starting -> disconnected
+[   79.672953] NetworkManager[866]: <info>  [1793847505.1589] Wi-Fi P2P device controlled by interface wlan0 created
+[   79.675058] NetworkManager[866]: <info>  [1793847505.1610] manager: (p2p-dev-wlan0): new 802.11 Wi-Fi P2P device (/org/freedesktop/NetworkManager/Devices/3)
+[   79.705709] NetworkManager[866]: <info>  [1793847505.1915] device (p2p-dev-wlan0): state change: unmanaged -> unavailable (reason 'managed', managed-type: 'external')
+[   79.723126] NetworkManager[866]: <info>  [1793847505.2090] device (wlan0): state change: unavailable -> disconnected (reason 'supplicant-available', managed-type: 'full')
+[   79.773055] NetworkManager[866]: <info>  [1793847505.2589] device (p2p-dev-wlan0): state change: unavailable -> disconnected (reason 'none', managed-type: 'full')
+[   80.074363] dbus-daemon[828]: [system] Successfully activated service 'org.freedesktop.nm_dispatcher'
+[   80.082671] systemd[1]: Started NetworkManager-dispatcher.service - Network Manager Script Dispatcher Service.
+[   81.307624] NetworkManager[866]: <info>  [1793847506.7935] policy: auto-activating connection 'casa' (2bfe14be-1c06-3a2d-aa53-252f26157b8b)
+[   81.334516] NetworkManager[866]: <info>  [1793847506.8204] device (wlan0): Activation: starting connection 'casa' (2bfe14be-1c06-3a2d-aa53-252f26157b8b)
+[   81.340748] NetworkManager[866]: <info>  [1793847506.8266] device (wlan0): state change: disconnected -> prepare (reason 'none', managed-type: 'full')
+[   81.366738] NetworkManager[866]: <info>  [1793847506.8520] manager: NetworkManager state is now CONNECTING
+[   81.521876] NetworkManager[866]: <info>  [1793847507.0077] device (wlan0): set-hw-addr: reset MAC address to xx:xx:xx:xx:xx:xx (preserve)
+[   81.556154] kernel: rtl8192cu: MAC auto ON okay!
+[   81.692166] kernel: rtl8192cu: Tx queue select: 0x05
+[   82.826675] NetworkManager[866]: <info>  [1793847508.3125] device (wlan0): state change: prepare -> config (reason 'none', managed-type: 'full')
+[   82.849149] NetworkManager[866]: <info>  [1793847508.3350] device (wlan0): Activation: (wifi) access point 'casa' has security, but secrets are required.
+[   82.849297] NetworkManager[866]: <info>  [1793847508.3353] device (wlan0): state change: config -> need-auth (reason 'none', managed-type: 'full')
+[   82.877472] NetworkManager[866]: <info>  [1793847508.3633] sup-iface[fe2a0b9a0c73493e,0,wlan0]: wps: type pbc start...
+[   82.887335] NetworkManager[866]: <info>  [1793847508.3732] device (wlan0): supplicant interface state: disconnected -> interface_disabled
+[   82.908605] NetworkManager[866]: <info>  [1793847508.3944] device (p2p-dev-wlan0): supplicant management interface state: disconnected -> interface_disabled
+[   82.909163] NetworkManager[866]: <info>  [1793847508.3951] device (wlan0): supplicant interface state: interface_disabled -> inactive
+[   82.909286] NetworkManager[866]: <info>  [1793847508.3953] device (p2p-dev-wlan0): supplicant management interface state: interface_disabled -> inactive
+[   82.938011] wpa_supplicant[868]: wlan0: WPS-PBC-ACTIVE
+[   82.962445] NetworkManager[866]: <info>  [1793847508.4482] device (wlan0): state change: need-auth -> prepare (reason 'none', managed-type: 'full')
+[   83.014716] NetworkManager[866]: <info>  [1793847508.5006] device (wlan0): state change: prepare -> config (reason 'none', managed-type: 'full')
+[   83.039050] NetworkManager[866]: <info>  [1793847508.5249] device (wlan0): Activation: (wifi) connection 'casa' has security, and secrets exist.  No new secrets needed.
+[   83.044564] NetworkManager[866]: <info>  [1793847508.5304] Config: added 'ssid' value '<rede-de-casa>'
+[   83.044709] NetworkManager[866]: <info>  [1793847508.5307] Config: added 'scan_ssid' value '1'
+[   83.044823] NetworkManager[866]: <info>  [1793847508.5308] Config: added 'bgscan' value 'simple:30:-70:86400'
+[   83.045030] NetworkManager[866]: <info>  [1793847508.5310] Config: added 'key_mgmt' value 'WPA-PSK WPA-PSK-SHA256 FT-PSK SAE FT-SAE'
+[   83.045135] NetworkManager[866]: <info>  [1793847508.5311] Config: added 'psk' value '<hidden>'
+[   83.125645] wpa_supplicant[868]: wlan0: WPS-CANCEL
+[   83.157104] NetworkManager[866]: <info>  [1793847508.6429] device (wlan0): supplicant interface state: inactive -> scanning
+[   83.158641] NetworkManager[866]: <info>  [1793847508.6444] device (p2p-dev-wlan0): supplicant management interface state: inactive -> scanning
+[   83.430042] NetworkManager[866]: <info>  [1793847508.9159] device (wlan0): supplicant interface state: scanning -> inactive
+[   83.430238] NetworkManager[866]: <info>  [1793847508.9162] device (p2p-dev-wlan0): supplicant management interface state: scanning -> inactive
+[   83.602836] systemd[1]: systemd-hostnamed.service: Deactivated successfully.
+[   83.842036] wpa_supplicant[868]: MBO: Disable MBO/OCE due to misbehaving AP not having enabled PMF
+[   83.850496] wpa_supplicant[868]: wlan0: SME: Trying to authenticate with xx:xx:xx:xx:xx:xx (SSID='<rede-de-casa>' freq=2457 MHz)
+[   83.961347] kernel: wlan0: authenticate with xx:xx:xx:xx:xx:xx (local address=xx:xx:xx:xx:xx:xx)
+[   83.991073] kernel: wlan0: send auth to xx:xx:xx:xx:xx:xx (try 1/3)
+[   84.012358] kernel: wlan0: authenticated
+[   84.048255] kernel: wlan0: associate with xx:xx:xx:xx:xx:xx (try 1/3)
+[   84.030449] wpa_supplicant[868]: wlan0: Trying to associate with xx:xx:xx:xx:xx:xx (SSID='<rede-de-casa>' freq=2457 MHz)
+[   84.057295] NetworkManager[866]: <info>  [1793847509.5430] device (wlan0): supplicant interface state: inactive -> authenticating
+[   84.061126] NetworkManager[866]: <info>  [1793847509.5452] device (p2p-dev-wlan0): supplicant management interface state: inactive -> authenticating
+[   84.064491] NetworkManager[866]: <info>  [1793847509.5503] device (wlan0): supplicant interface state: authenticating -> associating
+[   84.064634] NetworkManager[866]: <info>  [1793847509.5506] device (p2p-dev-wlan0): supplicant management interface state: authenticating -> associating
+[   84.132790] kernel: wlan0: RX AssocResp from xx:xx:xx:xx:xx:xx (capab=0x411 status=0 aid=7)
+[   84.385035] kernel: wlan0: associated
+[   84.385663] kernel: wlan0: Limiting TX power to 30 (30 - 0) dBm as advertised by xx:xx:xx:xx:xx:xx
+[   84.387666] wpa_supplicant[868]: wlan0: Associated with xx:xx:xx:xx:xx:xx
+[   84.392522] wpa_supplicant[868]: MBO: Disable MBO/OCE due to misbehaving AP not having enabled PMF
+[   84.392613] wpa_supplicant[868]: wlan0: CTRL-EVENT-SUBNET-STATUS-UPDATE status=0
+[   84.401779] wpa_supplicant[868]: wlan0: CTRL-EVENT-REGDOM-CHANGE init=COUNTRY_IE type=COUNTRY alpha2=BR
+[   84.421634] NetworkManager[866]: <info>  [1793847509.9060] device (wlan0): supplicant interface state: associating -> associated
+[   84.424526] NetworkManager[866]: <info>  [1793847509.9104] device (p2p-dev-wlan0): supplicant management interface state: associating -> associated
+[   85.136429] NetworkManager[866]: <info>  [1793847510.6223] device (wlan0): supplicant interface state: associated -> 4way_handshake
+[   85.136614] NetworkManager[866]: <info>  [1793847510.6226] device (p2p-dev-wlan0): supplicant management interface state: associated -> 4way_handshake
+[   85.638637] wpa_supplicant[868]: wlan0: WPA: Key negotiation completed with xx:xx:xx:xx:xx:xx [PTK=CCMP GTK=CCMP]
+[   85.638825] wpa_supplicant[868]: wlan0: CTRL-EVENT-CONNECTED - Connection to xx:xx:xx:xx:xx:xx completed [id=0 id_str=]
+[   85.639445] wpa_supplicant[868]: bgscan simple: Failed to enable signal strength monitoring
+[   85.662513] NetworkManager[866]: <info>  [1793847511.1484] device (wlan0): supplicant interface state: 4way_handshake -> completed
+[   85.662684] NetworkManager[866]: <info>  [1793847511.1486] device (wlan0): Activation: (wifi) Stage 2 of 5 (Device Configure) successful. Connected to wireless network "<rede-de-casa>"
+[   85.662828] NetworkManager[866]: <info>  [1793847511.1488] device (p2p-dev-wlan0): supplicant management interface state: 4way_handshake -> completed
+[   85.669795] NetworkManager[866]: <info>  [1793847511.1557] device (wlan0): state change: config -> ip-config (reason 'none', managed-type: 'full')
+[   85.704610] NetworkManager[866]: <info>  [1793847511.1905] dhcp4 (wlan0): activation: beginning transaction (timeout in 45 seconds)
+[   85.740585] avahi-daemon[826]: Joining mDNS multicast group on interface wlan0.IPv6 with address fe80::2d1:5eff:fe78:7b05.
+[   85.741154] avahi-daemon[826]: New relevant interface wlan0.IPv6 for mDNS.
+[   85.741343] avahi-daemon[826]: Registering new address record for fe80::2d1:5eff:fe78:7b05 on wlan0.*.
+[   87.019093] NetworkManager[866]: <info>  [1793847512.5050] dhcp6 (wlan0): activation: beginning transaction (timeout in 45 seconds)
+[   87.041941] avahi-daemon[826]: Leaving mDNS multicast group on interface wlan0.IPv6 with address fe80::2d1:5eff:fe78:7b05.
+[   87.042205] avahi-daemon[826]: Joining mDNS multicast group on interface wlan0.IPv6 with address 2804:14d:7682:42d5:2d1:5eff:fe78:7b05.
+[   87.042344] avahi-daemon[826]: Registering new address record for 2804:14d:7682:42d5:2d1:5eff:fe78:7b05 on wlan0.*.
+[   87.042573] avahi-daemon[826]: Withdrawing address record for fe80::2d1:5eff:fe78:7b05 on wlan0.
+[   87.059782] NetworkManager[866]: <info>  [1793847512.5456] policy: set 'casa' (wlan0) as default for IPv6 routing and DNS
+[   87.099178] NetworkManager[866]: <info>  [1793847512.5850] dhcp6 (wlan0): state changed new lease, address=2804:14d:7682:42d5::573
+[   87.132487] avahi-daemon[826]: Registering new address record for 2804:14d:7682:42d5::573 on wlan0.*.
+[   87.150755] systemd-resolved[649]: wlan0: Bus client set default route setting: yes
+[   87.191628] systemd-resolved[649]: wlan0: Bus client set DNS server list to: 2804:14d:1:0:181:213:132:2, 2804:14d:1:0:181:213:132:3
+[   87.997235] NetworkManager[866]: <info>  [1793847513.4831] dhcp4 (wlan0): state changed new lease, address=192.168.0.187, acd pending
+[   88.160658] NetworkManager[866]: <info>  [1793847513.6465] dhcp4 (wlan0): state changed new lease, address=192.168.0.187
+[   88.180530] avahi-daemon[826]: Joining mDNS multicast group on interface wlan0.IPv4 with address 192.168.0.187.
+[   88.180713] avahi-daemon[826]: New relevant interface wlan0.IPv4 for mDNS.
+[   88.180946] avahi-daemon[826]: Registering new address record for 192.168.0.187 on wlan0.IPv4.
+[   88.193039] NetworkManager[866]: <info>  [1793847513.6789] policy: set 'casa' (wlan0) as default for IPv4 routing and DNS
+[   88.242782] systemd-resolved[649]: wlan0: Bus client set search domain list to: lan
+[   88.282695] systemd-resolved[649]: wlan0: Bus client set DNS server list to: 192.168.0.4, 9.9.9.9, 2804:14d:1:0:181:213:132:2, 2804:14d:1:0:181:213:132:3
+[   88.317359] NetworkManager[866]: <info>  [1793847513.8032] device (wlan0): state change: ip-config -> ip-check (reason 'none', managed-type: 'full')
+[   88.347493] NetworkManager[866]: <info>  [1793847513.8333] device (wlan0): state change: ip-check -> secondaries (reason 'none', managed-type: 'full')
+[   88.350630] NetworkManager[866]: <info>  [1793847513.8365] device (wlan0): state change: secondaries -> activated (reason 'none', managed-type: 'full')
+[   88.355832] NetworkManager[866]: <info>  [1793847513.8417] manager: NetworkManager state is now CONNECTED_SITE
+[   88.371119] NetworkManager[866]: <info>  [1793847513.8570] device (wlan0): Activation: successful, device activated.
+[   88.393903] NetworkManager[866]: <info>  [1793847513.8683] manager: NetworkManager state is now CONNECTED_GLOBAL
+[   90.127595] systemd[1]: NetworkManager-dispatcher.service: Deactivated successfully.
+[   99.737626] systemd-resolved[649]: Clock change detected. Flushing caches.
+[   99.749029] systemd-timesyncd[651]: Contacted time server 200.160.0.8:123 (0.debian.pool.ntp.org).
+[   99.749681] systemd-timesyncd[651]: Initial clock synchronization to Thu 2026-11-05 00:20:38.943827 -03.
+[   99.919121] systemd[1]: Starting apt-listchanges.service - Initialize apt-listchanges database for APT...
+[   99.965471] systemd[1]: Starting dpkg-db-backup.service - Daily dpkg database backup service...
+[  100.109680] systemd[1]: Starting exim4-base.service - exim4-base housekeeping...
+[  106.439222] systemd[1]: dpkg-db-backup.service: Deactivated successfully.
+[  106.453664] systemd[1]: Finished dpkg-db-backup.service - Daily dpkg database backup service.
+[  106.466773] systemd[1]: dpkg-db-backup.service: Consumed 1.355s CPU time, 6.1M memory peak.
+[  115.630753] systemd[1]: exim4-base.service: Deactivated successfully.
+[  115.648848] systemd[1]: Finished exim4-base.service - exim4-base housekeeping.
+[  118.033706] sshd-session[1546]: Accepted publickey for root from 192.168.0.119 port 51226 ssh2: ED25519 SHA256:9+PlWZARIas46NtHPK7io6cvMe894XJCmmIDbtfPJ+w
+[  118.102031] sshd-session[1546]: pam_unix(sshd:session): session opened for user root(uid=0) by root(uid=0)
+[  118.333037] systemd[1]: Created slice user-0.slice - User Slice of UID 0.
+[  118.379268] systemd[1]: Starting user-runtime-dir@0.service - User Runtime Directory /run/user/0...
+[  118.634192] systemd-logind[837]: New session 4 of user root.
+[  119.098418] systemd[1]: Finished user-runtime-dir@0.service - User Runtime Directory /run/user/0.
+[  119.194465] systemd[1]: Starting user@0.service - User Manager for UID 0...
+[  119.649153] (systemd)[1570]: pam_unix(systemd-user:session): session opened for user root(uid=0) by root(uid=0)
+[  119.718477] systemd-logind[837]: New session 5 of user root.
+[  120.610434] systemd-logind[837]: Power key pressed short.
+[  120.610550] systemd-logind[837]: Powering off...
+[  121.432804] systemd-logind[837]: System is powering down.
+[  121.446324] systemd[1]: unattended-upgrades.service: Deactivated successfully.
+[  121.457150] systemd[1]: unattended-upgrades.service: Consumed 1.799s CPU time, 22.5M memory peak.
+[  121.671891] sshd-session[1546]: pam_systemd(sshd:session): Failed to create session: Job 1904 for unit 'session-4.scope' failed with 'canceled'
+[  122.041770] systemd[1]: Stopping session-3.scope - Session 3 of User jogador...
+[  122.056534] systemd[1]: Removed slice system-getty.slice - Slice /system/getty.
+[  122.065944] systemd[1]: Removed slice system-modprobe.slice - Slice /system/modprobe.
+[  122.076922] systemd[1]: Stopped target graphical.target - Graphical Interface.
+[  122.086915] systemd[1]: Stopped target sound.target - Sound Card.
+[  122.093195] systemd[1]: Stopped target timers.target - Timer Units.
+[  122.101566] systemd[1]: anacron.timer: Deactivated successfully.
+[  122.102611] systemd[1]: Stopped anacron.timer - Trigger anacron every hour.
+[  122.109819] systemd[1]: apt-daily-upgrade.timer: Deactivated successfully.
+[  122.112964] systemd[1]: Stopped apt-daily-upgrade.timer - Daily apt upgrade and clean activities.
+[  122.117538] systemd[1]: apt-daily.timer: Deactivated successfully.
+[  122.121441] systemd[1]: Stopped apt-daily.timer - Daily apt download activities.
+[  122.122528] systemd[1]: dpkg-db-backup.timer: Deactivated successfully.
+[  122.130348] systemd[1]: Stopped dpkg-db-backup.timer - Daily dpkg database backup timer.
+[  122.135702] systemd[1]: e2scrub_all.timer: Deactivated successfully.
+[  122.137696] systemd[1]: Stopped e2scrub_all.timer - Periodic ext4 Online Metadata Check for All Filesystems.
+[  122.146832] systemd[1]: exim4-base.timer: Deactivated successfully.
+[  122.149107] systemd[1]: Stopped exim4-base.timer - Daily exim4-base housekeeping.
+[  122.151675] systemd[1]: fstrim.timer: Deactivated successfully.
+[  122.551321] seatd[832]: 00:01:15.876 [INFO] [seatd/client.c:496] Client disconnected
+[  122.158881] systemd[1]: Stopped fstrim.timer - Discard unused filesystem blocks once a week.
+[  122.840256] seatd[832]: 00:01:16.022 [INFO] [seatd/seat.c:158] No clients on seat0 to activate
+[  122.840256] seatd[832]: 00:01:16.200 [INFO] [seatd/seat.c:290] Removed client 1 from seat0
+[  122.159900] systemd[1]: fwupd-refresh.timer: Deactivated successfully.
+[  122.163163] systemd[1]: Stopped fwupd-refresh.timer - Refresh fwupd metadata regularly.
+[  122.172309] systemd[1]: man-db.timer: Deactivated successfully.
+[  122.173215] systemd[1]: Stopped man-db.timer - Daily man-db regeneration.
+[  122.174128] systemd[1]: systemd-tmpfiles-clean.timer: Deactivated successfully.
+[  122.174934] systemd[1]: Stopped systemd-tmpfiles-clean.timer - Daily Cleanup of Temporary Directories.
+[  122.183662] systemd[1]: Stopped target usb-gadget.target - Hardware activated USB gadget.
+[  122.190573] systemd[1]: systemd-rfkill.socket: Deactivated successfully.
+[  122.193585] systemd[1]: Closed systemd-rfkill.socket - Load/Save RF Kill Switch Status /dev/rfkill Watch.
+[  122.211187] systemd[1]: Stopping accounts-daemon.service - Accounts Service...
+[  122.298197] systemd[1]: Stopping alsa-restore.service - Save/Restore Sound Card State...
+[  122.330418] systemd[1]: Stopping aquarius-retroarch.service - RetroArch em tela cheia no LCD...
+[  122.402416] systemd[1]: Starting plymouth-poweroff.service - Show Plymouth Power Off Screen...
+[  122.410898] systemd[1]: Stopping polkit.service - Authorization Manager...
+[  122.418568] systemd[1]: Stopping rtkit-daemon.service - RealtimeKit Scheduling Policy Service...
+[  122.530218] systemd[1]: Stopping systemd-random-seed.service - Load/Save OS Random Seed...
+[  122.530696] systemd[1]: systemd-udev-load-credentials.service: Deactivated successfully.
+[  122.541241] systemd[1]: Stopped systemd-udev-load-credentials.service - Load udev Rules from Credentials.
+[  122.554233] systemd[1]: Stopping udisks2.service - Disk Manager...
+[  122.714019] systemd[1]: accounts-daemon.service: Deactivated successfully.
+[  122.724784] systemd[1]: Stopped accounts-daemon.service - Accounts Service.
+[  122.747007] systemd[1]: rtkit-daemon.service: Deactivated successfully.
+[  122.766706] systemd[1]: Stopped rtkit-daemon.service - RealtimeKit Scheduling Policy Service.
+[  122.894132] systemd[1]: apt-listchanges.service: Main process exited, code=killed, status=15/TERM
+[  122.906770] systemd[1]: apt-listchanges.service: Failed with result 'signal'.
+[  122.918549] systemd[1]: Stopped apt-listchanges.service - Initialize apt-listchanges database for APT.
+[  122.925099] systemd[1]: apt-listchanges.service: Consumed 5.613s CPU time, 18.4M memory peak.
+[  122.937469] systemd[1]: aquarius-relatorio.service: Main process exited, code=killed, status=15/TERM
+[  122.938480] systemd[1]: aquarius-relatorio.service: Failed with result 'signal'.
+[  122.950956] systemd[1]: Stopped aquarius-relatorio.service - Relatorio de hardware do boot em /boot/logs.
+[  123.244284] udisksd[838]: udisks daemon version 2.10.1 exiting
+[  124.967977] systemd[1570]: Queued start job for default target default.target.
+[  124.972656] sshd-session[1624]: Received disconnect from 192.168.0.119 port 51226:11: disconnected by user
+[  124.973338] sshd-session[1624]: Disconnected from user root 192.168.0.119 port 51226
+[  125.013179] systemd[1570]: Activating special unit exit.target...
+[  125.022982] systemd[1570]: Reached target shutdown.target - Shutdown.
+[  125.065067] sshd-session[1546]: pam_unix(sshd:session): session closed for user root
+[  125.029997] systemd[1570]: Finished systemd-exit.service - Exit the Session.
+[  125.030622] systemd[1570]: Reached target exit.target - Exit the Session.
+[  125.149327] (sd-pam)[1585]: pam_unix(systemd-user:session): session closed for user root
+[  125.545542] systemd-logind[837]: Session 3 logged out. Waiting for processes to exit.
+[  125.581513] systemd[1]: udisks2.service: Deactivated successfully.
+[  125.587830] systemd[1]: Stopped udisks2.service - Disk Manager.
+[  125.598066] systemd[1]: polkit.service: Deactivated successfully.
+[  125.604905] systemd[1]: Stopped polkit.service - Authorization Manager.
+[  125.606483] systemd[1]: polkit.service: Consumed 1.005s CPU time, 4.1M memory peak.
+[  125.683155] systemd[1]: alsa-restore.service: Deactivated successfully.
+[  125.692796] systemd[1]: Stopped alsa-restore.service - Save/Restore Sound Card State.
+[  125.733553] systemd[1]: systemd-random-seed.service: Deactivated successfully.
+[  125.741054] systemd[1]: Stopped systemd-random-seed.service - Load/Save OS Random Seed.
+[  125.755778] systemd[1]: Received SIGRTMIN+20 from PID 1630 (plymouthd).
+[  125.761425] systemd[1]: user@0.service: Deactivated successfully.
+[  125.772777] systemd[1]: Stopped user@0.service - User Manager for UID 0.
+[  125.775052] systemd[1]: user@0.service: Consumed 1.501s CPU time, 3.4M memory peak.
+[  125.805669] systemd[1]: session-3.scope: Deactivated successfully.
+[  125.811853] systemd[1]: Stopped session-3.scope - Session 3 of User jogador.
+[  125.817605] systemd[1]: session-3.scope: Consumed 19.321s CPU time, 203.9M memory peak.
+[  126.082375] systemd[1]: apt-listchanges.timer: Deactivated successfully.
+[  126.088784] systemd[1]: Stopped apt-listchanges.timer - Try hourly to initialize apt-listchanges database for APT.
+[  126.101826] systemd[1]: Stopped target multi-user.target - Multi-User System.
+[  126.107690] systemd[1]: Stopped target getty.target - Login Prompts.
+[  126.114852] systemd[1]: Stopped target time-set.target - System Time Set.
+[  126.123004] systemd[1]: Stopping cron.service - Regular background program processing daemon...
+[  126.127422] systemd[1]: Stopping cups-browsed.service - Make remote CUPS printers available locally...
+[  126.136765] systemd[1]: Stopping exim4.service - exim Mail Transport Agent...
+[  126.137399] systemd[1]: lm-sensors.service: Deactivated successfully.
+[  126.228688] sshd[956]: Received signal 15; terminating.
+[  126.139305] systemd[1]: Stopped lm-sensors.service - Initialize hardware monitoring sensors.
+[  126.165746] systemd[1]: plymouth-quit.service: Deactivated successfully.
+[  126.181484] systemd[1]: Stopped plymouth-quit.service - Terminate Plymouth Boot Screen.
+[  126.197945] systemd[1]: Stopping serial-getty@ttyS0.service - Serial Getty on ttyS0...
+[  126.210507] systemd[1]: Stopping ssh.service - OpenBSD Secure Shell server...
+[  126.234728] systemd[1]: Stopping user-runtime-dir@0.service - User Runtime Directory /run/user/0...
+[  126.249803] systemd[1]: Stopping user@1000.service - User Manager for UID 1000...
+[  126.287788] systemd[1160]: Activating special unit exit.target...
+[  126.299131] systemd[1]: Stopping zramswap.service - Linux zramswap setup...
+[  126.308768] systemd[1160]: Stopped target default.target - Main User Target.
+[  126.386293] systemd[1]: cron.service: Deactivated successfully.
+[  126.394029] systemd[1]: Stopped cron.service - Regular background program processing daemon.
+[  126.407107] systemd[1160]: Stopping dbus.service - D-Bus User Message Bus...
+[  126.427033] systemd[1160]: Stopping pulseaudio.service - Sound Service...
+[  126.445343] systemd[1]: ssh.service: Deactivated successfully.
+[  126.446379] systemd[1]: ssh.service: Unit process 1632 (sshd-session) remains running after unit stopped.
+[  126.447141] systemd[1]: ssh.service: Unit process 1635 (sshd-auth) remains running after unit stopped.
+[  126.461854] systemd[1]: Stopped ssh.service - OpenBSD Secure Shell server.
+[  126.466921] systemd[1]: ssh.service: Consumed 1.214s CPU time, 6.4M memory peak.
+[  126.479457] systemd[1]: serial-getty@ttyS0.service: Deactivated successfully.
+[  126.494948] systemd[1]: Stopped serial-getty@ttyS0.service - Serial Getty on ttyS0.
+[  126.521807] systemd[1160]: Stopped dbus.service - D-Bus User Message Bus.
+[  126.662926] systemd[1]: aquarius-retroarch.service: Control process exited, code=exited, status=1/FAILURE
+[  126.663936] systemd[1]: aquarius-retroarch.service: Failed with result 'exit-code'.
+[  126.680769] systemd[1]: Stopped aquarius-retroarch.service - RetroArch em tela cheia no LCD.
+[  126.876302] systemd[1]: run-user-0.mount: Deactivated successfully.
+[  126.806015] systemd[1]: Unmounted run-user-0.mount - /run/user/0.
+[  126.912890] systemd[1]: user-runtime-dir@0.service: Deactivated successfully.
+[  126.916632] systemd[1160]: Stopped pulseaudio.service - Sound Service.
+[  126.916988] systemd[1160]: pulseaudio.service: Consumed 2.037s CPU time, 20.5M memory peak.
+[  126.919946] systemd[1160]: Removed slice session.slice - User Core Session Slice.
+[  126.921103] systemd[1]: Stopped user-runtime-dir@0.service - User Runtime Directory /run/user/0.
+[  126.932205] systemd[1]: Received SIGRTMIN+20 from PID 1630 (plymouthd).
+[  126.933046] systemd[1160]: session.slice: Consumed 2.174s CPU time, 20.6M memory peak.
+[  126.933259] systemd[1160]: Stopped target basic.target - Basic System.
+[  126.933787] systemd[1160]: Stopped target paths.target - Paths.
+[  126.934148] systemd[1160]: Stopped target sockets.target - Sockets.
+[  126.934661] systemd[1160]: Stopped target timers.target - Timers.
+[  126.953394] systemd[1160]: Closed dbus.socket - D-Bus User Message Bus Socket.
+[  126.954850] systemd[1160]: Closed dirmngr.socket - GnuPG network certificate management daemon.
+[  126.971460] systemd[1160]: Closed gcr-ssh-agent.socket - GCR ssh-agent wrapper.
+[  127.325816] seatd[832]: 00:01:20.753 [INFO] [seatd/seatd.c:218] seatd stopped
+[  126.981368] systemd[1160]: Closed gnome-keyring-daemon.socket - GNOME Keyring daemon.
+[  126.982668] systemd[1160]: Closed gpg-agent-browser.socket - GnuPG cryptographic agent and passphrase cache (access for web browsers).
+[  126.983827] systemd[1160]: Closed gpg-agent-extra.socket - GnuPG cryptographic agent and passphrase cache (restricted).
+[  127.010467] systemd[1160]: Stopping gpg-agent-ssh.socket - GnuPG cryptographic agent (ssh-agent emulation)...
+[  127.039003] systemd[1160]: Stopping gpg-agent.socket - GnuPG cryptographic agent and passphrase cache...
+[  127.536595] avahi-daemon[826]: Got SIGTERM, quitting.
+[  127.045280] systemd[1160]: Closed keyboxd.socket - GnuPG public key management service.
+[  127.538049] avahi-daemon[826]: Leaving mDNS multicast group on interface wlan0.IPv6 with address 2804:14d:7682:42d5:2d1:5eff:fe78:7b05.
+[  127.054135] systemd[1160]: Closed pk-debconf-helper.socket - debconf communication socket.
+[  127.625348] avahi-daemon[826]: Leaving mDNS multicast group on interface wlan0.IPv4 with address 192.168.0.187.
+[  127.073329] systemd[1160]: Closed pulseaudio.socket - Sound System.
+[  127.698014] avahi-daemon[826]: Leaving mDNS multicast group on interface lo.IPv6 with address ::1.
+[  127.074556] systemd[1160]: Closed speech-dispatcher.socket - Speech Dispatcher Socket.
+[  127.698587] avahi-daemon[826]: Leaving mDNS multicast group on interface lo.IPv4 with address 127.0.0.1.
+[  127.108864] systemd[1]: Removed slice system-serial\x2dgetty.slice - Slice /system/serial-getty.
+[  127.735621] avahi-daemon[826]: avahi-daemon 0.8 exiting.
+[  127.110679] systemd[1160]: Stopping ssh-agent.socket - OpenSSH Agent socket...
+[  127.196729] systemd[1]: Removed slice user-0.slice - User Slice of UID 0.
+[  127.297601] systemd[1]: user-0.slice: Consumed 1.775s CPU time, 3.5M memory peak.
+[  127.298154] systemd[1]: plymouth-quit-wait.service: Deactivated successfully.
+[  127.305153] systemd[1]: Stopped plymouth-quit-wait.service - Hold until boot process finishes up.
+[  127.318516] systemd[1]: Stopping seatd.service - Seat management daemon...
+[  127.366957] systemd[1]: seatd.service: Deactivated successfully.
+[  127.380615] systemd[1]: Stopped seatd.service - Seat management daemon.
+[  127.394583] systemd[1]: cups-browsed.service: Deactivated successfully.
+[  127.405180] systemd[1]: Stopped cups-browsed.service - Make remote CUPS printers available locally.
+[  127.554602] systemd[1]: Stopping avahi-daemon.service - Avahi mDNS/DNS-SD Stack...
+[  127.593120] systemd[1]: Stopping cups.service - CUPS Scheduler...
+[  127.675983] systemd[1]: exim4.service: Deactivated successfully.
+[  127.689182] systemd[1]: Stopped exim4.service - exim Mail Transport Agent.
+[  127.710784] systemd[1]: exim4.service: Consumed 6.787s CPU time, 22.3M memory peak.
+[  127.790188] systemd[1]: avahi-daemon.service: Deactivated successfully.
+[  127.802018] systemd[1]: Stopped avahi-daemon.service - Avahi mDNS/DNS-SD Stack.
+[  127.877182] systemd[1]: Stopped target network-online.target - Network is Online.
+[  127.910285] systemd[1]: Stopped target nss-lookup.target - Host and Network Name Lookups.
+[  128.326778] root[1680]: Stopping Zram
+[  128.385453] zramswap[1680]: <13>Nov  5 00:21:07 root: Stopping Zram
+[  127.911667] systemd[1]: NetworkManager-wait-online.service: Deactivated successfully.
+[  127.926105] systemd[1]: Stopped NetworkManager-wait-online.service - Network Manager Wait Online.
+[  128.071024] systemd[1]: cups.service: Deactivated successfully.
+[  128.085892] systemd[1]: Stopped cups.service - CUPS Scheduler.
+[  128.137348] systemd-logind[837]: Removed session 3.
+[  128.231213] systemd[1160]: Closed gpg-agent-ssh.socket - GnuPG cryptographic agent (ssh-agent emulation).
+[  128.347831] systemd[1160]: Closed gpg-agent.socket - GnuPG cryptographic agent and passphrase cache.
+[  128.363911] systemd[1160]: Closed ssh-agent.socket - OpenSSH Agent socket.
+[  128.434231] systemd[1160]: Removed slice app.slice - User Application Slice.
+[  128.434482] systemd[1160]: app.slice: Consumed 1.066s CPU time, 4.6M memory peak.
+[  128.434735] systemd[1160]: Reached target shutdown.target - Shutdown.
+[  128.438239] systemd[1160]: Finished systemd-exit.service - Exit the Session.
+[  128.438732] systemd[1160]: Reached target exit.target - Exit the Session.
+[  128.518121] systemd[1]: user@1000.service: Deactivated successfully.
+[  128.527958] systemd[1]: Stopped user@1000.service - User Manager for UID 1000.
+[  128.536881] systemd[1]: user@1000.service: Consumed 5.118s CPU time, 25.5M memory peak.
+[  128.551773] systemd-logind[837]: Removed session 5.
+[  128.656639] systemd[1]: dev-zram0.swap: Deactivated successfully.
+[  128.657352] systemd[1]: Deactivated swap dev-zram0.swap - /dev/zram0.
+[  128.817784] kernel: zram0: detected capacity change from 699408 to 0
+[  128.840589] systemd-logind[837]: Session 4 logged out. Waiting for processes to exit.
+[  128.880267] kernel: zram: Removed device: zram0
+[  128.885480] systemd[1]: Stopping systemd-user-sessions.service - Permit User Sessions...
+[  128.998867] systemd[1]: Stopping user-runtime-dir@1000.service - User Runtime Directory /run/user/1000...
+[  129.087262] systemd[1]: zramswap.service: Deactivated successfully.
+[  129.124713] systemd[1]: Stopped zramswap.service - Linux zramswap setup.
+[  129.218292] sshd-session[1632]: Accepted publickey for root from 192.168.0.119 port 51227 ssh2: ED25519 SHA256:9+PlWZARIas46NtHPK7io6cvMe894XJCmmIDbtfPJ+w
+[  129.255341] sshd-session[1632]: pam_unix(sshd:session): session opened for user root(uid=0) by root(uid=0)
+[  129.315592] systemd-logind[837]: Removed session 4.
+[  129.345564] systemd-logind[837]: Removed session 2.
+[  129.779141] systemd[1]: Requested transaction contradicts existing jobs: Transaction for session-6.scope/start is destructive (poweroff.target has 'start' job queued, but 'stop' is included in transaction).
+[  129.783182] systemd-logind[837]: Failed to start session scope session-6.scope: Transaction for session-6.scope/start is destructive (poweroff.target has 'start' job queued, but 'stop' is included in transaction).
+[  129.785208] sshd-session[1632]: pam_systemd(sshd:session): Failed to create session: Transaction for session-6.scope/start is destructive (poweroff.target has 'start' job queued, but 'stop' is included in transaction).
+[  129.877749] systemd[1]: run-user-1000.mount: Deactivated successfully.
+[  129.880941] systemd[1]: Unmounted run-user-1000.mount - /run/user/1000.
+[  129.931563] systemd[1]: systemd-user-sessions.service: Deactivated successfully.
+[  129.947331] systemd[1]: Stopped systemd-user-sessions.service - Permit User Sessions.
+[  129.974596] systemd[1]: user-runtime-dir@1000.service: Deactivated successfully.
+[  129.988848] systemd[1]: Stopped user-runtime-dir@1000.service - User Runtime Directory /run/user/1000.
+[  130.085093] systemd[1]: Removed slice user-1000.slice - User Slice of UID 1000.
+[  130.099382] systemd[1]: user-1000.slice: Consumed 25.207s CPU time, 228M memory peak.
+[  130.108479] systemd[1]: Stopped target network.target - Network.
+[  130.132572] systemd[1]: Stopped target remote-fs.target - Remote File Systems.
+[  130.154919] NetworkManager[866]: <info>  [1793848869.3617] caught SIGTERM, shutting down normally.
+[  130.168983] systemd[1]: Stopping NetworkManager.service - Network Manager...
+[  130.186023] NetworkManager[866]: <info>  [1793848869.3928] device (wlan0): state change: activated -> deactivating (reason 'unmanaged', managed-type: 'full')
+[  130.209903] NetworkManager[866]: <info>  [1793848869.4167] manager: NetworkManager state is now DISCONNECTING
+[  130.244914] systemd[1]: Stopping networking.service - Raise network interfaces...
+[  130.254183] dbus-daemon[828]: [system] Activating via systemd: service name='org.freedesktop.nm_dispatcher' unit='dbus-org.freedesktop.nm-dispatcher.service' requested by ':1.8' (uid=0 pid=866 comm="/usr/sbin/NetworkManager --no-daemon" label="kernel")
+[  130.301330] systemd[1]: Stopping systemd-logind.service - User Login Management...
+[  130.344231] kernel: wlan0: deauthenticating from xx:xx:xx:xx:xx:xx by local choice (Reason: 3=DEAUTH_LEAVING)
+[  130.372963] systemd[1]: Stopping wpa_supplicant.service - WPA supplicant...
+[  130.592539] wpa_supplicant[868]: wlan0: CTRL-EVENT-DISCONNECTED bssid=xx:xx:xx:xx:xx:xx reason=3 locally_generated=1
+[  130.595307] wpa_supplicant[868]: wlan0: CTRL-EVENT-DSCP-POLICY clear_all
+[  130.613994] systemd[1]: systemd-logind.service: Deactivated successfully.
+[  130.629004] wpa_supplicant[868]: wlan0: CTRL-EVENT-DSCP-POLICY clear_all
+[  130.635626] wpa_supplicant[868]: nl80211: deinit ifname=wlan0 disabled_11b_rates=0
+[  130.646310] systemd[1]: Stopped systemd-logind.service - User Login Management.
+[  130.646863] wpa_supplicant[868]: wlan0: CTRL-EVENT-TERMINATING
+[  130.681887] systemd[1]: systemd-logind.service: Consumed 1.125s CPU time, 2.5M memory peak.
+[  130.792913] systemd[1]: wpa_supplicant.service: Deactivated successfully.
+[  130.801218] systemd[1]: Stopped wpa_supplicant.service - WPA supplicant.
+[  130.867849] dbus-daemon[828]: [system] Activation via systemd failed for unit 'dbus-org.freedesktop.nm-dispatcher.service': Refusing activation, D-Bus is shutting down.
+[  130.879862] NetworkManager[866]: <warn>  [1793848870.0867] dispatcher: (12) failed (after 0.656 sec): Refusing activation, D-Bus is shutting down.
+[  130.911923] NetworkManager[866]: <info>  [1793848870.1187] device (wlan0): state change: deactivating -> unmanaged (reason 'unmanaged-quitting', managed-type: 'full')
+[  130.914016] dbus-daemon[828]: [system] Activating via systemd: service name='org.freedesktop.nm_dispatcher' unit='dbus-org.freedesktop.nm-dispatcher.service' requested by ':1.8' (uid=0 pid=866 comm="/usr/sbin/NetworkManager --no-daemon" label="kernel")
+[  130.923978] NetworkManager[866]: <info>  [1793848870.1308] dhcp4 (wlan0): canceled DHCP transaction
+[  130.927935] NetworkManager[866]: <info>  [1793848870.1313] dhcp4 (wlan0): activation: beginning transaction (timeout in 45 seconds)
+[  130.928335] NetworkManager[866]: <info>  [1793848870.1352] dhcp4 (wlan0): state changed no lease
+[  130.945250] NetworkManager[866]: <info>  [1793848870.1521] dhcp6 (wlan0): canceled DHCP transaction
+[  130.945368] NetworkManager[866]: <info>  [1793848870.1523] dhcp6 (wlan0): activation: beginning transaction (timeout in 45 seconds)
+[  130.945490] NetworkManager[866]: <info>  [1793848870.1524] dhcp6 (wlan0): state changed no lease
+[  131.083632] systemd[1]: Stopped target nss-user-lookup.target - User and Group Name Lookups.
+[  131.086780] dbus-daemon[828]: [system] Activation via systemd failed for unit 'dbus-org.freedesktop.nm-dispatcher.service': Refusing activation, D-Bus is shutting down.
+[  131.155011] dbus-daemon[828]: [system] Activating via systemd: service name='org.freedesktop.nm_dispatcher' unit='dbus-org.freedesktop.nm-dispatcher.service' requested by ':1.8' (uid=0 pid=866 comm="/usr/sbin/NetworkManager --no-daemon" label="kernel")
+[  131.158165] systemd-resolved[649]: wlan0: Bus client reset search domain list.
+[  131.188988] systemd-resolved[649]: wlan0: Bus client set default route setting: no
+[  131.233766] systemd-resolved[649]: wlan0: Bus client reset DNS server list.
+[  131.253722] dbus-daemon[828]: [system] Activation via systemd failed for unit 'dbus-org.freedesktop.nm-dispatcher.service': Refusing activation, D-Bus is shutting down.
+[  131.361230] NetworkManager[866]: <info>  [1793848870.5681] manager: NetworkManager state is now DISCONNECTED
+[  131.416939] dbus-daemon[828]: [system] Activating via systemd: service name='org.freedesktop.nm_dispatcher' unit='dbus-org.freedesktop.nm-dispatcher.service' requested by ':1.8' (uid=0 pid=866 comm="/usr/sbin/NetworkManager --no-daemon" label="kernel")
+[  131.445750] NetworkManager[866]: <info>  [1793848870.6526] device (p2p-dev-wlan0): state change: disconnected -> unmanaged (reason 'unmanaged-link-not-init', managed-type: 'removed')
+[  131.462039] dbus-daemon[828]: [system] Activation via systemd failed for unit 'dbus-org.freedesktop.nm-dispatcher.service': Refusing activation, D-Bus is shutting down.
+[  131.482015] dbus-daemon[828]: [system] Activating via systemd: service name='org.freedesktop.nm_dispatcher' unit='dbus-org.freedesktop.nm-dispatcher.service' requested by ':1.8' (uid=0 pid=866 comm="/usr/sbin/NetworkManager --no-daemon" label="kernel")
+[  131.486931] dbus-daemon[828]: [system] Activation via systemd failed for unit 'dbus-org.freedesktop.nm-dispatcher.service': Refusing activation, D-Bus is shutting down.
+[  131.588495] systemd[1]: networking.service: Deactivated successfully.
+[  131.601224] systemd[1]: Stopped networking.service - Raise network interfaces.
+[  131.636800] NetworkManager[866]: <info>  [1793848870.8436] exiting (success)
+[  131.731958] systemd[1]: NetworkManager.service: Deactivated successfully.
+[  131.740658] systemd[1]: Stopped NetworkManager.service - Network Manager.
+[  131.756833] systemd[1]: NetworkManager.service: Consumed 3.157s CPU time, 11.7M memory peak.
+[  131.822186] systemd[1]: Stopping dbus.service - D-Bus System Message Bus...
+[  131.874310] systemd[1]: dbus.service: Deactivated successfully.
+[  131.884698] systemd[1]: Stopped dbus.service - D-Bus System Message Bus.
+[  131.888901] systemd[1]: dbus.service: Consumed 2.131s CPU time, 1.8M memory peak.
+[  131.901897] systemd[1]: Stopped target basic.target - Basic System.
+[  131.911339] systemd[1]: systemd-ask-password-plymouth.path: Deactivated successfully.
+[  131.913177] systemd[1]: Stopped systemd-ask-password-plymouth.path - Forward Password Requests to Plymouth Directory Watch.
+[  131.913816] systemd[1]: Stopped target paths.target - Path Units.
+[  131.914237] systemd[1]: cups.path: Deactivated successfully.
+[  131.914337] systemd[1]: Stopped cups.path - CUPS Scheduler.
+[  131.914699] systemd[1]: systemd-ask-password-wall.path: Deactivated successfully.
+[  131.920552] systemd[1]: Stopped systemd-ask-password-wall.path - Forward Password Requests to Wall Directory Watch.
+[  131.926362] systemd[1]: Stopped target slices.target - Slice Units.
+[  131.932932] systemd[1]: Removed slice user.slice - User and Session Slice.
+[  131.934853] systemd[1]: user.slice: Consumed 26.983s CPU time, 228M memory peak.
+[  131.935134] systemd[1]: Stopped target sockets.target - Socket Units.
+[  131.938778] systemd[1]: avahi-daemon.socket: Deactivated successfully.
+[  131.941005] systemd[1]: Closed avahi-daemon.socket - Avahi mDNS/DNS-SD Stack Activation Socket.
+[  131.949260] systemd[1]: cups.socket: Deactivated successfully.
+[  131.951088] systemd[1]: Closed cups.socket - CUPS Scheduler.
+[  131.956419] systemd[1]: dbus.socket: Deactivated successfully.
+[  131.958083] systemd[1]: Closed dbus.socket - D-Bus System Message Bus Socket.
+[  131.963362] systemd[1]: sshd-unix-local.socket: Deactivated successfully.
+[  131.965730] systemd[1]: Closed sshd-unix-local.socket - OpenSSH Server Socket (systemd-ssh-generator, AF_UNIX Local).
+[  131.970555] systemd[1]: systemd-hostnamed.socket: Deactivated successfully.
+[  131.971192] systemd[1]: Closed systemd-hostnamed.socket - Hostname Service Socket.
+[  131.978131] systemd[1]: Stopped target sysinit.target - System Initialization.
+[  132.004948] systemd[1]: Stopping systemd-backlight@backlight:backlight.service - Load/Save Screen Backlight Brightness of backlight:backlight...
+[  132.064933] systemd[1]: Stopping systemd-binfmt.service - Set Up Additional Binary Formats...
+[  132.081449] systemd[1]: Stopping systemd-resolved.service - Network Name Resolution...
+[  132.113309] systemd[1]: Stopping systemd-timesyncd.service - Network Time Synchronization...
+[  132.150722] systemd[1]: systemd-tmpfiles-setup.service: Deactivated successfully.
+[  132.155703] systemd[1]: Stopped systemd-tmpfiles-setup.service - Create System Files and Directories.
+[  132.293054] systemd[1]: systemd-resolved.service: Deactivated successfully.
+[  132.314779] systemd[1]: Stopped systemd-resolved.service - Network Name Resolution.
+[  132.470239] systemd[1]: systemd-timesyncd.service: Deactivated successfully.
+[  132.502621] systemd[1]: Stopped systemd-timesyncd.service - Network Time Synchronization.
+[  132.611147] systemd[1]: systemd-sysctl.service: Deactivated successfully.
+[  132.641169] systemd[1]: Stopped systemd-sysctl.service - Apply Kernel Variables.
+[  132.657513] systemd[1]: systemd-modules-load.service: Deactivated successfully.
+[  132.662173] systemd[1]: Stopped systemd-modules-load.service - Load Kernel Modules.
+[  132.738160] systemd[1]: Started plymouth-poweroff.service - Show Plymouth Power Off Screen.
+[  132.755080] systemd[1]: plymouth-switch-root-initramfs.service - Tell Plymouth To Jump To initramfs skipped, no trigger condition checks were met.
+[  132.853293] systemd[1]: systemd-backlight@backlight:backlight.service: Deactivated successfully.
+[  132.869215] systemd[1]: Stopped systemd-backlight@backlight:backlight.service - Load/Save Screen Backlight Brightness of backlight:backlight.
+[  132.882699] systemd[1]: systemd-binfmt.service: Deactivated successfully.
+[  132.895551] systemd[1]: Stopped systemd-binfmt.service - Set Up Additional Binary Formats.
+[  132.928173] systemd[1]: Removed slice system-systemd\x2dbacklight.slice - Slice /system/systemd-backlight.
+[  132.933507] systemd[1]: proc-sys-fs-binfmt_misc.automount: Deactivated successfully.
+[  132.937029] systemd[1]: Unset automount proc-sys-fs-binfmt_misc.automount - Arbitrary Executable File Formats File System Automount Point.
+[  132.943075] systemd[1]: Stopped target local-fs.target - Local File Systems.
+[  132.960915] systemd[1]: Unmounting boot.mount - /boot...
+[  133.012884] systemd[1]: Unmounting run-aqdiag.mount - /run/aqdiag...
+[  133.048898] systemd[1]: Unmounting run-lock.mount - Legacy Locks Directory /run/lock...
+[  133.100886] systemd[1]: Unmounting tmp.mount - Temporary Directory /tmp...
+[  133.197890] systemd[1]: proc-sys-fs-binfmt_misc.mount: Deactivated successfully.
+[  133.458167] umount[1745]: umount: /boot: target is busy.
+[  133.463312] systemd[1]: boot.mount: Mount process exited, code=exited, status=32/n/a
+[  133.463454] systemd[1]: Failed unmounting boot.mount - /boot.
+[  133.503095] systemd[1]: systemd-fsck@dev-disk-by\x2dlabel-AQ\x2dBOOT.service: Deactivated successfully.
+[  133.521241] systemd[1]: Stopped systemd-fsck@dev-disk-by\x2dlabel-AQ\x2dBOOT.service - File System Check on /dev/disk/by-label/AQ-BOOT.
+[  133.548917] systemd[1]: Removed slice system-systemd\x2dfsck.slice - Slice /system/systemd-fsck.
+[  133.589894] systemd[1]: run-aqdiag.mount: Deactivated successfully.
+[  133.593889] systemd[1]: Unmounted run-aqdiag.mount - /run/aqdiag.
+[  133.601658] systemd[1]: run-lock.mount: Deactivated successfully.
+[  133.606128] systemd[1]: Unmounted run-lock.mount - Legacy Locks Directory /run/lock.
+[  133.613746] systemd[1]: tmp.mount: Deactivated successfully.
+[  133.618239] systemd[1]: Unmounted tmp.mount - Temporary Directory /tmp.
+[  133.643579] systemd[1]: Stopped target local-fs-pre.target - Preparation for Local File Systems.
+[  133.651551] systemd[1]: Stopped target swap.target - Swaps.
+[  133.652477] systemd[1]: Reached target umount.target - Unmount All Filesystems.
+[  133.653053] systemd[1]: systemd-remount-fs.service: Deactivated successfully.
+[  133.653808] systemd[1]: Stopped systemd-remount-fs.service - Remount Root and Kernel File Systems.
+[  133.654725] systemd[1]: systemd-tmpfiles-setup-dev.service: Deactivated successfully.
+[  133.655397] systemd[1]: Stopped systemd-tmpfiles-setup-dev.service - Create Static Device Nodes in /dev.
+[  133.665844] systemd[1]: systemd-tmpfiles-setup-dev-early.service: Deactivated successfully.
+[  133.666778] systemd[1]: Stopped systemd-tmpfiles-setup-dev-early.service - Create Static Device Nodes in /dev gracefully.
+[  133.672727] systemd[1]: Reached target shutdown.target - System Shutdown.
+[  133.677812] systemd[1]: Reached target final.target - Late Shutdown Services.
+[  133.681623] systemd[1]: systemd-poweroff.service: Deactivated successfully.
+[  133.684777] systemd[1]: Finished systemd-poweroff.service - System Power Off.
+[  133.687276] systemd[1]: Reached target poweroff.target - System Power Off.
+[  133.692663] systemd[1]: Shutting down.
+[  134.088202] systemd-shutdown[1]: Syncing filesystems and block devices.

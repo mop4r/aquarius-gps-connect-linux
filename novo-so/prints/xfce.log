@@ -1,0 +1,121 @@
+dbus-daemon[652]: [session uid=1000 pid=652 pidfd=5] Activating service name='org.a11y.Bus' requested by ':1.0' (uid=1000 pid=658 comm="/usr/libexec/qemu-binfmt/arm-binfmt-P /usr/bin/xfw" label="kernel")
+dbus-daemon[652]: [session uid=1000 pid=652 pidfd=5] Successfully activated service 'org.a11y.Bus'
+dbus-daemon[652]: [session uid=1000 pid=652 pidfd=5] Activating service name='org.xfce.Xfconf' requested by ':1.5' (uid=1000 pid=663 comm="/usr/libexec/qemu-binfmt/arm-binfmt-P /usr/bin/xfc" label="kernel")
+dbus-daemon[652]: [session uid=1000 pid=652 pidfd=5] Activating service name='org.gtk.vfs.Daemon' requested by ':1.9' (uid=1000 pid=658 comm="/usr/libexec/qemu-binfmt/arm-binfmt-P /usr/bin/xfw" label="kernel")
+dbus-daemon[652]: [session uid=1000 pid=652 pidfd=5] Successfully activated service 'org.xfce.Xfconf'
+dbus-daemon[686]: Activating service name='org.a11y.atspi.Registry' requested by ':1.3' (uid=1000 pid=660 comm="/usr/libexec/qemu-binfmt/arm-binfmt-P /usr/bin/xfs" label="kernel")
+
+(xfce4-panel:663): xfce4-panel-WARNING **: 12:15:52.548: Failed to connect to session manager: Falha ao conectar ao gerenciador de sessão: SESSION_MANAGER environment variable not defined
+dbus-daemon[652]: [session uid=1000 pid=652 pidfd=5] Activating service name='org.freedesktop.portal.Desktop' requested by ':1.7' (uid=1000 pid=662 comm="/usr/libexec/qemu-binfmt/arm-binfmt-P /usr/bin/xfd" label="kernel")
+dbus-daemon[652]: [session uid=1000 pid=652 pidfd=5] Successfully activated service 'org.gtk.vfs.Daemon'
+dbus-daemon[686]: Successfully activated service 'org.a11y.atspi.Registry'
+SpiRegistry daemon is running with well-known name - org.a11y.atspi.Registry
+12:15:52.685 WARNING Config: mousetweaks GSettings schema not found, mousetweaks integration disabled.
+dbus-daemon[652]: [session uid=1000 pid=652 pidfd=5] Activating service name='org.freedesktop.impl.portal.PermissionStore' requested by ':1.17' (uid=1000 pid=733 comm="/usr/libexec/qemu-binfmt/arm-binfmt-P /usr/libexec" label="kernel")
+dbus-daemon[652]: [session uid=1000 pid=652 pidfd=5] Activating service name='ca.desrt.dconf' requested by ':1.13' (uid=1000 pid=664 comm="/usr/libexec/qemu-binfmt/arm-binfmt-P /usr/bin/pyt" label="kernel")
+dbus-daemon[652]: [session uid=1000 pid=652 pidfd=5] Successfully activated service 'org.freedesktop.impl.portal.PermissionStore'
+dbus-daemon[652]: [session uid=1000 pid=652 pidfd=5] Activating service name='org.freedesktop.portal.Documents' requested by ':1.17' (uid=1000 pid=733 comm="/usr/libexec/qemu-binfmt/arm-binfmt-P /usr/libexec" label="kernel")
+dbus-daemon[652]: [session uid=1000 pid=652 pidfd=5] Successfully activated service 'ca.desrt.dconf'
+
+(xfsettingsd:660): xfsettingsd-WARNING **: 12:15:52.868: Failed to connect to session manager: Falha ao conectar ao gerenciador de sessão: SESSION_MANAGER environment variable not defined
+dbus-daemon[652]: [session uid=1000 pid=652 pidfd=5] Successfully activated service 'org.freedesktop.portal.Documents'
+12:15:52.951 WARNING HardwareSensorTracker: Failed to connect to acpid, SW_TABLET_MODE detection disabled. ('/var/run/acpid.socket': [Errno 2] Arquivo ou diretório inexistente) 
+fusermount3: mount failed: Operation not permitted
+error: fuse init failed: Can't mount path /tmp/xdg-jogador/doc
+
+(/usr/libexec/xdg-desktop-portal:733): xdg-desktop-portal-WARNING **: 12:15:52.967: Document portal fuse mount point unknown: GDBus.Error:org.freedesktop.DBus.Error.ServiceUnknown: The name :1.21 was not provided by any .service files
+
+(/usr/libexec/xdg-desktop-portal:733): xdg-desktop-portal-WARNING **: 12:15:52.970: Choosing gtk.portal for org.freedesktop.impl.portal.Lockdown as a last-resort fallback
+dbus-daemon[652]: [session uid=1000 pid=652 pidfd=5] Activating service name='org.freedesktop.impl.portal.desktop.gtk' requested by ':1.17' (uid=1000 pid=733 comm="/usr/libexec/qemu-binfmt/arm-binfmt-P /usr/libexec" label="kernel")
+
+(xfsettingsd:660): xfsettingsd-WARNING **: 12:15:53.041: Failed to get the _NET_NUMBER_OF_DESKTOPS property.
+
+(xdg-desktop-portal-gtk:791): xdg-desktop-portal-gtk-WARNING **: 12:15:53.149: error: Não foi possível conectar: Arquivo ou diretório inexistente
+
+** Message: 12:15:53.167: Failed to fetch _NET_NUMBER_OF_DESKTOPS; assuming 1
+** Message: 12:15:53.167: Failed to get _NET_WORKAREA; using full screen dimensions
+** Message: 12:15:53.167: Failed to fetch _NET_CURRENT_DESKTOP; assuming 0
+** Message: 12:15:53.167: Failed to fetch _NET_CURRENT_DESKTOP; assuming 0
+dbus-daemon[652]: [session uid=1000 pid=652 pidfd=5] Successfully activated service 'org.freedesktop.impl.portal.desktop.gtk'
+
+(/usr/libexec/xdg-desktop-portal:733): xdg-desktop-portal-WARNING **: 12:15:53.320: Failed to create RealtimeKit proxy: Não foi possível conectar: Arquivo ou diretório inexistente
+
+(/usr/libexec/xdg-desktop-portal:733): xdg-desktop-portal-WARNING **: 12:15:53.321: Choosing gtk.portal for org.freedesktop.impl.portal.Settings as a last-resort fallback
+
+(/usr/libexec/xdg-desktop-portal:733): xdg-desktop-portal-WARNING **: 12:15:53.324: Choosing gtk.portal for org.freedesktop.impl.portal.FileChooser as a last-resort fallback
+
+(/usr/libexec/xdg-desktop-portal:733): xdg-desktop-portal-WARNING **: 12:15:53.327: Choosing gtk.portal for org.freedesktop.impl.portal.AppChooser as a last-resort fallback
+
+(/usr/libexec/xdg-desktop-portal:733): xdg-desktop-portal-WARNING **: 12:15:53.331: Choosing gtk.portal for org.freedesktop.impl.portal.Print as a last-resort fallback
+
+(/usr/libexec/xdg-desktop-portal:733): xdg-desktop-portal-WARNING **: 12:15:53.334: Choosing gtk.portal for org.freedesktop.impl.portal.Notification as a last-resort fallback
+
+(/usr/libexec/xdg-desktop-portal:733): xdg-desktop-portal-WARNING **: 12:15:53.340: Choosing gtk.portal for org.freedesktop.impl.portal.Inhibit as a last-resort fallback
+
+(/usr/libexec/xdg-desktop-portal:733): xdg-desktop-portal-WARNING **: 12:15:53.343: Choosing gtk.portal for org.freedesktop.impl.portal.Access as a last-resort fallback
+[W][12:15:53.353125] pw.conf      | [          conf.c: 1182 try_load_conf()] can't load config client.conf: Arquivo ou diretório inexistente
+[E][12:15:53.353508] pw.conf      | [          conf.c: 1215 pw_conf_load_conf_for_context()] can't load config client.conf: Arquivo ou diretório inexistente
+
+(/usr/libexec/xdg-desktop-portal:733): xdg-desktop-portal-WARNING **: 12:15:53.354: Failed connect to PipeWire: Couldn't create PipeWire context
+
+(/usr/libexec/xdg-desktop-portal:733): xdg-desktop-portal-WARNING **: 12:15:53.356: Choosing gtk.portal for org.freedesktop.impl.portal.Account as a last-resort fallback
+
+(/usr/libexec/xdg-desktop-portal:733): xdg-desktop-portal-WARNING **: 12:15:53.360: Choosing gtk.portal for org.freedesktop.impl.portal.Email as a last-resort fallback
+
+(/usr/libexec/xdg-desktop-portal:733): xdg-desktop-portal-WARNING **: 12:15:53.363: Choosing gtk.portal for org.freedesktop.impl.portal.DynamicLauncher as a last-resort fallback
+dbus-daemon[652]: [session uid=1000 pid=652 pidfd=5] Successfully activated service 'org.freedesktop.portal.Desktop'
+
+(onboard:664): libayatana-appindicator-WARNING **: 12:15:53.396: libayatana-appindicator is deprecated. Please use libayatana-appindicator-glib in newly written code.
+** Message: 12:15:53.627: Failed to fetch _NET_CURRENT_DESKTOP; assuming 0
+** Message: 12:15:53.630: Failed to fetch _NET_CURRENT_DESKTOP; assuming 0
+Failed to connect to session manager: Falha ao conectar ao gerenciador de sessão: SESSION_MANAGER environment variable not defined
+** Message: 12:15:53.819: Unable to migrate old setting /backdrop/screen0/monitor1/last-single-image; monitor 1 is not currently attached
+** Message: 12:15:53.820: Unable to migrate old setting /backdrop/screen0/monitor1/color2; monitor 1 is not currently attached
+** Message: 12:15:53.821: Unable to migrate old setting /backdrop/screen0/monitor1/brightness; monitor 1 is not currently attached
+** Message: 12:15:53.824: Unable to migrate /backdrop/screen0/monitor0/color1 to RGBA as it contains invalid data
+** Message: 12:15:53.825: Unable to migrate old setting /backdrop/screen0/monitor1/last-image; monitor 1 is not currently attached
+** Message: 12:15:53.826: Unable to migrate old setting /backdrop/screen0/monitor1/image-path; monitor 1 is not currently attached
+** Message: 12:15:53.831: Unable to migrate old setting /backdrop/screen0/monitor1/image-show; monitor 1 is not currently attached
+** Message: 12:15:53.832: Unable to migrate old setting /backdrop/screen0/monitor1/color1; monitor 1 is not currently attached
+** Message: 12:15:53.833: Unable to migrate old setting /backdrop/screen0/monitor1/color-style; monitor 1 is not currently attached
+** Message: 12:15:53.835: Unable to migrate /backdrop/screen0/monitor0/color2 to RGBA as it contains invalid data
+dbus-daemon[652]: [session uid=1000 pid=652 pidfd=5] Activating service name='org.xfce.FileManager' requested by ':1.7' (uid=1000 pid=662 comm="/usr/libexec/qemu-binfmt/arm-binfmt-P /usr/bin/xfd" label="kernel")
+dbus-daemon[652]: [session uid=1000 pid=652 pidfd=5] Activating service name='org.freedesktop.FileManager1' requested by ':1.7' (uid=1000 pid=662 comm="/usr/libexec/qemu-binfmt/arm-binfmt-P /usr/bin/xfd" label="kernel")
+dbus-daemon[652]: [session uid=1000 pid=652 pidfd=5] Activating service name='org.freedesktop.thumbnails.Thumbnailer1' requested by ':1.7' (uid=1000 pid=662 comm="/usr/libexec/qemu-binfmt/arm-binfmt-P /usr/bin/xfd" label="kernel")
+Failed to register: Unable to acquire bus name 'org.xfce.Thunar'
+
+(xfwm4:658): xfwm4-WARNING **: 12:15:54.199: Another compositing manager is running on screen 0
+
+(xfwm4:658): xfwm4-WARNING **: 12:15:54.213: Failed to connect to session manager: Falha ao conectar ao gerenciador de sessão: SESSION_MANAGER environment variable not defined
+dbus-daemon[652]: [session uid=1000 pid=652 pidfd=5] Successfully activated service 'org.xfce.FileManager'
+dbus-daemon[652]: [session uid=1000 pid=652 pidfd=5] Successfully activated service 'org.freedesktop.FileManager1'
+Xlib:  extension "DPMS" missing on display ":77".
+dbus-daemon[652]: [session uid=1000 pid=652 pidfd=5] Activating service name='org.gtk.vfs.UDisks2VolumeMonitor' requested by ':1.26' (uid=1000 pid=826 comm="/usr/libexec/qemu-binfmt/arm-binfmt-P /usr/lib/arm" label="kernel")
+
+(process:869): GVFS-UDisks2-WARNING **: 12:15:56.450: Failed to connect to UDisks: Não foi possível conectar: Arquivo ou diretório inexistente
+
+(process:869): GVFS-RemoteVolumeMonitorDaemon-WARNING **: 12:15:56.453: monitor says it's not supported
+dbus-daemon[652]: [session uid=1000 pid=652 pidfd=5] Successfully activated service 'org.gtk.vfs.UDisks2VolumeMonitor'
+
+(process:869): GVFS-RemoteVolumeMonitorDaemon-WARNING **: 12:15:56.486: monitor says it's not supported
+
+(tumblerd:826): GVFS-RemoteVolumeMonitor-WARNING **: 12:15:56.487: remote volume monitor with dbus name org.gtk.vfs.UDisks2VolumeMonitor is not supported
+dbus-daemon[652]: [session uid=1000 pid=652 pidfd=5] Successfully activated service 'org.freedesktop.thumbnails.Thumbnailer1'
+
+(process:869): GVFS-RemoteVolumeMonitorDaemon-WARNING **: 12:15:56.548: monitor says it's not supported
+
+(xfdesktop:662): GVFS-RemoteVolumeMonitor-WARNING **: 12:15:56.549: remote volume monitor with dbus name org.gtk.vfs.UDisks2VolumeMonitor is not supported
+dbus-daemon[652]: [session uid=1000 pid=652 pidfd=5] Activating service name='org.gtk.vfs.Metadata' requested by ':1.7' (uid=1000 pid=662 comm="/usr/libexec/qemu-binfmt/arm-binfmt-P /usr/bin/xfd" label="kernel")
+dbus-daemon[652]: [session uid=1000 pid=652 pidfd=5] Successfully activated service 'org.gtk.vfs.Metadata'
+
+** (xfdesktop:662): WARNING **: 12:15:57.588: Failed to get system bus: Não foi possível conectar: Arquivo ou diretório inexistente
+
+Session terminated, killing shell...
+(xfce4-panel:663): xfce4-panel-CRITICAL **: 12:26:01.768: Name org.xfce.Panel lost on the message dbus, exiting.
+xfsettingsd: Another instance took over. Leaving...
+A connection to the bus can't be made
+A connection to the bus can't be made
+
+(xfsettingsd:660): xfconf-WARNING **: 12:26:01.786: Failed to set property "keyboards::/Default/Numlock": A conexão está fechada
+ ...killed.
+Terminated

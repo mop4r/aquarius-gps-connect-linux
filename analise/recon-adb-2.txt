@@ -1,0 +1,176 @@
+﻿===== dmesg
+adb.exe : adb.exe: device '192.168.0.187:5555' not found
+No linha:1 caractere:1537
++ ... =foreach($c in $cmds){ "===== $c"; & $adb -s $s shell $c 2>&1 }; $out ...
++                                        ~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (adb.exe: device...5555' not found:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+===== cat /proc/config.gz | /data/local/tmp/busybox gunzip
+adb.exe : adb.exe: device '192.168.0.187:5555' not found
+No linha:1 caractere:1537
++ ... =foreach($c in $cmds){ "===== $c"; & $adb -s $s shell $c 2>&1 }; $out ...
++                                        ~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (adb.exe: device...5555' not found:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+===== ls -lR /system/vendor /system/lib/modules
+adb.exe : adb.exe: device '192.168.0.187:5555' not found
+No linha:1 caractere:1537
++ ... =foreach($c in $cmds){ "===== $c"; & $adb -s $s shell $c 2>&1 }; $out ...
++                                        ~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (adb.exe: device...5555' not found:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+===== cat /proc/asound/cards; ls /dev/snd
+adb.exe : adb.exe: device '192.168.0.187:5555' not found
+No linha:1 caractere:1537
++ ... =foreach($c in $cmds){ "===== $c"; & $adb -s $s shell $c 2>&1 }; $out ...
++                                        ~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (adb.exe: device...5555' not found:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+===== /data/local/tmp/busybox find /sys/bus/i2c/devices/ -maxdepth 1 -name '*-*'
+adb.exe : adb.exe: device '192.168.0.187:5555' not found
+No linha:1 caractere:1537
++ ... =foreach($c in $cmds){ "===== $c"; & $adb -s $s shell $c 2>&1 }; $out ...
++                                        ~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (adb.exe: device...5555' not found:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+===== for d in /sys/bus/i2c/devices/*-*; do echo $d $(cat $d/name); done
+adb.exe : adb.exe: device '192.168.0.187:5555' not found
+No linha:1 caractere:1537
++ ... =foreach($c in $cmds){ "===== $c"; & $adb -s $s shell $c 2>&1 }; $out ...
++                                        ~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (adb.exe: device...5555' not found:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+===== cat /proc/bus/input/devices
+adb.exe : adb.exe: device '192.168.0.187:5555' not found
+No linha:1 caractere:1537
++ ... =foreach($c in $cmds){ "===== $c"; & $adb -s $s shell $c 2>&1 }; $out ...
++                                        ~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (adb.exe: device...5555' not found:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+===== getevent -lp
+adb.exe : adb.exe: device '192.168.0.187:5555' not found
+No linha:1 caractere:1537
++ ... =foreach($c in $cmds){ "===== $c"; & $adb -s $s shell $c 2>&1 }; $out ...
++                                        ~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (adb.exe: device...5555' not found:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+===== cat /proc/interrupts
+adb.exe : adb.exe: device '192.168.0.187:5555' not found
+No linha:1 caractere:1537
++ ... =foreach($c in $cmds){ "===== $c"; & $adb -s $s shell $c 2>&1 }; $out ...
++                                        ~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (adb.exe: device...5555' not found:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+===== cat /proc/iomem
+adb.exe : adb.exe: device '192.168.0.187:5555' not found
+No linha:1 caractere:1537
++ ... =foreach($c in $cmds){ "===== $c"; & $adb -s $s shell $c 2>&1 }; $out ...
++                                        ~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (adb.exe: device...5555' not found:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+===== ls /sys/class/gpio /sys/class/backlight /sys/class/power_supply
+adb.exe : adb.exe: device '192.168.0.187:5555' not found
+No linha:1 caractere:1537
++ ... =foreach($c in $cmds){ "===== $c"; & $adb -s $s shell $c 2>&1 }; $out ...
++                                        ~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (adb.exe: device...5555' not found:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+===== for f in /sys/class/power_supply/*/*; do [ -f $f ] && echo $f=$(cat $f 2>/dev/null); done
+adb.exe : adb.exe: device '192.168.0.187:5555' not found
+No linha:1 caractere:1537
++ ... =foreach($c in $cmds){ "===== $c"; & $adb -s $s shell $c 2>&1 }; $out ...
++                                        ~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (adb.exe: device...5555' not found:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+===== cat /sys/class/backlight/*/max_brightness /sys/class/backlight/*/brightness
+adb.exe : adb.exe: device '192.168.0.187:5555' not found
+No linha:1 caractere:1537
++ ... =foreach($c in $cmds){ "===== $c"; & $adb -s $s shell $c 2>&1 }; $out ...
++                                        ~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (adb.exe: device...5555' not found:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+===== ls -l /dev/ttyS* /dev/gps* /dev/radio*
+adb.exe : adb.exe: device '192.168.0.187:5555' not found
+No linha:1 caractere:1537
++ ... =foreach($c in $cmds){ "===== $c"; & $adb -s $s shell $c 2>&1 }; $out ...
++                                        ~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (adb.exe: device...5555' not found:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+===== getprop | /data/local/tmp/busybox grep -i -E 'gps|serial|ro.kernel|wifi|audio'
+adb.exe : adb.exe: device '192.168.0.187:5555' not found
+No linha:1 caractere:1537
++ ... =foreach($c in $cmds){ "===== $c"; & $adb -s $s shell $c 2>&1 }; $out ...
++                                        ~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (adb.exe: device...5555' not found:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+===== cat /init.sun4i.rc
+adb.exe : adb.exe: device '192.168.0.187:5555' not found
+No linha:1 caractere:1537
++ ... =foreach($c in $cmds){ "===== $c"; & $adb -s $s shell $c 2>&1 }; $out ...
++                                        ~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (adb.exe: device...5555' not found:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+===== cat /system/build.prop
+adb.exe : adb.exe: device '192.168.0.187:5555' not found
+No linha:1 caractere:1537
++ ... =foreach($c in $cmds){ "===== $c"; & $adb -s $s shell $c 2>&1 }; $out ...
++                                        ~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (adb.exe: device...5555' not found:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+===== /data/local/tmp/busybox lsusb 2>/dev/null; cat /sys/bus/usb/devices/*/uevent
+adb.exe : adb.exe: device '192.168.0.187:5555' not found
+No linha:1 caractere:1537
++ ... =foreach($c in $cmds){ "===== $c"; & $adb -s $s shell $c 2>&1 }; $out ...
++                                        ~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (adb.exe: device...5555' not found:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+===== cat /proc/cpuinfo; cat /proc/meminfo
+adb.exe : adb.exe: device '192.168.0.187:5555' not found
+No linha:1 caractere:1537
++ ... =foreach($c in $cmds){ "===== $c"; & $adb -s $s shell $c 2>&1 }; $out ...
++                                        ~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (adb.exe: device...5555' not found:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+===== ls /system/etc /system/etc/firmware
+adb.exe : adb.exe: device '192.168.0.187:5555' not found
+No linha:1 caractere:1537
++ ... =foreach($c in $cmds){ "===== $c"; & $adb -s $s shell $c 2>&1 }; $out ...
++                                        ~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (adb.exe: device...5555' not found:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+===== dumpsys input | /data/local/tmp/busybox head -120
+adb.exe : adb.exe: device '192.168.0.187:5555' not found
+No linha:1 caractere:1537
++ ... =foreach($c in $cmds){ "===== $c"; & $adb -s $s shell $c 2>&1 }; $out ...
++                                        ~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (adb.exe: device...5555' not found:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+===== cat /sys/devices/platform/*/uevent 2>/dev/null | /data/local/tmp/busybox head -200
+adb.exe : adb.exe: device '192.168.0.187:5555' not found
+No linha:1 caractere:1537
++ ... =foreach($c in $cmds){ "===== $c"; & $adb -s $s shell $c 2>&1 }; $out ...
++                                        ~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (adb.exe: device...5555' not found:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 

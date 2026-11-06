@@ -1,0 +1,766 @@
+[   21.031328] kernel: Booting Linux on physical CPU 0x0
+[   21.031796] kernel: Linux version 6.12.115+deb13.1-armmp (debian-kernel@lists.debian.org) (arm-linux-gnueabihf-gcc-14 (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44) #1 SMP Debian 6.12.115-2 (2026-11-01)
+[   21.040351] kernel: CPU: ARMv7 Processor [413fc082] revision 2 (ARMv7), cr=10c5387d
+[   21.040619] kernel: CPU: PIPT / VIPT nonaliasing data cache, VIPT aliasing instruction cache
+[   21.040791] kernel: OF: fdt: Machine model: Aquarius Connect 5.0 (MTC4553)
+[   21.040956] kernel: Memory policy: Data cache writeback
+[   21.041165] kernel: efi: UEFI not found.
+[   21.041326] kernel: Reserved memory: created CMA memory pool at 0x4a000000, size 96 MiB
+[   21.041481] kernel: OF: reserved mem: initialized node default-pool, compatible id shared-dma-pool
+[   21.041635] kernel: OF: reserved mem: 0x4a000000..0x4fffffff (98304 KiB) map reusable default-pool
+[   21.041787] kernel: Zone ranges:
+[   21.041940] kernel:   DMA      [mem 0x0000000040000000-0x000000005dffffff]
+[   21.042090] kernel:   Normal   empty
+[   21.042249] kernel:   HighMem  empty
+[   21.042511] kernel: Movable zone start for each node
+[   21.042680] kernel: Early memory node ranges
+[   21.042835] kernel:   node   0: [mem 0x0000000040000000-0x000000005dffffff]
+[   21.042988] kernel: Initmem setup node 0 [mem 0x0000000040000000-0x000000005dffffff]
+[   21.043145] kernel: CPU: All CPU(s) started in SVC mode.
+[   21.043298] kernel: percpu: Embedded 20 pages/cpu s50444 r8192 d23284 u81920
+[   21.043450] kernel: pcpu-alloc: s50444 r8192 d23284 u81920 alloc=20*4096
+[   21.043612] kernel: pcpu-alloc: [0] 0 
+[   21.043778] kernel: Kernel command line: root=LABEL=AQ-ROOT rootfstype=ext4 rootwait rw console=ttyS0,115200 console=tty1 net.ifnames=0 panic=10 loglevel=7
+[   21.043940] kernel: Dentry cache hash table entries: 65536 (order: 6, 262144 bytes, linear)
+[   21.060406] kernel: Inode-cache hash table entries: 32768 (order: 5, 131072 bytes, linear)
+[   21.060640] kernel: Built 1 zonelists, mobility grouping on.  Total pages: 122880
+[   21.060862] kernel: allocated 491520 bytes of page_ext
+[   21.061027] kernel: mem auto-init: stack:all(zero), heap alloc:on, heap free:off
+[   21.061184] kernel: SLUB: HWalign=64, Order=0-3, MinObjects=0, CPUs=1, Nodes=1
+[   21.061338] kernel: ftrace: allocating 44126 entries in 130 pages
+[   21.061492] kernel: ftrace: allocated 130 pages with 2 groups
+[   21.061650] kernel: rcu: Hierarchical RCU implementation.
+[   21.061807] kernel: rcu:         RCU restricting CPUs from NR_CPUS=8 to nr_cpu_ids=1.
+[   21.061961] kernel:         Rude variant of Tasks RCU enabled.
+[   21.062113] kernel:         Tracing variant of Tasks RCU enabled.
+[   21.062266] kernel: rcu: RCU calculated value of scheduler-enlistment delay is 25 jiffies.
+[   21.062420] kernel: rcu: Adjusting geometry for rcu_fanout_leaf=16, nr_cpu_ids=1
+[   21.062578] kernel: RCU Tasks Rude: Setting shift to 0 and lim to 1 rcu_task_cb_adjust=1 rcu_task_cpu_ids=1.
+[   21.062734] kernel: RCU Tasks Trace: Setting shift to 0 and lim to 1 rcu_task_cb_adjust=1 rcu_task_cpu_ids=1.
+[   21.062896] kernel: NR_IRQS: 16, nr_irqs: 16, preallocated irqs: 16
+[   21.063131] kernel: rcu: srcu_init: Setting srcu_struct sizes based on contention.
+[   21.063290] kernel: clocksource: jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 7645041785100000 ns
+[   21.063445] kernel: sched_clock: 32 bits at 24MHz, resolution 41ns, wraps every 89478484971ns
+[   21.063621] kernel: clocksource: timer: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 79635851949 ns
+[   21.063821] kernel: Console: colour dummy device 80x25
+[   21.063997] kernel: printk: legacy console [tty1] enabled
+[   21.068448] kernel: Calibrating delay loop... 1001.47 BogoMIPS (lpj=2002944)
+[   21.068659] kernel: CPU: Testing write buffer coherency: ok
+[   21.068843] kernel: CPU0: Spectre v2: firmware did not set auxiliary control register IBE bit, system vulnerable
+[   21.069030] kernel: pid_max: default: 32768 minimum: 301
+[   21.069211] kernel: LSM: initializing lsm=lockdown,capability,landlock,yama,apparmor,tomoyo,bpf,ipe,ima,evm
+[   21.069384] kernel: landlock: Up and running.
+[   21.069607] kernel: Yama: disabled by default; enable with sysctl kernel.yama.*
+[   21.069787] kernel: AppArmor: AppArmor initialized
+[   21.069965] kernel: TOMOYO Linux initialized
+[   21.070140] kernel: LSM support for eBPF active
+[   21.070316] kernel: Mount-cache hash table entries: 1024 (order: 0, 4096 bytes, linear)
+[   21.070490] kernel: Mountpoint-cache hash table entries: 1024 (order: 0, 4096 bytes, linear)
+[   21.070663] kernel: CPU0: thread -1, cpu 0, socket -1, mpidr 0
+[   21.070838] kernel: Setting up static identity map for 0x40300000 - 0x403000ac
+[   21.071014] kernel: rcu: Hierarchical SRCU implementation.
+[   21.071214] kernel: rcu:         Max phase no-delay instances is 1000.
+[   21.071391] kernel: EFI services will not be available.
+[   21.071564] kernel: smp: Bringing up secondary CPUs ...
+[   21.071739] kernel: smp: Brought up 1 node, 1 CPU
+[   21.071912] kernel: SMP: Total of 1 processors activated (1001.47 BogoMIPS).
+[   21.084362] kernel: CPU: All CPU(s) started in SVC mode.
+[   21.084598] kernel: Memory: 340616K/491520K available (12288K kernel code, 1798K rwdata, 4204K rodata, 2048K init, 425K bss, 50544K reserved, 98304K cma-reserved, 0K highmem)
+[   21.084788] kernel: devtmpfs: initialized
+[   21.084970] kernel: VFP support v0.3: implementor 41 architecture 3 part 30 variant c rev 3
+[   21.085195] kernel: futex hash table entries: 256 (order: 2, 16384 bytes, linear)
+[   21.085377] kernel: pinctrl core: initialized pinctrl subsystem
+[   21.085553] kernel: DMI not present or invalid.
+[   21.085727] kernel: NET: Registered PF_NETLINK/PF_ROUTE protocol family
+[   21.085902] kernel: DMA: preallocated 256 KiB pool for atomic coherent allocations
+[   21.086076] kernel: audit: initializing netlink subsys (disabled)
+[   21.086252] kernel: thermal_sys: Registered thermal governor 'fair_share'
+[   21.086426] kernel: thermal_sys: Registered thermal governor 'bang_bang'
+[   21.086600] kernel: thermal_sys: Registered thermal governor 'step_wise'
+[   21.086800] kernel: thermal_sys: Registered thermal governor 'user_space'
+[   21.086977] kernel: thermal_sys: Registered thermal governor 'power_allocator'
+[   21.087152] kernel: No ATAGs?
+[   21.087325] kernel: hw-breakpoint: debug architecture 0x4 unsupported.
+[   21.087503] kernel: audit: type=2000 audit(0.108:1): state=initialized audit_enabled=0 res=1
+[   21.087679] kernel: Serial: AMBA PL011 UART driver
+[   21.087857] kernel: /soc/lcd-controller@1c0c000: Fixed dependency cycle(s) with /soc/display-backend@1e40000
+[   21.092217] kernel: /soc/lcd-controller@1c0c000: Fixed dependency cycle(s) with /soc/display-backend@1e60000
+[   21.092543] kernel: /soc/lcd-controller@1c0d000: Fixed dependency cycle(s) with /soc/display-backend@1e40000
+[   21.092749] kernel: /soc/lcd-controller@1c0d000: Fixed dependency cycle(s) with /soc/display-backend@1e60000
+[   21.092933] kernel: /soc/display-frontend@1e00000: Fixed dependency cycle(s) with /soc/display-backend@1e40000
+[   21.093110] kernel: /soc/display-frontend@1e00000: Fixed dependency cycle(s) with /soc/display-backend@1e60000
+[   21.093286] kernel: /soc/display-frontend@1e20000: Fixed dependency cycle(s) with /soc/display-backend@1e40000
+[   21.093464] kernel: /soc/display-frontend@1e20000: Fixed dependency cycle(s) with /soc/display-backend@1e60000
+[   21.093639] kernel: /soc/display-backend@1e40000: Fixed dependency cycle(s) with /soc/lcd-controller@1c0d000
+[   21.093814] kernel: /soc/display-backend@1e40000: Fixed dependency cycle(s) with /soc/lcd-controller@1c0c000
+[   21.094012] kernel: /soc/display-backend@1e40000: Fixed dependency cycle(s) with /soc/display-frontend@1e20000
+[   21.094192] kernel: /soc/display-backend@1e40000: Fixed dependency cycle(s) with /soc/display-frontend@1e00000
+[   21.094368] kernel: /soc/display-backend@1e60000: Fixed dependency cycle(s) with /soc/lcd-controller@1c0d000
+[   21.094545] kernel: /soc/display-backend@1e60000: Fixed dependency cycle(s) with /soc/lcd-controller@1c0c000
+[   21.094721] kernel: /soc/display-backend@1e60000: Fixed dependency cycle(s) with /soc/display-frontend@1e20000
+[   21.094896] kernel: /soc/display-backend@1e60000: Fixed dependency cycle(s) with /soc/display-frontend@1e00000
+[   21.095073] kernel: /soc/lcd-controller@1c0c000: Fixed dependency cycle(s) with /soc/display-backend@1e40000
+[   21.095244] kernel: /soc/lcd-controller@1c0c000: Fixed dependency cycle(s) with /soc/display-backend@1e60000
+[   21.095414] kernel: /soc/lcd-controller@1c0d000: Fixed dependency cycle(s) with /soc/display-backend@1e40000
+[   21.095607] kernel: /soc/lcd-controller@1c0d000: Fixed dependency cycle(s) with /soc/display-backend@1e60000
+[   21.095782] kernel: /soc/display-frontend@1e00000: Fixed dependency cycle(s) with /soc/display-backend@1e40000
+[   21.095953] kernel: /soc/display-frontend@1e00000: Fixed dependency cycle(s) with /soc/display-backend@1e60000
+[   21.100408] kernel: /soc/display-frontend@1e20000: Fixed dependency cycle(s) with /soc/display-backend@1e40000
+[   21.100648] kernel: /soc/display-frontend@1e20000: Fixed dependency cycle(s) with /soc/display-backend@1e60000
+[   21.100831] kernel: /soc/display-frontend@1e20000: Fixed dependency cycle(s) with /soc/display-backend@1e40000
+[   21.101000] kernel: /soc/display-frontend@1e00000: Fixed dependency cycle(s) with /soc/display-backend@1e40000
+[   21.101167] kernel: /soc/lcd-controller@1c0d000: Fixed dependency cycle(s) with /soc/display-backend@1e40000
+[   21.101336] kernel: /soc/lcd-controller@1c0c000: Fixed dependency cycle(s) with /soc/display-backend@1e40000
+[   21.101506] kernel: /soc/display-backend@1e40000: Fixed dependency cycle(s) with /soc/lcd-controller@1c0d000
+[   21.101678] kernel: /soc/display-backend@1e40000: Fixed dependency cycle(s) with /soc/lcd-controller@1c0c000
+[   21.101895] kernel: /soc/display-backend@1e40000: Fixed dependency cycle(s) with /soc/display-frontend@1e20000
+[   21.102079] kernel: /soc/display-backend@1e40000: Fixed dependency cycle(s) with /soc/display-frontend@1e00000
+[   21.102258] kernel: /soc/display-frontend@1e20000: Fixed dependency cycle(s) with /soc/display-backend@1e60000
+[   21.102490] kernel: /soc/display-frontend@1e00000: Fixed dependency cycle(s) with /soc/display-backend@1e60000
+[   21.102674] kernel: /soc/lcd-controller@1c0d000: Fixed dependency cycle(s) with /soc/display-backend@1e60000
+[   21.102844] kernel: /soc/lcd-controller@1c0c000: Fixed dependency cycle(s) with /soc/display-backend@1e60000
+[   21.103011] kernel: /soc/display-backend@1e60000: Fixed dependency cycle(s) with /soc/lcd-controller@1c0d000
+[   21.103184] kernel: /soc/display-backend@1e60000: Fixed dependency cycle(s) with /soc/lcd-controller@1c0c000
+[   21.103355] kernel: /soc/display-backend@1e60000: Fixed dependency cycle(s) with /soc/display-frontend@1e20000
+[   21.103531] kernel: /soc/display-backend@1e60000: Fixed dependency cycle(s) with /soc/display-frontend@1e00000
+[   21.103718] kernel: /soc/lcd-controller@1c0c000: Fixed dependency cycle(s) with /panel
+[   21.103895] kernel: /panel: Fixed dependency cycle(s) with /soc/lcd-controller@1c0c000
+[   21.120349] kernel: kprobes: kprobe jump-optimization is enabled. All kprobes are optimized if possible.
+[   21.120600] kernel: iommu: Default domain type: Translated
+[   21.120787] kernel: iommu: DMA domain TLB invalidation policy: strict mode
+[   21.120965] kernel: pps_core: LinuxPPS API ver. 1 registered
+[   21.121142] kernel: pps_core: Software ver. 5.3.6 - Copyright 2005-2007 Rodolfo Giometti <giometti@linux.it>
+[   21.121316] kernel: PTP clock support registered
+[   21.121490] kernel: NetLabel: Initializing
+[   21.121712] kernel: NetLabel:  domain hash size = 128
+[   21.121894] kernel: NetLabel:  protocols = UNLABELED CIPSOv4 CALIPSO
+[   21.122070] kernel: NetLabel:  unlabeled traffic allowed by default
+[   21.122243] kernel: vgaarb: loaded
+[   21.122418] kernel: clocksource: Switched to clocksource timer
+[   21.122592] kernel: VFS: Disk quotas dquot_6.6.0
+[   21.122769] kernel: VFS: Dquot-cache hash table entries: 1024 (order 0, 4096 bytes)
+[   21.122943] kernel: AppArmor: AppArmor Filesystem Enabled
+[   21.123117] kernel: NET: Registered PF_INET protocol family
+[   21.123314] kernel: IP idents hash table entries: 8192 (order: 4, 65536 bytes, linear)
+[   21.123495] kernel: tcp_listen_portaddr_hash hash table entries: 512 (order: 0, 4096 bytes, linear)
+[   21.123670] kernel: Table-perturb hash table entries: 65536 (order: 6, 262144 bytes, linear)
+[   21.123848] kernel: TCP established hash table entries: 4096 (order: 2, 16384 bytes, linear)
+[   21.128222] kernel: TCP bind hash table entries: 4096 (order: 4, 65536 bytes, linear)
+[   21.128506] kernel: TCP: Hash tables configured (established 4096 bind 4096)
+[   21.128703] kernel: MPTCP token hash table entries: 512 (order: 1, 8192 bytes, linear)
+[   21.128886] kernel: UDP hash table entries: 256 (order: 1, 8192 bytes, linear)
+[   21.129110] kernel: UDP-Lite hash table entries: 256 (order: 1, 8192 bytes, linear)
+[   21.129294] kernel: NET: Registered PF_UNIX/PF_LOCAL protocol family
+[   21.129470] kernel: NET: Registered PF_XDP protocol family
+[   21.129645] kernel: PCI: CLS 0 bytes, default 64
+[   21.129822] kernel: Trying to unpack rootfs image as initramfs...
+[   21.129995] kernel: Initialise system trusted keyrings
+[   21.130175] kernel: Key type blacklist registered
+[   21.130358] kernel: workingset: timestamp_bits=14 max_order=17 bucket_order=3
+[   21.130537] kernel: zbud: loaded
+[   21.130735] kernel: fuse: init (API version 7.41)
+[   21.130916] kernel: integrity: Platform Keyring initialized
+[   21.131091] kernel: integrity: Machine keyring initialized
+[   21.131265] kernel: Key type asymmetric registered
+[   21.131440] kernel: Asymmetric key parser 'x509' registered
+[   21.131616] kernel: Freeing initrd memory: 23244K
+[   21.131792] kernel: Block layer SCSI generic (bsg) driver version 0.4 loaded (major 248)
+[   21.131969] kernel: io scheduler mq-deadline registered
+[   21.142145] kernel: ledtrig-cpu: registered to indicate activity on CPUs
+[   21.142411] kernel: Serial: 8250/16550 driver, 5 ports, IRQ sharing enabled
+[   21.142599] kernel: Serial: AMBA driver
+[   21.142776] kernel: STM32 USART driver initialized
+[   21.142956] kernel: mousedev: PS/2 mouse device common for all mice
+[   21.149546] kernel: sunxi-rtc 1c20d00.rtc: registered as rtc0
+[   21.151641] kernel: sunxi-rtc 1c20d00.rtc: setting system clock to 2010-01-01T00:00:17 UTC (1262304017)
+[   21.151925] kernel: hw perfevents: enabled with armv7_cortex_a8 PMU driver, 5 (8000000f) counters available
+[   21.156392] kernel: NET: Registered PF_INET6 protocol family
+[   21.156691] kernel: Segment Routing with IPv6
+[   21.156883] kernel: In-situ OAM (IOAM) with IPv6
+[   21.157063] kernel: mip6: Mobile IPv6
+[   21.157244] kernel: NET: Registered PF_PACKET protocol family
+[   21.157418] kernel: mpls_gso: MPLS GSO support
+[   21.157592] kernel: ThumbEE CPU extension supported.
+[   21.157770] kernel: Registering SWP/SWPB emulation handler
+[   21.157948] kernel: registered taskstats version 1
+[   21.158127] kernel: Loading compiled-in X.509 certificates
+[   21.158327] kernel: Loaded X.509 cert 'Build time autogenerated kernel key: 3cebbe119089322aca8b81528be265dba70a6717'
+[   21.158509] kernel: Key type .fscrypt registered
+[   21.158692] kernel: Key type fscrypt-provisioning registered
+[   21.158868] kernel: Key type encrypted registered
+[   21.159045] kernel: AppArmor: AppArmor sha256 policy hashing enabled
+[   21.159222] kernel: ima: No TPM chip found, activating TPM-bypass!
+[   21.159397] kernel: ima: Allocated hash algorithm: sha256
+[   21.159571] kernel: ima: No architecture policies found
+[   21.159767] kernel: evm: Initialising EVM extended attributes:
+[   21.159943] kernel: evm: security.selinux
+[   21.174739] kernel: evm: security.SMACK64 (disabled)
+[   21.174976] kernel: evm: security.SMACK64EXEC (disabled)
+[   21.175159] kernel: evm: security.SMACK64TRANSMUTE (disabled)
+[   21.175339] kernel: evm: security.SMACK64MMAP (disabled)
+[   21.175511] kernel: evm: security.apparmor
+[   21.175688] kernel: evm: security.ima
+[   21.175864] kernel: evm: security.capability
+[   21.180312] kernel: evm: HMAC attrs: 0x1
+[   21.182351] kernel: gpio gpiochip0: Static allocation of GPIO base is deprecated, use dynamic allocation.
+[   21.188677] kernel: sun4i-pinctrl 1c20800.pinctrl: initialized sunXi PIO driver
+[   21.190813] kernel: sun4i-pinctrl 1c20800.pinctrl: supply vcc-pb not found, using dummy regulator
+[   21.191099] kernel: printk: legacy console [ttyS0] disabled
+[   21.191291] kernel: 1c28000.serial: ttyS0 at MMIO 0x1c28000 (irq = 53, base_baud = 1500000) is a U6_16550A
+[   21.191472] kernel: printk: legacy console [ttyS0] enabled
+[   21.206000] kernel: sun4i-pinctrl 1c20800.pinctrl: supply vcc-ph not found, using dummy regulator
+[   21.206414] kernel: clk: Disabling unused clocks
+[   21.206618] kernel: PM: genpd: Disabling unused power domains
+[   21.206805] kernel: Freeing unused kernel image (initmem) memory: 2048K
+[   21.206983] kernel: Run /init as init process
+[   21.207160] kernel:   with arguments:
+[   21.207338] kernel:     /init
+[   21.207512] kernel:   with environment:
+[   21.207687] kernel:     HOME=/
+[   21.207867] kernel:     TERM=linux
+[   21.218802] kernel: sun4i-pinctrl 1c20800.pinctrl: supply vcc-pf not found, using dummy regulator
+[   21.233395] kernel: sunxi-mmc 1c0f000.mmc: Got CD GPIO
+[   21.235547] kernel: sunxi-mmc 1c0f000.mmc: initialized, max. request size: 2048 KB
+[   21.235864] kernel: mmc0: host does not support reading read-only switch, assuming write-enable
+[   21.247154] kernel: mmc0: new high speed SDHC card at address 59b4
+[   21.247445] kernel: mmcblk0: mmc0:59b4 SS08G 7.41 GiB
+[   21.247638] kernel:  mmcblk0: p1 p2
+[   21.247822] kernel: usbcore: registered new interface driver usbfs
+[   21.252746] kernel: usbcore: registered new interface driver hub
+[   21.253038] kernel: usbcore: registered new device driver usb
+[   21.255099] kernel: panel-simple panel: Specify missing bus_format
+[   21.269353] kernel: panel-simple panel: Expected bpc in {6,8} but got: 0
+[   21.269675] kernel: Warning! ehci_hcd should always be loaded before uhci_hcd and ohci_hcd, not after
+[   21.271652] kernel: sun4i-pinctrl 1c20800.pinctrl: supply vcc-pd not found, using dummy regulator
+[   21.273949] kernel: sun4i-drm display-engine: bound 1e00000.display-frontend (ops sun4i_frontend_driver_exit [sun4i_frontend])
+[   21.275993] kernel: sun4i-drm display-engine: bound 1e20000.display-frontend (ops sun4i_frontend_driver_exit [sun4i_frontend])
+[   21.293924] kernel: sun4i-drm display-engine: bound 1e60000.display-backend (ops sun4i_backend_platform_driver_exit [sun4i_backend])
+[   21.295970] kernel: lima 1c40000.gpu: gp - mali400 version major 1 minor 1
+[   21.306428] kernel: lima 1c40000.gpu: pp0 - mali400 version major 1 minor 1
+[   21.312713] kernel: sun4i-drm display-engine: bound 1e40000.display-backend (ops sun4i_backend_platform_driver_exit [sun4i_backend])
+[   21.314804] kernel: lima 1c40000.gpu: l2_cache0 32K, 4-way, 64byte cache line, 64bit external bus
+[   21.337199] kernel: lima 1c40000.gpu: bus rate = 168000000
+[   21.339393] kernel: lima 1c40000.gpu: mod rate = 384000000
+[   21.349838] kernel: sun4i-drm display-engine: bound 1c0c000.lcd-controller (ops sun4i_tcon_platform_driver_exit [sun4i_tcon])
+[   21.350152] kernel: [drm] Initialized lima 1.1.0 for 1c40000.gpu on minor 1
+[   21.360466] kernel: sun4i-drm display-engine: No panel or bridge found... RGB output disabled
+[   21.362652] kernel: sun4i-drm display-engine: bound 1c0d000.lcd-controller (ops sun4i_tcon_platform_driver_exit [sun4i_tcon])
+[   21.362933] kernel: [drm] Initialized sun4i-drm 1.0.0 for display-engine on minor 0
+[   21.363129] kernel: Console: switching to colour frame buffer device 100x30
+[   21.373469] kernel: sun4i-drm display-engine: [drm] fb0: sun4i-drmdrmfb frame buffer device
+[   21.373846] aquarius-diag: inicio
+[   21.374085] aquarius-diag: particao de boot nao apareceu: 
+[   21.374284] kernel: EXT4-fs (mmcblk0p2): mounted filesystem 93d55388-e283-4bd3-b25d-fcaa4bcf52a5 r/w with ordered data mode. Quota mode: none.
+[   21.374470] aquarius-diag: registrador do journal instalado
+[   21.374656] kernel: Not activating Mandatory Access Control as /sbin/tomoyo-init does not exist.
+[   21.374845] systemd[1]: System time advanced to built-in epoch: Mon 2026-04-13 16:38:05 -03
+[   21.375078] systemd[1]: Inserted module 'autofs4'
+[   21.375329] systemd[1]: systemd 257.13-1~deb13u1 running in system mode (+PAM +AUDIT +SELINUX +APPARMOR +IMA +IPE +SMACK +SECCOMP +GCRYPT -GNUTLS +OPENSSL +ACL +BLKID +CURL +ELFUTILS +FIDO2 +IDN2 -IDN +IPTC +KMOD +LIBCRYPTSETUP +LIBCRYPTSETUP_PLUGINS +LIBFDISK +PCRE2 +PWQUALITY +P11KIT +QRENCODE +TPM2 +BZIP2 +LZ4 +XZ +ZLIB +ZSTD -BPF_FRAMEWORK -BTF -XKBCOMMON -UTMP +SYSVINIT +LIBARCHIVE)
+[   21.375534] systemd[1]: Detected architecture arm.
+[   21.375727] systemd[1]: Hostname set to <aquarius>.
+[   21.375920] systemd[1]: Queued start job for default target graphical.target.
+[   21.387087] systemd[1]: Created slice system-getty.slice - Slice /system/getty.
+[   21.387364] systemd[1]: Created slice system-modprobe.slice - Slice /system/modprobe.
+[   21.387575] systemd[1]: Created slice system-serial\x2dgetty.slice - Slice /system/serial-getty.
+[   21.387778] systemd[1]: Created slice system-systemd\x2dfsck.slice - Slice /system/systemd-fsck.
+[   21.400677] systemd[1]: Created slice user.slice - User and Session Slice.
+[   21.401005] systemd[1]: Started systemd-ask-password-wall.path - Forward Password Requests to Wall Directory Watch.
+[   21.401222] systemd[1]: Set up automount proc-sys-fs-binfmt_misc.automount - Arbitrary Executable File Formats File System Automount Point.
+[   21.401425] systemd[1]: Expecting device dev-disk-by\x2dlabel-AQ\x2dBOOT.device - /dev/disk/by-label/AQ-BOOT...
+[   21.401639] systemd[1]: Expecting device dev-ttyS0.device - /dev/ttyS0...
+[   21.401835] systemd[1]: Reached target nss-user-lookup.target - User and Group Name Lookups.
+[   21.402026] systemd[1]: Reached target remote-fs.target - Remote File Systems.
+[   21.402274] systemd[1]: Reached target slices.target - Slice Units.
+[   21.402472] systemd[1]: Reached target swap.target - Swaps.
+[   21.402664] systemd[1]: Listening on systemd-creds.socket - Credential Encryption/Decryption.
+[   21.402860] systemd[1]: Listening on systemd-initctl.socket - initctl Compatibility Named Pipe.
+[   21.403051] systemd[1]: Listening on systemd-journald-dev-log.socket - Journal Socket (/dev/log).
+[   21.403242] systemd[1]: Listening on systemd-journald.socket - Journal Sockets.
+[   21.403436] systemd[1]: systemd-pcrextend.socket - TPM PCR Measurements skipped, unmet condition check ConditionSecurity=measured-uki
+[   21.403638] systemd[1]: systemd-pcrlock.socket - Make TPM PCR Policy skipped, unmet condition check ConditionSecurity=measured-uki
+[   21.403831] systemd[1]: Listening on systemd-udevd-control.socket - udev Control Socket.
+[   21.408290] systemd[1]: Listening on systemd-udevd-kernel.socket - udev Kernel Socket.
+[   21.408589] systemd[1]: dev-hugepages.mount - Huge Pages File System skipped, unmet condition check ConditionPathExists=/sys/kernel/mm/hugepages
+[   21.408798] systemd[1]: Mounting dev-mqueue.mount - POSIX Message Queue File System...
+[   21.408995] systemd[1]: Mounting run-lock.mount - Legacy Locks Directory /run/lock...
+[   21.409189] systemd[1]: Mounting sys-kernel-debug.mount - Kernel Debug File System...
+[   21.409385] systemd[1]: Mounting sys-kernel-tracing.mount - Kernel Trace File System...
+[   21.409582] systemd[1]: tmp.mount: Directory /tmp to mount over is not empty, mounting anyway.
+[   21.409774] systemd[1]: Mounting tmp.mount - Temporary Directory /tmp...
+[   21.410013] systemd[1]: Starting kmod-static-nodes.service - Create List of Static Device Nodes...
+[   21.410211] systemd[1]: Starting modprobe@configfs.service - Load Kernel Module configfs...
+[   21.410405] systemd[1]: Starting modprobe@drm.service - Load Kernel Module drm...
+[   21.410596] systemd[1]: Starting modprobe@efi_pstore.service - Load Kernel Module efi_pstore...
+[   21.410787] systemd[1]: Starting modprobe@fuse.service - Load Kernel Module fuse...
+[   21.410978] systemd[1]: systemd-fsck-root.service - File System Check on Root Device skipped, unmet condition check ConditionPathIsReadWrite=!/
+[   21.411194] systemd[1]: systemd-hibernate-clear.service - Clear Stale Hibernate Storage Info skipped, unmet condition check ConditionPathExists=/sys/firmware/efi/efivars/HibernateLocation-8cf2644b-4b0b-428f-9387-6d876050dc67
+[   21.411411] systemd[1]: Starting systemd-journald.service - Journal Service...
+[   21.411604] systemd[1]: Starting systemd-modules-load.service - Load Kernel Modules...
+[   21.411797] systemd[1]: systemd-pcrmachine.service - TPM PCR Machine ID Measurement skipped, unmet condition check ConditionSecurity=measured-uki
+[   21.411991] systemd[1]: Starting systemd-remount-fs.service - Remount Root and Kernel File Systems...
+[   21.416463] systemd[1]: systemd-tpm2-setup-early.service - Early TPM SRK Setup skipped, unmet condition check ConditionSecurity=measured-uki
+[   21.416693] systemd[1]: Starting systemd-udev-load-credentials.service - Load udev Rules from Credentials...
+[   21.416899] systemd[1]: Starting systemd-udev-trigger.service - Coldplug All udev Devices...
+[   21.417138] systemd[1]: Mounted dev-mqueue.mount - POSIX Message Queue File System.
+[   21.417338] systemd[1]: Mounted run-lock.mount - Legacy Locks Directory /run/lock.
+[   21.417533] systemd[1]: Mounted sys-kernel-debug.mount - Kernel Debug File System.
+[   21.417729] systemd[1]: Mounted sys-kernel-tracing.mount - Kernel Trace File System.
+[   21.417920] systemd[1]: Mounted tmp.mount - Temporary Directory /tmp.
+[   21.418112] systemd[1]: Finished kmod-static-nodes.service - Create List of Static Device Nodes.
+[   21.418303] systemd[1]: modprobe@configfs.service: Deactivated successfully.
+[   21.418495] systemd[1]: Finished modprobe@configfs.service - Load Kernel Module configfs.
+[   21.418685] systemd[1]: modprobe@drm.service: Deactivated successfully.
+[   21.418898] systemd[1]: Finished modprobe@drm.service - Load Kernel Module drm.
+[   21.419083] kernel: i2c_dev: i2c /dev entries driver
+[   21.419548] systemd-journald[278]: Collecting audit messages is disabled.
+[   21.434468] kernel: platform 1c14400.usb: deferred probe pending: (reason unknown)
+[   21.447025] kernel: platform 1c1c400.usb: deferred probe pending: (reason unknown)
+[   21.453570] kernel: platform 1c14000.usb: deferred probe pending: (reason unknown)
+[   21.455653] kernel: platform 1c1c000.usb: deferred probe pending: (reason unknown)
+[   21.455940] kernel: EXT4-fs (mmcblk0p2): re-mounted 93d55388-e283-4bd3-b25d-fcaa4bcf52a5.
+[   21.468426] systemd[1]: modprobe@efi_pstore.service: Deactivated successfully.
+[   21.468679] systemd[1]: Finished modprobe@efi_pstore.service - Load Kernel Module efi_pstore.
+[   21.468932] systemd[1]: modprobe@fuse.service: Deactivated successfully.
+[   21.469135] systemd[1]: Finished modprobe@fuse.service - Load Kernel Module fuse.
+[   21.469331] systemd[1]: Finished systemd-modules-load.service - Load Kernel Modules.
+[   21.469529] systemd-journald[278]: Journal started
+[   21.469895] systemd-journald[278]: Runtime Journal (/run/log/journal/61afd3dd8d93422ea5389e5b43345f40) is 584K, max 4.5M, 3.9M free.
+[   20.934748] systemd-modules-load[279]: Inserted module 'i2c_dev'
+[   21.488735] systemd[1]: Started systemd-journald.service - Journal Service.
+[   21.576557] systemd[1]: Finished systemd-remount-fs.service - Remount Root and Kernel File Systems.
+[   21.593383] systemd[1]: Finished systemd-udev-load-credentials.service - Load udev Rules from Credentials.
+[   21.768992] systemd[1]: Mounting sys-fs-fuse-connections.mount - FUSE Control File System...
+[   21.813061] systemd[1]: Mounting sys-kernel-config.mount - Kernel Configuration File System...
+[   21.873340] systemd[1]: Started aquarius-diag-journal.service - Diagnostico: grava o journal em /boot/diag/journal.txt (10 min).
+[   21.913191] systemd[1]: systemd-hwdb-update.service - Rebuild Hardware Database skipped, no trigger condition checks were met.
+[   21.993350] systemd[1]: Starting systemd-journal-flush.service - Flush Journal to Persistent Storage...
+[   22.008951] systemd[1]: systemd-pstore.service - Platform Persistent Storage Archival skipped, unmet condition check ConditionDirectoryNotEmpty=/sys/fs/pstore
+[   22.127329] systemd[1]: Starting systemd-random-seed.service - Load/Save OS Random Seed...
+[   22.231507] systemd[1]: Starting systemd-sysctl.service - Apply Kernel Variables...
+[   22.393337] systemd[1]: Starting systemd-tmpfiles-setup-dev-early.service - Create Static Device Nodes in /dev gracefully...
+[   22.400837] systemd[1]: systemd-tpm2-setup.service - TPM SRK Setup skipped, unmet condition check ConditionSecurity=measured-uki
+[   22.954228] systemd[1]: Mounted sys-fs-fuse-connections.mount - FUSE Control File System.
+[   22.977682] systemd[1]: Mounted sys-kernel-config.mount - Kernel Configuration File System.
+[   23.180580] systemd-journald[278]: Time spent on flushing to /var/log/journal/61afd3dd8d93422ea5389e5b43345f40 is 268.476ms for 343 entries.
+[   23.180580] systemd-journald[278]: System Journal (/var/log/journal/61afd3dd8d93422ea5389e5b43345f40) is 8M, max 570.7M, 562.7M free.
+[   24.346755] systemd-journald[278]: Received client request to flush runtime journal.
+[   24.347662] kernel: random: crng init done
+[   23.294117] systemd-random-seed[304]: Kernel entropy pool is not initialized yet, waiting until it is.
+[   23.506243] systemd[1]: Finished systemd-sysctl.service - Apply Kernel Variables.
+[   23.782476] systemd[1]: Finished systemd-tmpfiles-setup-dev-early.service - Create Static Device Nodes in /dev gracefully.
+[   23.850308] systemd[1]: Starting systemd-sysusers.service - Create System Users...
+[   23.940522] systemd[1]: Finished systemd-udev-trigger.service - Coldplug All udev Devices.
+[   24.388913] systemd[1]: Starting ifupdown-pre.service - Helper to synchronize boot up for ifupdown...
+[   24.436737] systemd[1]: Finished systemd-journal-flush.service - Flush Journal to Persistent Storage.
+[   24.468558] systemd[1]: Finished systemd-random-seed.service - Load/Save OS Random Seed.
+[   24.541347] systemd[1]: Finished systemd-sysusers.service - Create System Users.
+[   24.601205] systemd[1]: Starting systemd-resolved.service - Network Name Resolution...
+[   24.666951] systemd[1]: Starting systemd-timesyncd.service - Network Time Synchronization...
+[   24.717458] systemd[1]: Starting systemd-tmpfiles-setup-dev.service - Create Static Device Nodes in /dev...
+[   24.749334] systemd[1]: Finished ifupdown-pre.service - Helper to synchronize boot up for ifupdown.
+[   25.265660] systemd[1]: Finished systemd-tmpfiles-setup-dev.service - Create Static Device Nodes in /dev.
+[   25.302303] systemd[1]: Reached target local-fs-pre.target - Preparation for Local File Systems.
+[   25.360758] systemd[1]: Starting systemd-udevd.service - Rule-based Manager for Device Events and Files...
+[   26.007688] systemd-resolved[326]: Positive Trust Anchors:
+[   26.017441] systemd-resolved[326]: . IN DS 20326 8 2 e06d44b80b8f1d39a95c0b0d7c65d08458e880409bbc683457104237c7f8ec8d
+[   26.017552] systemd-resolved[326]: . IN DS 38696 8 2 683d2d0acb8c9b712a1948b27f741219298d0a450d612c483af444a4c0fb2b16
+[   26.017930] systemd-resolved[326]: Negative trust anchors: home.arpa 10.in-addr.arpa 16.172.in-addr.arpa 17.172.in-addr.arpa 18.172.in-addr.arpa 19.172.in-addr.arpa 20.172.in-addr.arpa 21.172.in-addr.arpa 22.172.in-addr.arpa 23.172.in-addr.arpa 24.172.in-addr.arpa 25.172.in-addr.arpa 26.172.in-addr.arpa 27.172.in-addr.arpa 28.172.in-addr.arpa 29.172.in-addr.arpa 30.172.in-addr.arpa 31.172.in-addr.arpa 170.0.0.192.in-addr.arpa 171.0.0.192.in-addr.arpa 168.192.in-addr.arpa d.f.ip6.arpa ipv4only.arpa resolver.arpa corp home internal intranet lan local private test
+[   26.149153] systemd[1]: Started systemd-timesyncd.service - Network Time Synchronization.
+[   26.158755] systemd[1]: Reached target time-set.target - System Time Set.
+[   26.163566] systemd-udevd[339]: Using default interface naming scheme 'v257'.
+[   26.465332] systemd-udevd[339]: /usr/lib/udev/rules.d/90-alsa-restore.rules:18 GOTO="alsa_restore_std" has no matching label, ignoring.
+[   26.468384] systemd-udevd[339]: /usr/lib/udev/rules.d/90-alsa-restore.rules:18 The line has no effect any more, dropping.
+[   26.468437] systemd-udevd[339]: /usr/lib/udev/rules.d/90-alsa-restore.rules:22 GOTO="alsa_restore_std" has no matching label, ignoring.
+[   26.468470] systemd-udevd[339]: /usr/lib/udev/rules.d/90-alsa-restore.rules:22 The line has no effect any more, dropping.
+[   26.517720] systemd[1]: Started systemd-udevd.service - Rule-based Manager for Device Events and Files.
+[   26.569058] systemd[1]: Starting plymouth-start.service - Show Plymouth Boot Screen...
+[   26.821163] systemd-resolved[326]: Using system hostname 'aquarius'.
+[   26.853901] systemd[1]: Started systemd-resolved.service - Network Name Resolution.
+[   26.861990] systemd[1]: Reached target nss-lookup.target - Host and Network Name Lookups.
+[   27.156694] systemd[1]: Started plymouth-start.service - Show Plymouth Boot Screen.
+[   27.173335] systemd[1]: systemd-ask-password-console.path - Dispatch Password Requests to Console Directory Watch skipped, unmet condition check ConditionPathExists=!/run/plymouth/pid
+[   27.183184] systemd[1]: Started systemd-ask-password-plymouth.path - Forward Password Requests to Plymouth Directory Watch.
+[   27.822665] systemd[1]: Found device dev-ttyS0.device - /dev/ttyS0.
+[   28.905531] systemd[1]: Found device dev-disk-by\x2dlabel-AQ\x2dBOOT.device - /dev/disk/by-label/AQ-BOOT.
+[   29.197096] systemd[1]: Starting systemd-fsck@dev-disk-by\x2dlabel-AQ\x2dBOOT.service - File System Check on /dev/disk/by-label/AQ-BOOT...
+[   30.416241] systemd-fsck[372]: fsck.fat 4.2 (2021-01-31)
+[   30.416241] systemd-fsck[372]: Free cluster summary wrong (457202 vs. really 391666)
+[   30.416241] systemd-fsck[372]:   Auto-correcting.
+[   30.416241] systemd-fsck[372]: *** Filesystem was changed ***
+[   30.416241] systemd-fsck[372]: Writing changes.
+[   30.416241] systemd-fsck[372]: /dev/mmcblk0p1: 17 files, 124522/516188 clusters
+[   30.431745] systemd-timesyncd[328]: Network configuration changed, trying to establish connection.
+[   30.459294] systemd[1]: Finished systemd-fsck@dev-disk-by\x2dlabel-AQ\x2dBOOT.service - File System Check on /dev/disk/by-label/AQ-BOOT.
+[   30.499190] systemd[1]: Mounting boot.mount - /boot...
+[   30.714478] systemd[1]: Mounted boot.mount - /boot.
+[   30.729864] systemd[1]: Reached target local-fs.target - Local File Systems.
+[   30.764869] systemd[1]: Listening on systemd-sysext.socket - System Extension Image Management.
+[   30.767681] systemd-timesyncd[328]: Network configuration changed, trying to establish connection.
+[   30.797423] systemd[1]: Starting apparmor.service - Load AppArmor profiles...
+[   30.849930] systemd[1]: Starting plymouth-read-write.service - Tell Plymouth To Write Out Runtime Data...
+[   30.933334] systemd[1]: Starting systemd-binfmt.service - Set Up Additional Binary Formats...
+[   31.033383] systemd[1]: Starting systemd-tmpfiles-setup.service - Create System Files and Directories...
+[   31.450171] systemd[1]: Received SIGRTMIN+20 from PID 216 (plymouthd).
+[   31.525072] systemd[1]: Finished plymouth-read-write.service - Tell Plymouth To Write Out Runtime Data.
+[   31.706155] apparmor.systemd[378]: Restarting AppArmor
+[   31.706155] apparmor.systemd[378]: Reloading AppArmor profiles
+[   31.875100] systemd[1]: Created slice system-systemd\x2dbacklight.slice - Slice /system/systemd-backlight.
+[   31.957162] systemd[1]: Starting systemd-backlight@backlight:backlight.service - Load/Save Screen Backlight Brightness of backlight:backlight...
+[   31.966056] systemd[1]: proc-sys-fs-binfmt_misc.automount: Got automount request for /proc/sys/fs/binfmt_misc, triggered by 380 (systemd-binfmt)
+[   32.073613] systemd-tmpfiles[381]: /usr/lib/tmpfiles.d/legacy.conf:14: Duplicate line for path "/run/lock", ignoring.
+[   32.085891] systemd[1]: Mounting proc-sys-fs-binfmt_misc.mount - Arbitrary Executable File Formats File System...
+[   32.216263] kernel: audit: type=1400 audit(1776109102.536:2): apparmor="STATUS" operation="profile_load" profile="unconfined" name="1password" pid=393 comm="apparmor_parser"
+[   32.324192] kernel: audit: type=1400 audit(1776109102.640:3): apparmor="STATUS" operation="profile_load" profile="unconfined" name="Discord" pid=396 comm="apparmor_parser"
+[   32.452161] kernel: audit: type=1400 audit(1776109102.780:4): apparmor="STATUS" operation="profile_load" profile="unconfined" name=4D6F6E676F444220436F6D70617373 pid=397 comm="apparmor_parser"
+[   32.608253] kernel: audit: type=1400 audit(1776109102.888:5): apparmor="STATUS" operation="profile_load" profile="unconfined" name="QtWebEngineProcess" pid=398 comm="apparmor_parser"
+[   33.301589] systemd[1]: Starting ldconfig.service - Rebuild Dynamic Linker Cache...
+[   33.305005] systemd[1]: systemd-firstboot.service - First Boot Wizard skipped, unmet condition check ConditionFirstBoot=yes
+[   33.346961] systemd[1]: first-boot-complete.target - First Boot Complete skipped, unmet condition check ConditionFirstBoot=yes
+[   33.409540] systemd[1]: Starting systemd-journal-catalog-update.service - Rebuild Journal Catalog...
+[   33.433198] systemd[1]: systemd-machine-id-commit.service - Save Transient machine-id to Disk skipped, unmet condition check ConditionPathIsMountPoint=/etc/machine-id
+[   33.527814] systemd[1]: Mounted proc-sys-fs-binfmt_misc.mount - Arbitrary Executable File Formats File System.
+[   33.641275] systemd[1]: Finished systemd-binfmt.service - Set Up Additional Binary Formats.
+[   34.649067] systemd[1]: Finished systemd-journal-catalog-update.service - Rebuild Journal Catalog.
+[   35.464454] kernel: audit: type=1400 audit(1776109105.820:6): apparmor="STATUS" operation="profile_load" profile="unconfined" name="Xorg" pid=399 comm="apparmor_parser"
+[   35.568353] kernel: audit: type=1400 audit(1776109105.896:7): apparmor="STATUS" operation="profile_load" profile="unconfined" name="balena-etcher" pid=417 comm="apparmor_parser"
+[   35.646260] kernel: audit: type=1400 audit(1776109106.000:8): apparmor="STATUS" operation="profile_load" profile="unconfined" name="brave" pid=418 comm="apparmor_parser"
+[   35.703288] kernel: audit: type=1400 audit(1776109106.052:9): apparmor="STATUS" operation="profile_load" profile="unconfined" name="buildah" pid=419 comm="apparmor_parser"
+[   35.796455] kernel: audit: type=1400 audit(1776109106.136:10): apparmor="STATUS" operation="profile_load" profile="unconfined" name="busybox" pid=420 comm="apparmor_parser"
+[   35.824202] kernel: usb2-vbus: disabling
+[   35.824808] kernel: usb1-vbus: disabling
+[   35.845323] kernel: audit: type=1400 audit(1776109106.176:11): apparmor="STATUS" operation="profile_load" profile="unconfined" name="cam" pid=421 comm="apparmor_parser"
+[   36.504303] kernel: mc: Linux media interface: v0.10
+[   36.764290] kernel: sunxi-wdt 1c20c90.watchdog: Watchdog enabled (timeout=16 sec, nowayout=0)
+[   37.212135] kernel: sun4i-ss 1c15000.crypto-engine: no reset control found
+[   37.397706] kernel: sun4i-ss 1c15000.crypto-engine: Die ID 7
+[   37.718788] kernel: axp20x-i2c 0-0034: AXP20x variant AXP209 found
+[   38.376146] kernel: ldo4: Bringing 3300000uV into 2800000-2800000uV
+[   38.524259] kernel: axp20x-i2c 0-0034: AXP20X driver loaded
+[   38.798183] kernel: input: 1c22800.lradc as /devices/platform/soc/1c22800.lradc/input/input0
+[   39.754356] kernel: kauditd_printk_skb: 21 callbacks suppressed
+[   39.755044] kernel: audit: type=1400 audit(1776109110.100:33): apparmor="STATUS" operation="profile_load" profile="unconfined" name="/usr/lib/arm-linux-gnueabihf/lightdm/lightdm-guest-session" pid=443 comm="apparmor_parser"
+[   39.909318] kernel: audit: type=1400 audit(1776109110.168:34): apparmor="STATUS" operation="profile_load" profile="unconfined" name="/usr/lib/arm-linux-gnueabihf/lightdm/lightdm-guest-session//chromium" pid=443 comm="apparmor_parser"
+[   39.909860] kernel: audit: type=1400 audit(1776109110.220:35): apparmor="STATUS" operation="profile_load" profile="unconfined" name="linux-sandbox" pid=485 comm="apparmor_parser"
+[   40.044230] kernel: audit: type=1400 audit(1776109110.340:36): apparmor="STATUS" operation="profile_load" profile="unconfined" name="loupe" pid=486 comm="apparmor_parser"
+[   41.204412] kernel: audit: type=1400 audit(1776109111.560:37): apparmor="STATUS" operation="profile_load" profile="unconfined" name="lsb_release" pid=487 comm="apparmor_parser"
+[   41.296274] kernel: audit: type=1400 audit(1776109111.632:38): apparmor="STATUS" operation="profile_load" profile="unconfined" name="lxc-attach" pid=488 comm="apparmor_parser"
+[   41.328247] kernel: videodev: Linux video capture interface: v2.00
+[   41.400224] kernel: audit: type=1400 audit(1776109111.704:39): apparmor="STATUS" operation="profile_load" profile="unconfined" name="lxc-create" pid=489 comm="apparmor_parser"
+[   41.400797] kernel: audit: type=1400 audit(1776109111.760:40): apparmor="STATUS" operation="profile_load" profile="unconfined" name="lxc-destroy" pid=490 comm="apparmor_parser"
+[   41.480252] kernel: audit: type=1400 audit(1776109111.844:41): apparmor="STATUS" operation="profile_load" profile="unconfined" name="lxc-execute" pid=491 comm="apparmor_parser"
+[   41.516315] kernel: audit: type=1400 audit(1776109111.892:42): apparmor="STATUS" operation="profile_load" profile="unconfined" name="lxc-stop" pid=492 comm="apparmor_parser"
+[   44.114989] kernel: mma7660 1-004c: mounting matrix not found: using identity...
+[   44.191537] kernel: edt_ft5x06 2-0038: supply vcc not found, using dummy regulator
+[   44.255933] kernel: edt_ft5x06 2-0038: supply iovcc not found, using dummy regulator
+[   44.301738] kernel: edt_ft5x06 2-0038: touchscreen probe failed
+[   44.540138] kernel: axp20x-gpio axp20x-gpio: DMA mask not set
+[   44.856225] kernel: kauditd_printk_skb: 30 callbacks suppressed
+[   44.856836] kernel: audit: type=1400 audit(1776109115.196:73): apparmor="STATUS" operation="profile_load" profile="unconfined" name="sbuild-destroychroot" pid=528 comm="apparmor_parser"
+[   44.916195] kernel: axp20x-adc axp20x-adc: DMA mask not set
+[   45.012252] kernel: audit: type=1400 audit(1776109115.340:74): apparmor="STATUS" operation="profile_load" profile="unconfined" name="sbuild-distupgrade" pid=529 comm="apparmor_parser"
+[   45.012842] kernel: axp20x-battery-power-supply axp20x-battery-power-supply: DMA mask not set
+[   45.064187] kernel: axp20x-gpio axp20x-gpio: AXP209 pinctrl and GPIO driver loaded
+[   45.176278] kernel: audit: type=1400 audit(1776109115.492:75): apparmor="STATUS" operation="profile_load" profile="unconfined" name="sbuild-hold" pid=530 comm="apparmor_parser"
+[   45.227996] kernel: input: axp20x-pek as /devices/platform/soc/1c2ac00.i2c/i2c-0/0-0034/axp20x-pek/input/input1
+[   45.276203] kernel: axp20x-ac-power-supply axp20x-ac-power-supply: DMA mask not set
+[   45.454830] kernel: audit: type=1400 audit(1776109115.796:76): apparmor="STATUS" operation="profile_load" profile="unconfined" name="sbuild-shell" pid=531 comm="apparmor_parser"
+[   45.608229] kernel: audit: type=1400 audit(1776109115.948:77): apparmor="STATUS" operation="profile_load" profile="unconfined" name="sbuild-unhold" pid=532 comm="apparmor_parser"
+[   45.736242] kernel: audit: type=1400 audit(1776109116.084:78): apparmor="STATUS" operation="profile_load" profile="unconfined" name="sbuild-update" pid=533 comm="apparmor_parser"
+[   45.989860] kernel: audit: type=1400 audit(1776109116.328:79): apparmor="STATUS" operation="profile_load" profile="unconfined" name="sbuild-upgrade" pid=534 comm="apparmor_parser"
+[   46.059858] kernel: audit: type=1400 audit(1776109116.404:80): apparmor="STATUS" operation="profile_load" profile="unconfined" name="scide" pid=538 comm="apparmor_parser"
+[   46.136287] kernel: audit: type=1400 audit(1776109116.484:81): apparmor="STATUS" operation="profile_load" profile="unconfined" name="signal-desktop" pid=539 comm="apparmor_parser"
+[   46.272328] kernel: audit: type=1400 audit(1776109116.572:82): apparmor="STATUS" operation="profile_load" profile="unconfined" name="slack" pid=540 comm="apparmor_parser"
+[   46.661776] kernel: mma8452 1-001c: mounting matrix not found: using identity...
+[   46.755742] kernel: mma8452 1-001c: supply vdd not found, using dummy regulator
+[   46.788443] kernel: axp20x-usb-power-supply axp20x-usb-power-supply: DMA mask not set
+[   46.791457] kernel: mma8452 1-001c: supply vddio not found, using dummy regulator
+[   46.840332] kernel: sunxi_cedrus: module is from the staging directory, the quality is unknown, you have been warned.
+[   46.980277] kernel: ehci-platform 1c1c000.usb: EHCI Host Controller
+[   46.994565] kernel: ehci-platform 1c14000.usb: EHCI Host Controller
+[   47.007871] kernel: ehci-platform 1c14000.usb: new USB bus registered, assigned bus number 1
+[   47.042716] kernel: usb_phy_generic usb_phy_generic.0.auto: dummy supplies not allowed for exclusive requests (id=vbus)
+[   47.057118] kernel: musb-hdrc musb-hdrc.1.auto: MUSB HDRC host driver
+[   47.074481] kernel: musb-hdrc musb-hdrc.1.auto: new USB bus registered, assigned bus number 2
+[   47.095995] kernel: usb usb2: New USB device found, idVendor=1d6b, idProduct=0002, bcdDevice= 6.12
+[   47.106067] kernel: usb usb2: New USB device strings: Mfr=3, Product=2, SerialNumber=1
+[   47.107941] kernel: usb usb2: Product: MUSB HDRC host driver
+[   47.151719] kernel: usb usb2: Manufacturer: Linux 6.12.115+deb13.1-armmp musb-hcd
+[   47.354914] kernel: usb usb2: SerialNumber: musb-hdrc.1.auto
+[   47.365388] kernel: hub 2-0:1.0: USB hub found
+[   47.390430] kernel: hub 2-0:1.0: 1 port detected
+[   47.407586] kernel: ohci-platform 1c14400.usb: Generic Platform OHCI controller
+[   47.410339] kernel: ohci-platform 1c14400.usb: new USB bus registered, assigned bus number 3
+[   47.436625] kernel: ohci-platform 1c1c400.usb: Generic Platform OHCI controller
+[   47.439021] kernel: ohci-platform 1c1c400.usb: new USB bus registered, assigned bus number 4
+[   47.449996] kernel: ohci-platform 1c14400.usb: irq 62, io mem 0x01c14400
+[   47.468783] kernel: ehci-platform 1c1c000.usb: new USB bus registered, assigned bus number 5
+[   47.471276] kernel: ehci-platform 1c1c000.usb: irq 65, io mem 0x01c1c000
+[   47.482311] kernel: ohci-platform 1c1c400.usb: irq 63, io mem 0x01c1c400
+[   47.505067] kernel: ehci-platform 1c14000.usb: irq 64, io mem 0x01c14000
+[   47.507546] kernel: ehci-platform 1c1c000.usb: USB 2.0 started, EHCI 1.00
+[   47.526223] kernel: usb usb5: New USB device found, idVendor=1d6b, idProduct=0002, bcdDevice= 6.12
+[   47.542301] kernel: usb usb5: New USB device strings: Mfr=3, Product=2, SerialNumber=1
+[   47.546142] kernel: usb usb5: Product: EHCI Host Controller
+[   47.547939] kernel: usb usb5: Manufacturer: Linux 6.12.115+deb13.1-armmp ehci_hcd
+[   47.563506] kernel: usb usb5: SerialNumber: 1c1c000.usb
+[   47.582489] kernel: hub 5-0:1.0: USB hub found
+[   47.589742] kernel: hub 5-0:1.0: 1 port detected
+[   47.612376] kernel: ehci-platform 1c14000.usb: USB 2.0 started, EHCI 1.00
+[   47.614933] kernel: usb usb1: New USB device found, idVendor=1d6b, idProduct=0002, bcdDevice= 6.12
+[   47.622736] kernel: usb usb1: New USB device strings: Mfr=3, Product=2, SerialNumber=1
+[   47.641328] kernel: usb usb1: Product: EHCI Host Controller
+[   47.643334] kernel: usb usb1: Manufacturer: Linux 6.12.115+deb13.1-armmp ehci_hcd
+[   47.661766] kernel: usb usb1: SerialNumber: 1c14000.usb
+[   47.663644] kernel: hub 1-0:1.0: USB hub found
+[   47.678800] kernel: hub 1-0:1.0: 1 port detected
+[   47.694229] kernel: usb usb4: New USB device found, idVendor=1d6b, idProduct=0001, bcdDevice= 6.12
+[   47.716970] kernel: usb usb4: New USB device strings: Mfr=3, Product=2, SerialNumber=1
+[   47.718907] kernel: usb usb4: Product: Generic Platform OHCI controller
+[   47.727034] kernel: usb usb4: Manufacturer: Linux 6.12.115+deb13.1-armmp ohci_hcd
+[   47.731387] kernel: usb usb4: SerialNumber: 1c1c400.usb
+[   47.752984] kernel: hub 4-0:1.0: USB hub found
+[   47.766332] kernel: hub 4-0:1.0: 1 port detected
+[   47.774140] kernel: usb usb3: New USB device found, idVendor=1d6b, idProduct=0001, bcdDevice= 6.12
+[   47.788827] kernel: usb usb3: New USB device strings: Mfr=3, Product=2, SerialNumber=1
+[   47.790916] kernel: usb usb3: Product: Generic Platform OHCI controller
+[   47.807362] kernel: usb usb3: Manufacturer: Linux 6.12.115+deb13.1-armmp ohci_hcd
+[   47.813685] kernel: usb usb3: SerialNumber: 1c14400.usb
+[   47.815508] kernel: hub 3-0:1.0: USB hub found
+[   47.843672] kernel: hub 3-0:1.0: 1 port detected
+[   47.846561] kernel: cedrus 1c0e000.video-codec: Device registered as /dev/video0
+[   47.846934] kernel: usb 5-1: new high-speed USB device number 2 using ehci-platform
+[   47.857843] kernel: usb 5-1: New USB device found, idVendor=0bda, idProduct=8176, bcdDevice= 2.00
+[   47.859674] kernel: usb 5-1: New USB device strings: Mfr=1, Product=2, SerialNumber=3
+[   47.888336] kernel: usb 5-1: Product: 802.11n WLAN Adapter
+[   47.890585] kernel: usb 5-1: Manufacturer: Realtek
+[   47.904886] kernel: usb 5-1: SerialNumber: 00e04c000001
+[   49.018868] systemd[1]: Reached target usb-gadget.target - Hardware activated USB gadget.
+[   50.413143] systemd[1]: Finished ldconfig.service - Rebuild Dynamic Linker Cache.
+[   50.482395] systemd[1]: Starting systemd-update-done.service - Update is Completed...
+[   50.922468] systemd[1]: Finished systemd-update-done.service - Update is Completed.
+[   52.332934] (udev-worker)[363]: controlC0: Process '/usr/sbin/alsactl -E HOME=/run/alsa -E XDG_RUNTIME_DIR=/run/alsa/runtime restore 0' failed with exit code 99.
+[   52.481096] systemd[1]: systemd-ask-password-console.path - Dispatch Password Requests to Console Directory Watch skipped, unmet condition check ConditionPathExists=!/run/plymouth/pid
+[   52.482538] systemd[1]: dev-hugepages.mount - Huge Pages File System skipped, unmet condition check ConditionPathExists=/sys/kernel/mm/hugepages
+[   52.517653] systemd[1]: Starting modprobe@efi_pstore.service - Load Kernel Module efi_pstore...
+[   52.537052] systemd[1]: systemd-firstboot.service - First Boot Wizard skipped, unmet condition check ConditionFirstBoot=yes
+[   52.543443] systemd[1]: first-boot-complete.target - First Boot Complete skipped, unmet condition check ConditionFirstBoot=yes
+[   52.543796] systemd[1]: systemd-hibernate-clear.service - Clear Stale Hibernate Storage Info skipped, unmet condition check ConditionPathExists=/sys/firmware/efi/efivars/HibernateLocation-8cf2644b-4b0b-428f-9387-6d876050dc67
+[   52.549256] systemd[1]: systemd-hwdb-update.service - Rebuild Hardware Database skipped, unmet condition check ConditionNeedsUpdate=/etc
+[   52.549966] systemd[1]: systemd-machine-id-commit.service - Save Transient machine-id to Disk skipped, unmet condition check ConditionPathIsMountPoint=/etc/machine-id
+[   52.550182] systemd[1]: systemd-pcrmachine.service - TPM PCR Machine ID Measurement skipped, unmet condition check ConditionSecurity=measured-uki
+[   52.550530] systemd[1]: systemd-tpm2-setup-early.service - Early TPM SRK Setup skipped, unmet condition check ConditionSecurity=measured-uki
+[   52.550714] systemd[1]: systemd-tpm2-setup.service - TPM SRK Setup skipped, unmet condition check ConditionSecurity=measured-uki
+[   52.881094] systemd[1]: modprobe@efi_pstore.service: Deactivated successfully.
+[   52.894741] systemd[1]: Finished modprobe@efi_pstore.service - Load Kernel Module efi_pstore.
+[   52.918292] systemd[1]: systemd-pstore.service - Platform Persistent Storage Archival skipped, unmet condition check ConditionDirectoryNotEmpty=/sys/fs/pstore
+[   54.553079] kernel: kauditd_printk_skb: 6 callbacks suppressed
+[   54.553868] kernel: audit: type=1400 audit(1776109124.904:89): apparmor="STATUS" operation="profile_load" profile="unconfined" name="transmission-cli" pid=548 comm="apparmor_parser"
+[   54.616278] kernel: audit: type=1400 audit(1776109124.952:90): apparmor="STATUS" operation="profile_load" profile="unconfined" name="transmission-daemon" pid=548 comm="apparmor_parser"
+[   54.668275] kernel: audit: type=1400 audit(1776109124.996:91): apparmor="STATUS" operation="profile_load" profile="unconfined" name="transmission-gtk" pid=548 comm="apparmor_parser"
+[   54.728336] kernel: audit: type=1400 audit(1776109125.068:92): apparmor="STATUS" operation="profile_load" profile="unconfined" name="transmission-qt" pid=548 comm="apparmor_parser"
+[   54.876271] kernel: audit: type=1400 audit(1776109125.224:93): apparmor="STATUS" operation="profile_load" profile="unconfined" name="trinity" pid=640 comm="apparmor_parser"
+[   54.948194] kernel: audit: type=1400 audit(1776109125.300:94): apparmor="STATUS" operation="profile_load" profile="unconfined" name="tup" pid=641 comm="apparmor_parser"
+[   55.022348] kernel: audit: type=1400 audit(1776109125.360:95): apparmor="STATUS" operation="profile_load" profile="unconfined" name="tuxedo-control-center" pid=642 comm="apparmor_parser"
+[   55.665591] systemd[1]: Listening on systemd-rfkill.socket - Load/Save RF Kill Switch Status /dev/rfkill Watch.
+[   56.124249] kernel: audit: type=1400 audit(1776109126.460:96): apparmor="STATUS" operation="profile_load" profile="unconfined" name="unix-chkpwd" pid=644 comm="apparmor_parser"
+[   56.198607] kernel: audit: type=1400 audit(1776109126.548:97): apparmor="STATUS" operation="profile_load" profile="unconfined" name="unprivileged_userns" pid=652 comm="apparmor_parser"
+[   56.276155] kernel: cfg80211: Loading compiled-in X.509 certificates for regulatory database
+[   56.276744] kernel: audit: type=1400 audit(1776109126.612:98): apparmor="STATUS" operation="profile_load" profile="unconfined" name="userbindmount" pid=653 comm="apparmor_parser"
+[   56.564183] kernel: Loaded X.509 cert 'benh@debian.org: 577e021cb980e0e820821ba7b54b4961b8b4fadf'
+[   56.600174] kernel: Loaded X.509 cert 'romain.perier@gmail.com: 3abbc6ec146e09d1b6016ab9d6cf71dd233f0328'
+[   56.628200] kernel: Loaded X.509 cert 'sforshee: 00b28ddf47aef9cea7'
+[   56.664203] kernel: Loaded X.509 cert 'wens: 61c038651aabdcf94bd0ac7ff06c7248db18c600'
+[   58.090553] kernel: rtl8192cu: Chip version 0x10
+[   58.295981] kernel: rtl8192cu: Board Type 0
+[   58.312141] kernel: rtl_usb: rx_max_size 15360, rx_urb_num 8, in_ep 1
+[   58.336234] kernel: rtl8192cu: Loading firmware rtlwifi/rtl8192cufw_TMSC.bin
+[   58.348770] kernel: ieee80211 phy0: Selected rate control algorithm 'rtl_rc'
+[   58.401672] kernel: usbcore: registered new interface driver rtl8192cu
+[   58.401467] systemd[1]: Starting systemd-rfkill.service - Load/Save RF Kill Switch Status...
+[   58.897780] (udev-worker)[344]: Network interface NamePolicy= disabled on kernel command line.
+[   58.901118] systemd[1]: Started systemd-rfkill.service - Load/Save RF Kill Switch Status.
+[   63.927723] systemd[1]: systemd-rfkill.service: Deactivated successfully.
+[  280.964206] kernel: kauditd_printk_skb: 5 callbacks suppressed
+[  280.964978] kernel: audit: type=1400 audit(1776109351.308:104): apparmor="STATUS" operation="profile_load" profile="unconfined" name="libreoffice-soffice" pid=669 comm="apparmor_parser"
+[  281.028199] kernel: audit: type=1400 audit(1776109351.368:105): apparmor="STATUS" operation="profile_load" profile="unconfined" name="libreoffice-soffice//gpg" pid=669 comm="apparmor_parser"
+[  281.260237] kernel: audit: type=1400 audit(1776109351.612:106): apparmor="STATUS" operation="profile_load" profile="unconfined" name="libreoffice-xpdfimport" pid=1007 comm="apparmor_parser"
+[  281.773691] kernel: audit: type=1400 audit(1776109352.120:107): apparmor="STATUS" operation="profile_load" profile="unconfined" name="/usr/sbin/cups-browsed" pid=1008 comm="apparmor_parser"
+[  283.283585] kernel: audit: type=1400 audit(1776109353.628:108): apparmor="STATUS" operation="profile_load" profile="unconfined" name="/usr/lib/cups/backend/cups-pdf" pid=1011 comm="apparmor_parser"
+[  283.349765] kernel: audit: type=1400 audit(1776109353.676:109): apparmor="STATUS" operation="profile_load" profile="unconfined" name="/usr/sbin/cupsd" pid=1011 comm="apparmor_parser"
+[  283.350419] kernel: audit: type=1400 audit(1776109353.676:110): apparmor="STATUS" operation="profile_load" profile="unconfined" name="/usr/sbin/cupsd//third_party" pid=1011 comm="apparmor_parser"
+[  283.442826] kernel: audit: type=1400 audit(1776109353.752:111): apparmor="STATUS" operation="profile_load" profile="unconfined" name="uwsgi-core" pid=1013 comm="apparmor_parser"
+[  283.443413] kernel: audit: type=1400 audit(1776109353.776:112): apparmor="STATUS" operation="profile_load" profile="unconfined" name="vdens" pid=1014 comm="apparmor_parser"
+[  283.527140] kernel: audit: type=1400 audit(1776109353.844:113): apparmor="STATUS" operation="profile_load" profile="unconfined" name="virtiofsd" pid=1015 comm="apparmor_parser"
+[  283.575597] systemd[1]: Finished apparmor.service - Load AppArmor profiles.
+[  283.582947] systemd[1]: Reached target sysinit.target - System Initialization.
+[  283.595106] systemd[1]: Started cups.path - CUPS Scheduler.
+[  283.598488] systemd[1]: Started anacron.timer - Trigger anacron every hour.
+[  283.599887] systemd[1]: Started apt-daily.timer - Daily apt download activities.
+[  283.609865] systemd[1]: Started apt-daily-upgrade.timer - Daily apt upgrade and clean activities.
+[  283.617320] systemd[1]: Started apt-listchanges.timer - Try hourly to initialize apt-listchanges database for APT.
+[  283.622573] systemd[1]: Started dpkg-db-backup.timer - Daily dpkg database backup timer.
+[  283.630677] systemd[1]: Started e2scrub_all.timer - Periodic ext4 Online Metadata Check for All Filesystems.
+[  283.637992] systemd[1]: Started exim4-base.timer - Daily exim4-base housekeeping.
+[  283.646036] systemd[1]: Started fstrim.timer - Discard unused filesystem blocks once a week.
+[  283.647790] systemd[1]: Started fwupd-refresh.timer - Refresh fwupd metadata regularly.
+[  283.653742] systemd[1]: Started man-db.timer - Daily man-db regeneration.
+[  283.660739] systemd[1]: Started systemd-tmpfiles-clean.timer - Daily Cleanup of Temporary Directories.
+[  283.663745] systemd[1]: Reached target paths.target - Path Units.
+[  283.664682] systemd[1]: Reached target timers.target - Timer Units.
+[  283.672850] systemd[1]: Listening on avahi-daemon.socket - Avahi mDNS/DNS-SD Stack Activation Socket.
+[  283.674521] systemd[1]: Listening on cups.socket - CUPS Scheduler.
+[  283.675867] systemd[1]: Listening on dbus.socket - D-Bus System Message Bus Socket.
+[  283.710862] systemd[1]: Listening on sshd-unix-local.socket - OpenSSH Server Socket (systemd-ssh-generator, AF_UNIX Local).
+[  283.720868] systemd[1]: Listening on systemd-hostnamed.socket - Hostname Service Socket.
+[  283.725450] systemd[1]: Reached target sockets.target - Socket Units.
+[  283.755641] systemd[1]: Starting networking.service - Raise network interfaces...
+[  283.762022] systemd[1]: systemd-pcrphase-sysinit.service - TPM PCR Barrier (Initialization) skipped, unmet condition check ConditionSecurity=measured-uki
+[  283.763529] systemd[1]: Reached target basic.target - Basic System.
+[  283.770152] systemd[1]: System is tainted: unmerged-bin
+[  283.806379] systemd[1]: Starting accounts-daemon.service - Accounts Service...
+[  283.820750] systemd[1]: alsa-state.service - Manage Sound Card State (restore and store) skipped, unmet condition check ConditionPathExists=/etc/alsa/state-daemon.conf
+[  283.866765] systemd[1]: Starting alsa-restore.service - Save/Restore Sound Card State...
+[  284.037685] systemd[1]: Started anacron.service - Run anacron jobs.
+[  284.133323] systemd[1]: Starting aquarius-expandir.service - Expande a particao raiz ate o fim do cartao (uma vez)...
+[  284.247505] systemd[1]: Starting aquarius-sshkeys.service - Gera chaves de host do SSH no primeiro boot...
+[  284.413546] systemd[1]: Starting avahi-daemon.service - Avahi mDNS/DNS-SD Stack...
+[  284.532245] alsactl[1025]: /usr/sbin/alsactl: load_state:1715: Cannot open /var/lib/alsa/asound.state for reading: No such file or directory
+[  284.601567] systemd[1]: Started cron.service - Regular background program processing daemon.
+[  284.668669] alsactl[1025]: alsa-lib parser.c:2796:(load_toplevel_config) Unable to find the top-level configuration file '/usr/share/alsa/ucm2/ucm.conf'.
+[  284.672705] alsactl[1025]: alsa-lib main.c:1554:(snd_use_case_mgr_open) error: failed to import hw:0 use case configuration -2
+[  284.672705] alsactl[1025]: Found hardware: "sun4i-codec" "" "" "" ""
+[  284.672705] alsactl[1025]: Hardware is initialized using a generic method
+[  284.793444] systemd[1]: Starting dbus.service - D-Bus System Message Bus...
+[  284.983052] systemd[1]: Starting e2scrub_reap.service - Remove Stale Online ext4 Metadata Check Snapshots...
+[  285.009258] anacron[1027]: Anacron 2.3 started on 2026-04-13
+[  285.031209] anacron[1027]: Will run job `cron.daily' in 5 min.
+[  285.044380] anacron[1027]: Will run job `cron.weekly' in 10 min.
+[  285.044456] anacron[1027]: Will run job `cron.monthly' in 15 min.
+[  285.044489] anacron[1027]: Will run job `cron.yearly' in 20 min.
+[  285.044519] anacron[1027]: Jobs will be executed sequentially
+[  285.056567] systemd[1]: getty-static.service - getty on tty2-tty6 if dbus and logind are not available skipped, unmet condition check ConditionPathExists=!/usr/bin/dbus-daemon
+[  285.217487] systemd[1]: Starting lm-sensors.service - Initialize hardware monitoring sensors...
+[  285.415055] systemd[1]: Started seatd.service - Seat management daemon.
+[  285.457455] systemd[1]: sshd-keygen.service - Generate sshd host keys on first boot skipped, unmet condition check ConditionFirstBoot=yes
+[  285.574797] avahi-daemon[1046]: Found user 'avahi' (UID 104) and group 'avahi' (GID 111).
+[  285.580713] avahi-daemon[1046]: Successfully dropped root privileges.
+[  285.596445] avahi-daemon[1046]: avahi-daemon 0.8 starting up.
+[  285.802566] systemd[1]: Starting systemd-logind.service - User Login Management...
+[  285.832812] systemd[1]: systemd-pcrphase.service - TPM PCR Barrier (User) skipped, unmet condition check ConditionSecurity=measured-uki
+[  285.969115] systemd[1]: Starting udisks2.service - Disk Manager...
+[  286.163176] cron[1047]: (CRON) INFO (pidfile fd = 3)
+[  286.245073] systemd[1]: Starting zramswap.service - Linux zramswap setup...
+[  286.285992] cron[1047]: (CRON) INFO (Running @reboot jobs)
+[  286.580924] seatd[1058]: 00:00:00.000 [INFO] [seatd/seat.c:48] Created VT-bound seat seat0
+[  286.580924] seatd[1058]: 00:00:00.003 [INFO] [seatd/seatd.c:194] seatd started
+[  286.756509] systemd[1]: Finished alsa-restore.service - Save/Restore Sound Card State.
+[  287.062380] avahi-daemon[1046]: Successfully called chroot().
+[  287.063508] avahi-daemon[1046]: Successfully dropped remaining capabilities.
+[  287.083304] avahi-daemon[1046]: No service file found in /etc/avahi/services.
+[  287.093668] avahi-daemon[1046]: Joining mDNS multicast group on interface lo.IPv6 with address ::1.
+[  287.093756] avahi-daemon[1046]: New relevant interface lo.IPv6 for mDNS.
+[  287.093802] avahi-daemon[1046]: Joining mDNS multicast group on interface lo.IPv4 with address 127.0.0.1.
+[  287.093870] avahi-daemon[1046]: New relevant interface lo.IPv4 for mDNS.
+[  287.093905] avahi-daemon[1046]: Network interface enumeration completed.
+[  287.093967] avahi-daemon[1046]: Registering new address record for ::1 on lo.*.
+[  287.094289] avahi-daemon[1046]: Registering new address record for 127.0.0.1 on lo.IPv4.
+[  287.222843] systemd[1]: Started dbus.service - D-Bus System Message Bus.
+[  287.622039] dbus-daemon[1048]: [system] Activating systemd to hand-off: service name='org.freedesktop.PolicyKit1' unit='polkit.service' requested by ':1.3' (uid=0 pid=1022 comm="/usr/libexec/accounts-daemon")
+[  287.841637] udisksd[1061]: udisks daemon version 2.10.1 starting
+[  287.917541] aquarius-expandir[1057]: Disk /dev/mmcblk0: 7,41 GiB, 7951351808 bytes, 15529984 sectors
+[  287.917541] aquarius-expandir[1057]: Units: sectors of 1 * 512 = 512 bytes
+[  287.917541] aquarius-expandir[1057]: Sector size (logical/physical): 512 bytes / 512 bytes
+[  287.917541] aquarius-expandir[1057]: I/O size (minimum/optimal): 512 bytes / 512 bytes
+[  287.917541] aquarius-expandir[1057]: Disklabel type: dos
+[  287.917541] aquarius-expandir[1057]: Disk identifier: 0xf4fdb2a5
+[  287.917541] aquarius-expandir[1057]: Old situation:
+[  287.917541] aquarius-expandir[1057]: Device         Boot  Start      End  Sectors  Size Id Type
+[  287.917541] aquarius-expandir[1057]: /dev/mmcblk0p1 *      2048   526335   524288  256M  c W95 FAT32 (LBA)
+[  287.917541] aquarius-expandir[1057]: /dev/mmcblk0p2      526336 12582911 12056576  5,7G 83 Linux
+[  287.917541] aquarius-expandir[1057]: /dev/mmcblk0p2:
+[  287.917541] aquarius-expandir[1057]: New situation:
+[  287.917541] aquarius-expandir[1057]: Disklabel type: dos
+[  287.917541] aquarius-expandir[1057]: Disk identifier: 0xf4fdb2a5
+[  287.917541] aquarius-expandir[1057]: Device         Boot  Start      End  Sectors  Size Id Type
+[  287.917541] aquarius-expandir[1057]: /dev/mmcblk0p1 *      2048   526335   524288  256M  c W95 FAT32 (LBA)
+[  287.917541] aquarius-expandir[1057]: /dev/mmcblk0p2      526336 15529983 15003648  7,2G 83 Linux
+[  287.917541] aquarius-expandir[1057]: The partition table has been altered.
+[  287.917541] aquarius-expandir[1057]: Calling ioctl() to re-read partition table.
+[  287.917541] aquarius-expandir[1057]: Re-reading the partition table failed.: Dispositivo ou recurso está ocupado
+[  287.941104] avahi-daemon[1046]: Server startup complete. Host name is aquarius.local. Local service cookie is 1068873170.
+[  288.033481] dbus-daemon[1048]: [system] Successfully activated service 'org.freedesktop.systemd1'
+[  288.078127] systemd[1]: Started avahi-daemon.service - Avahi mDNS/DNS-SD Stack.
+[  288.466369] systemd[1]: Reached target sound.target - Sound Card.
+[  288.564963] aquarius-expandir[1057]: The kernel still uses the old table. The new table will be used at the next reboot or after you run partprobe(8) or partx(8).
+[  288.564963] aquarius-expandir[1057]: Syncing disks.
+[  288.681526] systemd[1]: Starting NetworkManager.service - Network Manager...
+[  288.768742] aquarius-expandir[1097]: resize2fs 1.47.2 (1-Jan-2025)
+[  288.818359] root[1098]: Starting Zram
+[  288.857349] kernel: EXT4-fs (mmcblk0p2): resizing filesystem from 1507072 to 1875456 blocks
+[  288.857795] zramswap[1098]: <13>Apr 13 16:42:39 root: Starting Zram
+[  289.061548] systemd[1]: Starting polkit.service - Authorization Manager...
+[  289.269439] systemd[1]: Starting wpa_supplicant.service - WPA supplicant...
+[  289.336923] systemd[1]: e2scrub_reap.service: Deactivated successfully.
+[  289.434621] systemd[1]: Finished e2scrub_reap.service - Remove Stale Online ext4 Metadata Check Snapshots.
+[  289.697275] sensors[1071]: axp20x_usb-isa-000a
+[  289.697275] sensors[1071]: Adapter: ISA adapter
+[  289.697275] sensors[1071]: in0:           4.59 V  (min =  +4.40 V)
+[  289.697275] sensors[1071]: curr1:       683.00 mA
+[  289.697275] sensors[1071]: axp20x_battery-isa-000a
+[  289.697275] sensors[1071]: Adapter: ISA adapter
+[  289.697275] sensors[1071]: in0:           0.00 V  (min =  +2.90 V, max =  +4.20 V)
+[  289.697275] sensors[1071]: curr1:         0.00 A
+[  289.697275] sensors[1071]: sun4i_ts-isa-1c25000
+[  289.697275] sensors[1071]: Adapter: ISA adapter
+[  289.697275] sensors[1071]: SoC temperature:  +47.7°C
+[  289.697275] sensors[1071]: axp20x_ac-isa-000a
+[  289.697275] sensors[1071]: Adapter: ISA adapter
+[  289.697275] sensors[1071]: in0:           4.59 V
+[  289.697275] sensors[1071]: curr1:         0.00 A
+[  289.697275] sensors[1071]: pmic_temp-isa-0000
+[  289.697275] sensors[1071]: Adapter: ISA adapter
+[  289.697275] sensors[1071]: temp1:        +46.2°C
+[  289.830078] systemd-logind[1060]: New seat seat0.
+[  289.972965] systemd-logind[1060]: Watching system buttons on /dev/input/event1 (axp20x-pek)
+[  290.057782] systemd[1]: Started systemd-logind.service - User Login Management.
+[  290.245168] systemd[1]: Finished lm-sensors.service - Initialize hardware monitoring sensors.
+[  290.324675] systemd[1]: Finished networking.service - Raise network interfaces.
+[  290.660348] kernel: zram: Added device: zram0
+[  290.760441] kernel: zram0: detected capacity change from 0 to 699408
+[  290.970693] zramswap[1117]: Setting up swapspace version 1, size = 341,5 MiB (358092800 bytes)
+[  290.970693] zramswap[1117]: no label, UUID=b8444a03-4e21-4424-a38c-72f297fa5ce8
+[  291.116254] kernel: Adding 349700k swap on /dev/zram0.  Priority:100 extents:1 across:349700k SS
+[  291.367754] systemd[1]: Finished zramswap.service - Linux zramswap setup.
+[  291.511651] wpa_supplicant[1102]: Successfully initialized wpa_supplicant
+[  291.762149] systemd[1]: Started wpa_supplicant.service - WPA supplicant.
+[  291.844191] kernel: EXT4-fs (mmcblk0p2): resized filesystem to 1875456
+[  293.121250] NetworkManager[1095]: <info>  [1776109363.5056] NetworkManager (version 1.52.1) is starting... (boot:ddf0c0ef-5ca0-4142-b364-32d6a1f14429)
+[  293.124913] NetworkManager[1095]: <info>  [1776109363.5094] Read config: /etc/NetworkManager/NetworkManager.conf, /usr/lib/NetworkManager/conf.d/no-mac-addr-change.conf
+[  293.167218] aquarius-expandir[1097]: Filesystem at /dev/mmcblk0p2 is mounted on /; on-line resizing required
+[  293.167218] aquarius-expandir[1097]: old_desc_blocks = 1, new_desc_blocks = 1
+[  293.167218] aquarius-expandir[1097]: The filesystem on /dev/mmcblk0p2 is now 1875456 (4k) blocks long.
+[  293.216200] systemd[1]: aquarius-expandir.service: Deactivated successfully.
+[  293.228703] systemd[1]: Finished aquarius-expandir.service - Expande a particao raiz ate o fim do cartao (uma vez).
+[  293.262050] polkitd[1101]: Started polkitd version 126
+[  293.370855] NetworkManager[1095]: <info>  [1776109363.7554] manager[0x104d100]: monitoring kernel firmware directory '/lib/firmware'.
+[  293.378032] NetworkManager[1095]: <info>  [1776109363.7626] monitoring ifupdown state file '/run/network/ifstate'.
+[  293.407237] dbus-daemon[1048]: [system] Activating via systemd: service name='org.freedesktop.hostname1' unit='dbus-org.freedesktop.hostname1.service' requested by ':1.8' (uid=0 pid=1095 comm="/usr/sbin/NetworkManager --no-daemon")
+[  293.425746] polkitd[1101]: Loading rules from directory /etc/polkit-1/rules.d
+[  293.432527] polkitd[1101]: Loading rules from directory /run/polkit-1/rules.d
+[  293.433069] polkitd[1101]: Error opening rules directory: Error opening directory “/run/polkit-1/rules.d”: No such file or directory (g-file-error-quark, 4)
+[  293.441056] polkitd[1101]: Loading rules from directory /usr/local/share/polkit-1/rules.d
+[  293.441449] polkitd[1101]: Error opening rules directory: Error opening directory “/usr/local/share/polkit-1/rules.d”: No such file or directory (g-file-error-quark, 4)
+[  293.441658] polkitd[1101]: Loading rules from directory /usr/share/polkit-1/rules.d
+[  293.477161] polkitd[1101]: Finished loading, compiling and executing 6 rules
+[  293.493817] dbus-daemon[1048]: [system] Successfully activated service 'org.freedesktop.PolicyKit1'
+[  293.511272] polkitd[1101]: Acquired the name org.freedesktop.PolicyKit1 on the system bus
+[  293.551401] systemd[1]: Starting systemd-hostnamed.service - Hostname Service...
+[  293.552806] accounts-daemon[1022]: started daemon version 23.13.9
+[  293.575163] systemd[1]: Started polkit.service - Authorization Manager.
+[  293.642374] systemd[1]: Started accounts-daemon.service - Accounts Service.
+[  294.102869] systemd[1]: Started udisks2.service - Disk Manager.
+[  294.172668] udisksd[1061]: Acquired the name org.freedesktop.UDisks2 on the system message bus
+[  294.881122] systemd[1]: Started systemd-hostnamed.service - Hostname Service.
+[  294.908624] dbus-daemon[1048]: [system] Successfully activated service 'org.freedesktop.hostname1'
+[  294.952865] NetworkManager[1095]: <info>  [1776109365.3374] hostname: hostname: using hostnamed
+[  294.957000]                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       

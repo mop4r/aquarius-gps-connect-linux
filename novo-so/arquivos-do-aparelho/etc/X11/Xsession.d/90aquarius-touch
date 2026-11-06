@@ -1,0 +1,2 @@
+# Firefox: XInput2 = toque de verdade (rolagem e zoom com os dedos)
+export MOZ_USE_XINPUT2=1

@@ -1,0 +1,36 @@
+#!/bin/sh
+# initramfs (init-premount): grava o dmesg na FAT do cartao (/diag/) a cada 2 s (ate 5 min ou ate a raiz montar).
+# Sem console serial, e a unica forma de saber onde o boot parou se o sistema nao chegar a subir.
+# Tenta os nomes possiveis da particao de boot e escreve cada passo no console (/dev/kmsg).
+PREREQ=""
+prereqs() { echo "$PREREQ"; }
+case "$1" in prereqs) prereqs; exit 0 ;; esac
+
+diz() { echo "aquarius-diag: $*" > /dev/kmsg 2>/dev/null; }
+(
+  diz "inicio"
+  dev=
+  i=0   # o busybox do initramfs nao tem seq
+  while [ $i -lt 40 ]; do
+    for d in /dev/disk/by-label/AQ-BOOT /dev/mmcblk0p1 /dev/mmcblk1p1; do
+      [ -b "$d" ] && { dev=$d; break 2; }
+    done
+    i=$((i + 1)); sleep 1
+  done
+  [ -n "$dev" ] || { diz "particao de boot nao apareceu: $(ls /dev/mmcblk* 2>&1 | tr '\n' ' ')"; exit 0; }
+  mkdir -p /run/aqdiag
+  if ! erro=$(mount -t vfat -o rw,sync "$dev" /run/aqdiag 2>&1); then diz "mount $dev falhou: $erro"; exit 0; fi
+  mkdir -p /run/aqdiag/diag
+  diz "gravando em $dev"
+  n=0
+  while [ $n -lt 150 ]; do
+    { echo "== $(cat /proc/uptime) initramfs passo $n ($dev)"; cat /proc/cmdline; ls /dev/mmcblk* 2>&1
+      echo "== modulos"; cut -d' ' -f1 /proc/modules | tr '\n' ' '; echo
+      echo "== dmesg"; dmesg; } > /run/aqdiag/diag/initramfs-dmesg.txt 2>&1
+    sync
+    [ -e /run/aqdiag-parar ] && break
+    n=$((n + 1)); sleep 2
+  done
+  umount /run/aqdiag 2>/dev/null
+) &
+exit 0

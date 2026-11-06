@@ -1,0 +1,47 @@
+#!/bin/bash
+# Testa a imagem do GPS no QEMU (-M cubieboard = Allwinner A10, 512 MB como o aparelho).
+# A copia de teste ganha a EMAC (rede que o QEMU emula; o GPS real nao tem) e o sun4i_ss desligado
+# (o QEMU nao emula o motor de cripto e o autoteste trava). A imagem original nao e alterada.
+# uso: testar-qemu.sh <imagem.img> <dtb-base.dts-dir> <saida-log>   < chave privada ssh (stdin)
+set -euo pipefail
+IMG=${1:?imagem}; DTSDIR=${2:?pasta com dts/ e src/linux}; LOG=${3:?log}
+T=$(mktemp -d); trap 'kill "$(cat "$T/qemu.pid" 2>/dev/null)" 2>/dev/null || true; rm -rf "$T"' EXIT
+umask 077; cat > "$T/chave"; umask 022
+grep -q "PRIVATE KEY" "$T/chave" || { echo "chave invalida na entrada" >&2; exit 1; }
+
+cp --sparse=always "$IMG" "$T/teste.img"; truncate -s 8G "$T/teste.img"
+L=$DTSDIR/src/linux
+cat "$DTSDIR/dts/sun4i-a10-aquarius-mtc4553.dts" - > "$T/teste.dts" <<'EOF'
+&emac { phy-handle = <&phy1>; status = "okay"; };
+&emac_sram { status = "okay"; };
+&mdio { status = "okay"; phy1: ethernet-phy@1 { reg = <1>; }; };
+EOF
+cpp -nostdinc -undef -D__DTS__ -x assembler-with-cpp -I "$L/include" -I "$L/arch/arm/boot/dts/allwinner" \
+  -I "$L/scripts/dtc/include-prefixes" -I "$DTSDIR/dts" "$T/teste.dts" -o "$T/teste.pre"
+dtc -q -I dts -O dtb -o "$T/teste.dtb" "$T/teste.pre"
+export MTOOLS_SKIP_CHECK=1; P="$T/teste.img@@1048576"
+DTBP=$(mtype -i "$P" ::/extlinux/extlinux.conf | sed -n 's/^\tfdt //p' | head -1)
+mcopy -o -i "$P" "$T/teste.dtb" "::$DTBP"
+mtype -i "$P" ::/extlinux/extlinux.conf | sed 's/loglevel=7/loglevel=7 modprobe.blacklist=sun4i_ss/' > "$T/ext.conf"
+mcopy -o -i "$P" "$T/ext.conf" ::/extlinux/extlinux.conf
+
+qemu-system-arm -M cubieboard -m 512 -display none -daemonize -pidfile "$T/qemu.pid" \
+  -drive if=sd,format=raw,file="$T/teste.img" -serial file:"$LOG" \
+  -nic user,hostfwd=tcp:127.0.0.1:2222-:22
+S="ssh -i $T/chave -p 2222 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o ConnectTimeout=10 -o BatchMode=yes root@127.0.0.1"
+for i in $(seq 1 90); do $S true 2>/dev/null && break; sleep 10; done
+$S true 2>/dev/null || { echo "FALHA: SSH nao respondeu em 15 min"; exit 1; }
+echo "== SSH ok (chave-casa) apos ~$((i*10)) s"
+$S 'echo "== kernel"; uname -r; echo "== modelo"; tr -d "\0" < /proc/device-tree/model; echo
+    echo "== falhas"; systemctl --failed --no-legend
+    for u in aquarius-modo aquarius-expandir aquarius-relatorio aquarius-sshkeys NetworkManager zramswap unattended-upgrades.service ssh seatd; do printf "%-24s %s\n" $u "$(systemctl is-active $u)"; done
+    echo "== modo"; journalctl -b -u aquarius-modo --no-pager | grep -E "modo escolhido" ; systemctl is-active aquarius-retroarch lightdm
+    echo "== disco"; df -h / /boot | tail -2; ls /var/lib/aquarius-expandido
+    echo "== zram"; swapon --show
+    echo "== senha ssh desligada"; sshd -T 2>/dev/null | grep -E "^(passwordauthentication|permitrootlogin)"
+    echo "== nm"; nmcli -t -f NAME,TYPE con show
+    echo "== atualizacao"; apt-config dump | grep -c "Unattended-Upgrade::Origins-Pattern::"; apt-config dump | grep Automatic-Reboot
+    echo "== drivers"; lsmod | grep -E -c "sun4i_drm|edt_ft5x06|axp20x|sun4i_codec|rtl8xxxu|sun4i_lradc|lima|pwm_sun4i"
+    echo "== troca de modo"; aquarius-trocar-modo tablet; sleep 20; systemctl is-active lightdm aquarius-retroarch
+    aquarius-trocar-modo jogos; sleep 10; systemctl is-active lightdm aquarius-retroarch
+    echo "== relatorio"; ls /boot/logs/ 2>&1'
