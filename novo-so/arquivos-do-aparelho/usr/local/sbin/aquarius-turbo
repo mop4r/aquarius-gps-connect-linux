@@ -14,11 +14,16 @@ B=/sys/devices/system/cpu/cpufreq/boost
 C=/sys/devices/system/cpu/cpu0/cpufreq
 mkdir -p "$E"
 log() { logger -t aquarius-turbo "$*"; echo "$*"; }
+# Governador: o schedutil NAO usa a frequencia de turbo (fica em 1008 mesmo com a CPU a 100%, medido em 10/11/2026);
+# com o turbo ligado vai performance (1104 fixo), desligado volta o schedutil.
 liga() {  # liga <kHz>
   [ -w "$B" ] || { log "kernel sem boost (DTB sem turbo-mode?)"; return 1; }
-  echo 1 > "$B"; echo "$1" > "$C/scaling_max_freq"
+  echo 1 > "$B"; echo "$1" > "$C/scaling_max_freq"; echo performance > "$C/scaling_governor"
 }
-desliga() { [ -w "$B" ] && { echo 1008000 > "$C/scaling_max_freq"; echo 0 > "$B"; }; return 0; }
+desliga() {
+  [ -w "$B" ] && { echo schedutil > "$C/scaling_governor"; echo 1008000 > "$C/scaling_max_freq"; echo 0 > "$B"; }
+  return 0
+}
 valido() { case "$1" in 1104000) return 0 ;; *) return 1 ;; esac; }
 
 case "${1:-}" in
@@ -47,7 +52,7 @@ desligar)
   desliga; rm -f "$E/aprovado" "$E/sem-confirmar"; sync; log "turbo desligado (1008 MHz)"
   ;;
 estado)
-  echo "boost=$(cat "$B" 2>/dev/null || echo ausente) max=$(cat "$C/scaling_max_freq") atual=$(cat "$C/scaling_cur_freq")"
+  echo "boost=$(cat "$B" 2>/dev/null || echo ausente) max=$(cat "$C/scaling_max_freq") atual=$(cat "$C/scaling_cur_freq") governador=$(cat "$C/scaling_governor")"
   echo "aprovado=$(cat "$E/aprovado" 2>/dev/null || echo nenhum) sem-confirmar=$([ -f "$E/sem-confirmar" ] && echo sim || echo nao)"
   ;;
 *) echo "uso: $0 boot|confirmar|aprovar 1104000|desligar|estado" >&2; exit 2 ;;

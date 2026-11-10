@@ -3,6 +3,7 @@
 # uso: aquarius-bench <nucleo.so> <jogo> ['chave = "valor";...']
 #   MODO=real  (padrao) vsync e som ligados: velocidade real (alvo ~60) e % de CPU do sistema
 #   MODO=livre sem vsync/som (no Wayland o cage ainda limita a ~60 quando a GPU acompanha)
+#   TEMPO=400  limite de cada abertura em s (jogo travado e derrubado)
 #   KMS=1      RetroArch direto no DRM/KMS, sem o cage (o toque vira ponteiro unico: so para comparar)
 # Duas rodadas (N1 e N2 quadros); a diferenca desconta o tempo de abrir o jogo.
 # Antes: touch /run/aquarius-trocando; systemctl stop lightdm aquarius-retroarch
@@ -14,7 +15,8 @@ case "$CORE" in */*|*..*) echo "nucleo invalido" >&2; exit 2;; esac
 CP=""; for d in /usr/local/lib/libretro /usr/lib/arm-linux-gnueabihf/libretro; do [ -f "$d/$CORE" ] && { CP="$d/$CORE"; break; }; done
 [ -n "$CP" ] || { echo "nucleo nao existe" >&2; exit 2; }
 [ -f "$ROM" ] || { echo "jogo nao existe" >&2; exit 2; }
-N1=${N1:-300}; N2=${N2:-2100}; MODO=${MODO:-real}
+N1=${N1:-300}; N2=${N2:-2100}; MODO=${MODO:-real}; TEMPO=${TEMPO:-400}
+[[ $TEMPO =~ ^[0-9]{1,4}$ ]] || { echo "TEMPO invalido" >&2; exit 2; }
 # Copia da config do jogador (--config): o RetroArch grava a config ao sair (config_save_on_exit) e
 # com --appendconfig as chaves do teste iam parar na config de verdade (aconteceu em 06/11/2026).
 CFG=$(mktemp /tmp/bench.XXXXXX.cfg); trap 'rm -f "$CFG"' EXIT
@@ -31,14 +33,24 @@ PRE="/usr/bin/cage -s --"
 [ "${KMS:-0}" = 1 ] && { PRE=""; poe 'video_context_driver = "kms"'; poe 'input_driver = "udev"'; }
 if [ -n "$EXTRA" ]; then IFS=';' read -ra XS <<< "$EXTRA"; for l in "${XS[@]}"; do l=${l# }; [ -n "$l" ] && poe "$l"; done; fi
 chown jogador: "$CFG"; chmod 600 "$CFG"
+U=aquarius-bench-jogo
+limpa() {  # derruba a unidade do jogo se ainda estiver de pe (travou ou estourou o tempo)
+  systemctl is-active -q "$U" 2>/dev/null || return 0
+  systemctl kill -s KILL "$U" 2>/dev/null || true; systemctl stop "$U" 2>/dev/null || true
+  systemctl reset-failed "$U" 2>/dev/null || true
+}
+limpa   # sobra de uma rodada anterior interrompida
 ocup() { awk '/^cpu /{print $2+$3+$4+$7+$8, $5+$6; exit}' /proc/stat; }   # jiffies ocupado e ocioso
 roda() {   # imprime: segundos ocupado ocioso
   local n=$1 t0 t1 o0 i0 o1 i1
   read -r o0 i0 < <(ocup); t0=$(date +%s.%N)
-  timeout 400 systemd-run --quiet --wait --collect -p User=jogador -p PAMName=login -p TTYPath=/dev/tty1 \
+  # unidade com nome fixo: no estouro do timeout o timeout so mata o systemd-run, e o cage/retroarch
+  # ficava vivo segurando tty1/DRM; todos os testes seguintes falhavam (video_threaded, 10/11/2026)
+  timeout "$TEMPO" systemd-run --quiet --wait --collect --unit="$U" -p User=jogador -p PAMName=login -p TTYPath=/dev/tty1 \
     -p StandardInput=tty -p StandardOutput=journal -p StandardError=journal -E XDG_RUNTIME_DIR=/run/user/1000 -E LIBSEAT_BACKEND=seatd -E HOME=/home/jogador \
     $PRE /usr/bin/retroarch -L "$CP" --config "$CFG" --max-frames="$n" "$ROM" >/dev/null 2>&1 || true
   t1=$(date +%s.%N); read -r o1 i1 < <(ocup)
+  limpa
   awk -v t0="$t0" -v t1="$t1" -v o="$((o1-o0))" -v i="$((i1-i0))" 'BEGIN{printf "%.3f %d %d\n", t1-t0, o, i}'
 }
 roda 120 >/dev/null   # aquecimento: a 1a abertura le o nucleo e o jogo do cartao (cache frio) e distorce
