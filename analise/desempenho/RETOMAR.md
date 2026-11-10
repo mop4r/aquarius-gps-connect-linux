@@ -22,6 +22,16 @@ Pausado a pedido do Pedro (GPS ia ser desligado). Estado deixado no GPS: modo jo
 | mgba | Skyland | 47,5 / 48,4 | 96 / 97 % |
 | gpsp | Skyland | 57,9 | 74 % |
 
+## Retomada 10/11/2026 (noite, Pedro dormindo: seguir sozinho ate o fim)
+- Bateria 5 refeita, 1008 x 1104 MHz (2 rodadas): SNES 2005_plus 57,0/56,4 x 57,1/58,8; snes9x2010 52,7/53,1 x
+  53,5/52,6; mgba 49,3/49,0 x 48,1/34,4 (ponto fora?); gpsp 58,2/56,7 x 58,0/60,7. Turbo SEM ganho medido ate aqui.
+- `video_threaded = "true"` TRAVA o RetroArch (4,7 fps, nao sai). Nunca ligar. O jogo travado ficou segurando a tela
+  e os testes seguintes deram erro; limpeza: `pkill -9 retroarch; pkill -9 cage`.
+- aquarius-bench corrigido NO REPO (unidade com nome fixo + limpa): falta instalar no GPS e testar, depois commit.
+- Bateria 6 (/root/bateria6.sh -> /root/bateria6.txt): mgba e snes9x2010 x3 a 1104 e x3 a 1008, frequencia real
+  durante o jogo (cpuinfo_cur_freq, time_in_state), depois audio_latency 96 e audio_resampler_quality 1.
+  Se a sessao cair: ler /root/bateria6.txt e seguir do passo 2 abaixo (o passo 1 fica feito com ela).
+
 ## Retomar daqui (nessa ordem)
 1. `touch /run/aquarius-trocando; systemctl stop aquarius-retroarch lightdm` e rodar de novo
    `systemd-run --unit=bateria5 --collect bash /root/bateria5.sh` (1008 x 1104 + video_threaded,
