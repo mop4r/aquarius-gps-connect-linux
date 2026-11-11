@@ -77,3 +77,11 @@ Falta (com o Pedro perto, um por vez, com copia):
   b. DRAM mais rapida no U-Boot (unico caminho para o mgba); se falhar o GPS nao liga -> regravar o cartao.
   c. Driver rtl8xxxu com o id 0bda:8176 (compilar modulo) para a rede do GPS ao PC.
 Opcional: religar o RetroArch se ele cair por sinal (hoje vai ao tablet); volume de volta a 50/63 quando o Pedro pedir.
+
+## 11/11/2026 madrugada, com o Pedro perto (os 3 itens feitos)
+- Wi-Fi rtl8xxxu (b42f0c3): GPS -> rede ~10x mais rapido; vigia confirmou. Em observacao: caiu 2x durante memtester
+  (uma a 480 MHz de DRAM e outra com um laco meu de SSH sem pausa); na estabilidade longa a 1152, 0 falhas de ping.
+- DRAM 480 MHz: REPROVADA (travou sob memtester; nem o watchdog voltou). Volta a 408 pelo leitor do PC (/dev/sdf).
+- CPU 1152 MHz: REPROVADO (corrompe dados gravados no cartao em 2 de 3). DTB de volta ao de 1104; fsck forcado: limpo.
+- Turbo 1104 reaprovado (a trava tinha desaprovado sozinha depois do boot que travou a 480).
+Nao ha mais item de desempenho pendente. Opcional: religar o RetroArch se cair por sinal; volume 50/63 quando pedir.

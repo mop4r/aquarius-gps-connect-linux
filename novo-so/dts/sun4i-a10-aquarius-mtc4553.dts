@@ -96,6 +96,8 @@
  * comeca em ate 1008). Quem liga e o aquarius-turbo, com trava (06/11/2026).
  * 1200 MHz @ 1,5 V (o maximo do regulador) ERRA CONTA: stress-ng --verify 1 falha e memtester
  * 17 falhas em 06/11/2026. Nao acrescentar.
+ * 1152 MHz @ 1,5 V tambem NAO: passa no stress-ng --verify, memtester e 30 min de jogo, mas CORROMPE o que vai para o
+ * cartao (400 MB gravados e relidos sem cache: sha256 diferente em 2 de 3; a 1104, igual em 3 de 3), 11/11/2026.
  */
 / {
 	cpu0_opp: opp-table-cpu {
