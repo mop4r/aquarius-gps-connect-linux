@@ -57,6 +57,14 @@ c systemctl enable aquarius-vigia.service >/dev/null 2>&1
 chmod 0755 "$R/usr/local/sbin/aquarius-turbo"
 c systemctl enable aquarius-turbo.service aquarius-turbo-confirmar.timer >/dev/null 2>&1
 
+# Wi-Fi: o modprobe chama o aquarius-wifi-driver no lugar do rtl8192cu; ele usa o rtl8xxxu com o id 0bda:8176 se o
+# kernel tiver o modulo (novo-so/build/wifi-rtl8xxxu/compilar.sh, no GPS) e senao o rtl8192cu: a imagem sai funcionando
+# com o driver antigo e fica ~10x mais rapida de enviar depois de compilar.
+chmod 0755 "$R/usr/local/sbin/aquarius-wifi-driver"
+install -d "$R/usr/local/share/aquarius/wifi-rtl8xxxu"
+install -m 0755 "$(dirname "$0")/wifi-rtl8xxxu/compilar.sh" "$R/usr/local/share/aquarius/wifi-rtl8xxxu/compilar.sh"
+install -m 0644 "$(dirname "$0")"/wifi-rtl8xxxu/fontes-*.sha256 "$R/usr/local/share/aquarius/wifi-rtl8xxxu/"
+
 # atalho "Modo jogos" confiavel: o xfce so aceita marcar com a sessao aberta -> roda no 1o login
 install -m 0755 /dev/stdin "$R/usr/local/bin/aquarius-confiar-atalhos" <<'EOF'
 #!/bin/sh
