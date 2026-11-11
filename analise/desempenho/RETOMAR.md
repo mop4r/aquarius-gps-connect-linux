@@ -59,3 +59,21 @@ Com o Pedro perto (copia do arquivo antigo, um por vez):
 7. mitigations=off na linha do kernel (Spectre v2 no A8).
 8. 1152 MHz @ 1,5 V (entre 1104 ok e 1200 que errou).
 9. DRAM mais rapida no U-Boot (unico caminho para o mgba); se falhar o GPS nao liga -> regravar o cartao no PC.
+
+## Estado em 11/11/2026 ~00:40 (parte sem risco FEITA)
+- Turbo: o schedutil nao usava o 1104; agora aquarius-turbo liga performance. APROVADO e confirmado neste GPS.
+  Trava provada (reboot sem confirmar -> 1008 e reprovado; confirmado -> volta 1104). Confirmar exige 9 min de turbo.
+- Bateria 7 (clock real): snes9x2010 53 -> 57 fps; 2005_plus ~57 -> ~59; mgba e gpsp sem ganho claro.
+- Estabilidade longa a 1104: tudo OK, max 72 C. Tablet a 1104: LibreOffice 21 -> 18 s, terminal ~4 s, area de trabalho 33 s.
+- Bateria 8: cage+alsa (atual) e o melhor; KMS direto, alsathread, nearest, 32 kHz: nao.
+- Navegador: NetSurf padrao (4-7 s) e Firefox em atalho (41-51 s). Log do RetroArch desligado no GPS.
+- Rede: integra; lenta por TX do driver rtl8192cu (CPU ociosa, cifra nao e o gargalo).
+- Estabilidade parte 2: OOM -> kernel mata so o guloso, sem reboot; RetroArch caiu (SIGSEGV) e foi ao tablet. Queda de Wi-Fi
+  -> vigia reiniciou a rede aos 303 s, sem reboot.
+- Nucleos compilados entram na imagem conferidos por sha256 (79d3f86).
+- spectre_v2 "Not affected": mitigations=off sai da lista.
+Falta (com o Pedro perto, um por vez, com copia):
+  a. 1152 MHz @ 1,5 V (entre 1104 ok e 1200 que errou): DTB novo + mesma bateria de estabilidade.
+  b. DRAM mais rapida no U-Boot (unico caminho para o mgba); se falhar o GPS nao liga -> regravar o cartao.
+  c. Driver rtl8xxxu com o id 0bda:8176 (compilar modulo) para a rede do GPS ao PC.
+Opcional: religar o RetroArch se ele cair por sinal (hoje vai ao tablet); volume de volta a 50/63 quando o Pedro pedir.
