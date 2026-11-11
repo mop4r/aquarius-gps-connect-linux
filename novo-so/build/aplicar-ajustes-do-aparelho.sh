@@ -19,6 +19,21 @@ DEBIAN_FRONTEND=noninteractive c apt-get install -y --no-install-recommends \
   xserver-xorg-input-evdev i2c-tools gpiod evtest grim x11-apps fio unclutter-xfixes netsurf-gtk >/dev/null
 c glib-compile-schemas /usr/share/glib-2.0/schemas
 
+# nucleos compilados para o Cortex-A8 (compilar-nucleos.sh / no GPS), os mesmos medidos no aparelho: vem de
+# novo-so/nucleos-compilados/ (fora do git) e tem de bater com novo-so/nucleos-compilados.sha256. Os outros sao
+# atalhos para os do Debian. O RetroArch e o aquarius-listas-jogos procuram primeiro em /usr/local/lib/libretro.
+NC=$(cd "$A/.." && pwd)/nucleos-compilados
+[ -f "$NC.sha256" ] && [ -d "$NC" ] || { echo "faltam os nucleos compilados em $NC (veja $NC.sha256)" >&2; exit 1; }
+(cd "$NC" && sha256sum --strict --quiet -c "$NC.sha256") || { echo "nucleos compilados nao batem com $NC.sha256" >&2; exit 1; }
+LR="$R/usr/local/lib/libretro"; install -d -m 0755 "$LR"
+while read -r _ so; do
+  [[ $so =~ ^[a-z0-9_]+_libretro\.so$ ]] || { echo "nome de nucleo invalido em $NC.sha256" >&2; exit 1; }
+  install -m 0644 "$NC/$so" "$LR/$so"
+done < "$NC.sha256"
+for n in desmume gambatte genesis_plus_gx mgba nestopia snes9x; do
+  [ -e "$LR/${n}_libretro.so" ] || ln -s "/usr/lib/arm-linux-gnueabihf/libretro/${n}_libretro.so" "$LR/${n}_libretro.so"
+done
+
 # energia sem bateria (AXP209 reg 0x30 = 0x43) antes de tudo
 c systemctl enable aquarius-vbus.service >/dev/null 2>&1
 
