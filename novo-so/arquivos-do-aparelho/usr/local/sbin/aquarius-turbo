@@ -38,7 +38,11 @@ boot)
   liga "$f" && log "turbo ligado em $f kHz (falta confirmar)"
   ;;
 confirmar)
-  [ -f "$E/sem-confirmar" ] && { rm -f "$E/sem-confirmar"; sync; log "turbo confirmado neste boot"; }
+  [ -f "$E/sem-confirmar" ] || exit 0
+  # so confirma com o turbo ligado ha 9 min ou mais: aprovado perto do timer de boot (11 min), quem confirma e o
+  # timer de 10 min do proprio aprovar (antes o timer de boot confirmava 1 min depois de aprovar)
+  [ -n "$(find "$E/sem-confirmar" -mmin +9)" ] || { log "turbo ligado ha menos de 9 min: confirmacao fica para depois"; exit 0; }
+  rm -f "$E/sem-confirmar"; sync; log "turbo confirmado neste boot"
   exit 0
   ;;
 aprovar)

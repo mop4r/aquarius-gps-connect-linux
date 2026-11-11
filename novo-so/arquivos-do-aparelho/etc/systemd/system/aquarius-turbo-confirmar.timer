@@ -1,8 +1,8 @@
 [Unit]
-Description=Confirma o turbo 10 min depois do boot
+Description=Confirma o turbo 11 min depois do boot (aquarius-turbo exige 9 min de turbo ligado)
 
 [Timer]
-OnBootSec=10min
+OnBootSec=11min
 
 [Install]
 WantedBy=timers.target
