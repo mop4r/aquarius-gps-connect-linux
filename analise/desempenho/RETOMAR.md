@@ -85,3 +85,9 @@ Opcional: religar o RetroArch se ele cair por sinal (hoje vai ao tablet); volume
 - CPU 1152 MHz: REPROVADO (corrompe dados gravados no cartao em 2 de 3). DTB de volta ao de 1104; fsck forcado: limpo.
 - Turbo 1104 reaprovado (a trava tinha desaprovado sozinha depois do boot que travou a 480).
 Nao ha mais item de desempenho pendente. Opcional: religar o RetroArch se cair por sinal; volume 50/63 quando pedir.
+
+## 11/11/2026 manhã (fechamento)
+- Volume de volta ao normal no GPS (Power Amplifier 50/63, `alsactl store`; igual ao asound.state do repo).
+- A imagem nova sai com o turbo 1104 APROVADO (aplicar-ajustes-do-aparelho.sh grava /var/lib/aquarius-turbo/aprovado);
+  o 1o boot nao reinicia (o resize2fs e online), entao a trava nao desaprova a toa.
+- README da raiz reescrito para o projeto inteiro (SO novo, desempenho, turbo, vigia, Wi-Fi, montagem da imagem).

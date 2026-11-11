@@ -52,10 +52,14 @@ grep -q 'quiet loglevel=3' "$R/etc/default/u-boot" || { echo "u-boot: loglevel n
 chmod 0755 "$R/usr/local/sbin/aquarius-vigia" "$R/usr/local/sbin/aquarius-tentar"
 c systemctl enable aquarius-vigia.service >/dev/null 2>&1
 
-# turbo 1104 MHz (turbo-mode no DTB): so liga com /var/lib/aquarius-turbo/aprovado, e desaprova sozinho
-# se um boot com turbo nao confirmar em 10 min. Imagem nova sai sem aprovacao (aquarius-turbo aprovar 1104000).
+# turbo 1104 MHz (turbo-mode no DTB) com governador performance: so liga com /var/lib/aquarius-turbo/aprovado, e
+# desaprova sozinho se um boot com turbo nao confirmar (9 min de turbo; timer em 11 min). Desde 11/11/2026 a imagem
+# sai APROVADA (1104 provado: estabilidade longa, disco, trava nas duas pontas; o 1o boot nao reinicia).
+# 1152 e 1200 NAO: corrompem dados / erram conta. Para sair sem turbo: aquarius-turbo desligar.
 chmod 0755 "$R/usr/local/sbin/aquarius-turbo"
 c systemctl enable aquarius-turbo.service aquarius-turbo-confirmar.timer >/dev/null 2>&1
+install -d -m 0755 "$R/var/lib/aquarius-turbo"
+echo 1104000 > "$R/var/lib/aquarius-turbo/aprovado"; rm -f "$R/var/lib/aquarius-turbo/sem-confirmar"
 
 # Wi-Fi: o modprobe chama o aquarius-wifi-driver no lugar do rtl8192cu; ele usa o rtl8xxxu com o id 0bda:8176 se o
 # kernel tiver o modulo (novo-so/build/wifi-rtl8xxxu/compilar.sh, no GPS) e senao o rtl8192cu: a imagem sai funcionando

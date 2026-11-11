@@ -1,66 +1,104 @@
-# Aquarius Connect 5.0 (Guia Quatro Rodas) — extração do cartão SD
+# Aquarius Connect 5.0 (Guia Quatro Rodas) → console retrô e tablet com Debian
 
-Conteúdo do cartão SD de 2 GB (FAT16) que estava no GPS **Aquarius Connect 5.0 / Guia
-Quatro Rodas**, extraído em **2026-11-03** no PC de casa (`Pedro`).
+O GPS **Aquarius Connect 5.0** (placa MTC4553, Allwinner **A10** Cortex-A8 a 1 GHz, Mali-400, **512 MB**, tela
+800×480 com toque, Wi-Fi RTL8188CUS) vinha com Android 4.0.3 e o iGO 8.4.3. Este repositório tem:
 
-## Por que o cartão "não aparecia"
-O cartão estava saudável, mas o Windows **não atribuiu letra de unidade** a ele
-(partição FAT16 "MS-DOS V4 Huge", Disco 4 / `/dev/sde`, ~1,99 GB). Bastou dar uma letra
-(`Set-Partition -NewDriveLetter G`) para montar e ler.
+1. **O SO novo** (`novo-so/`): Debian 13 (trixie) armhf rodando de um **microSD separado**, sem tocar na NAND
+   do aparelho (tirou o cartão, volta a ser o GPS original). Kernel do Debian com DTS próprio, U-Boot mainline.
+2. **A análise do aparelho** (`analise/`): mapa do hardware, porte item a item, desempenho e o receptor GPS.
+3. **O backup do cartão original** do iGO (fora do git; descrito no fim).
 
-## O que tinha no cartão
-Software de navegação **iGO My Way 8.4.3 (motor "Amigo", build Android)** com mapa do
-Brasil — exatamente o software do GPS.
+## O que o GPS faz com o SO novo
 
-- `iGO/` — instalação completa (266 arquivos, 414,28 MB)
-  - `content/map/Brazil.fbl` (114,9 MB) + `Basemap.fbl` (9,1 MB) — **mapa Brasil, 2013-09-04**
-  - `content/dem/` (199,6 MB) — relevo 3D
-  - `content/poi/` (55,8 MB) — pontos de interesse
-  - `content/speedcam/speedcam.txt` + `SpeedcamUpdates.spud` — radares (2013-09-02); +
-    pedágios, quebra-molas, túneis (2009)
-  - `content/lang/Lang_Portuguese-ptbr.gro` — idioma PT-BR
-  - `content/voice/`, `audio/EN`, `audio/RU` — vozes
-  - `license/` — **licenças travadas ao aparelho**: `device.nng`,
-    `Android_Amigo_WW@1001_JM-PPCW.lic`, `Android_Amigo_Engine_Multilang.lyc`,
-    `Full_Europe_NQ_Subscription_2009_Q3.lic`, `LCP_43J_FEU@0807_(NNG+TA_HUN_TMC).lic`
-  - `data.gro` (6,33 MB), `branding.gro`, `sys.txt` (config — `type="android"`),
-    `iGO My Way v8.4.3.179971 ...apk` (3,63 MB)
-- `LOST.DIR` — vazia (resíduo de fsck FAT); não copiada
-- `System Volume Information` — criada pelo Windows ao montar; não é do GPS
+| Modo | O que é | Como entra |
+|---|---|---|
+| **Jogos** (padrão no boot) | RetroArch em tela cheia (cage/Wayland), controle na tela, listas por console | liga o aparelho; ou `aquarius-trocar-modo jogos`; ou o atalho "Modo jogos" no tablet |
+| **Tablet** | XFCE com toque (rolagem com o dedo, toque longo = clique direito), NetSurf, arquivos, terminal, editor | sair do RetroArch; ou `aquarius-trocar-modo tablet` |
 
-## Arquivos desta pasta
-- `arquivos/iGO/` — cópia dos arquivos pelo sistema de arquivos (robocopy, **0 falhas**)
-- `sd-card-dump/aquarius-connect-5pol-full.img` — **imagem bruta** do cartão inteiro
-  (1.992.294.400 bytes). Feita ANTES de montar, então não contém `System Volume Information`.
-  - `*.img.sha256` — `ABCFED9C3B0E9BA3B813E98E0E7D7281B4BDE39E0EFABFE5DB7E95C9DED6F8FC`
-- `robocopy.log`, `indice-arquivos.txt`
+Jogos: só homebrew de licença livre (`novo-so/jogos-livres/CATALOGO.md`); nenhum ROM comercial no repo.
+Acesso: SSH por chave (root) pelo Wi-Fi de casa, configurado na montagem da imagem.
 
-## Nota sobre a imagem bruta
-O `dd` (bs=4M, `conv=noerror,sync`) acusou poucos **erros de leitura** (~184 MB e
-~480–492 MB) preenchidos com zero. Esses setores caíam em **espaço livre**: a cópia pelo
-sistema de arquivos leu os 266 arquivos **sem nenhuma falha**, então nenhum arquivo foi
-afetado. Para uma imagem 100% byte-a-byte (se um dia precisar), reimagear com `ddrescue`.
+## Desempenho (medido no aparelho, 06–11/11/2026)
 
-## Restaurar em outro cartão
-Imagem é do disco inteiro (MBR + partição). Para recriar o cartão:
-`dd if=aquarius-connect-5pol-full.img of=/dev/sdX bs=4M` (gravar no cartão vazio). As
-licenças em `license/` são travadas ao aparelho original — podem não validar em outro device.
+| O quê | Antes | Agora |
+|---|---|---|
+| Processador | 1008 MHz, `schedutil` | **1104 MHz turbo** com `performance` (aprovado por padrão, com trava) |
+| SNES pesado (snes9x2010) | 53 fps | **57–60 fps** |
+| Área de trabalho do tablet / usável | 45 s / 78 s | **33 s / 54 s** |
+| Navegador | Firefox ~45 s para abrir | **NetSurf 4–7 s** (Firefox fica num atalho para sites pesados) |
+| LibreOffice Writer (quente) | 21 s | **18 s** |
+| Envio do GPS pela rede | 0,2 MB/s | **2–2,9 MB/s** (driver `rtl8xxxu`) |
+| Boot | 1 min 34 s | 51 s |
 
-## Como atualizar mapa/radares
-**Não é pelo menu do GPS.** O aparelho é offline (iGO Amigo 8.4.3; `sys.txt` com
-`location_net=0`, `tmc-http=0`, servidor comentado) — ele não baixa mapa sozinho. Toda
-atualização é **no PC**, por dois caminhos:
+Testado e **reprovado** (não usar): 1152 MHz (corrompe dados gravados no cartão), 1200 MHz (erra conta),
+RAM a 480 MHz (trava com a memória cheia; fica 408, o valor de fábrica), `video_threaded` do RetroArch
+(trava o jogo), RetroArch direto no DRM sem o cage (perde quadros). Detalhes e números:
+`analise/desempenho/RETOMAR.md`.
 
-1. **Oficial — Naviextras Toolbox** (naviextras.com/toolbox, grátis da NNG): conecta o
-   cartão/aparelho em modo armazenamento em massa; o Toolbox lê `license/device.nng` e, se o
-   device estiver na lista de suportados, mostra os updates. Ressalvas: (a) rebrands BR como
-   este normalmente **não** estão na lista (licença OEM) → Toolbox não reconhece; (b) a janela
-   de update grátis (~2 anos) expirou — só update **pago**; (c) portal da Aquarius morto.
-2. **Manual (o que funciona na prática):** trocar os arquivos no cartão —
-   `content/map/Brazil.fbl` (+`Basemap.fbl`) por um mapa Brasil mais novo **compatível com o
-   motor Amigo 8.4.3** (mapa de iGO Primo/NextGen NÃO roda no Amigo), e atualizar
-   `content/speedcam/speedcam.txt` (radares — esse é fácil, é só texto). Mapa novo vem de
-   fórum BR (gpsclube/gpsinfo, cadastro) ou pacote pago pronto (gpsaquarius.com.br,
-   rotacertagps). Mapa tem que casar com a licença `.lic`/`device.nng`.
+### Turbo (1104 MHz) e a trava
 
-Como há backup completo, dá pra testar à vontade: se quebrar, regravar o cartão pela imagem.
+- O DTB lista 1104 MHz como `turbo-mode`. O kernel só usa com `boost=1`, e todo boot **começa em até 1008**.
+- O serviço `aquarius-turbo` liga o turbo no boot (com governador `performance`: o `schedutil` ignora o turbo)
+  **só se aprovado** em `/var/lib/aquarius-turbo/aprovado`. A imagem sai aprovada em 1104.
+- **Trava:** cada boot com turbo precisa ficar 9 min de pé para confirmar (timer de 11 min). Se o GPS travar ou
+  reiniciar antes, o boot seguinte desaprova sozinho e fica em 1008.
+- Comandos: `aquarius-turbo estado | aprovar 1104000 | desligar`.
+
+### Volta automática (`aquarius-vigia`)
+
+- Sem roteador por 5 min → reinicia a rede; por 15 min → reinicia o aparelho (no máximo 3 seguidos).
+- Mudança arriscada: `aquarius-tentar inicio "<descrição>" <arquivos>` antes de mexer. Se rede ou SSH ficarem
+  5 min fora (antes ou depois de reiniciar), o vigia devolve os arquivos e reinicia; 10 min saudável confirma.
+- Watchdog de hardware pelo systemd (12 s). Não cobre `/boot`, kernel, DTB nem U-Boot: esses só com cópia guardada.
+
+### Wi-Fi
+
+O `aquarius-wifi-driver` (chamado pelo modprobe no lugar do `rtl8192cu`) usa o `rtl8xxxu` compilado com o id
+`0bda:8176` quando o kernel em uso tem esse módulo, e senão o `rtl8192cu`: atualização de kernel nunca deixa o GPS
+sem Wi-Fi. Recompilar para um kernel novo, no próprio GPS: `novo-so/build/wifi-rtl8xxxu/compilar.sh`.
+
+## Montar a imagem do cartão
+
+No WSL (Ubuntu), como root, com `qemu-user-static` (binfmt) e o toolchain `arm-linux-gnueabihf`:
+
+1. `novo-so/build/montar-rootfs.sh <pasta>`: Debian 13 armhf mínimo.
+2. `novo-so/build/configurar-rootfs.sh <pasta> <dtb> <chave-ssh.pub> < credenciais`: rede, usuários, boot. Os
+   segredos (`WIFI_SSID=`, `WIFI_PSK=`, `ROOT_SENHA=`, `JOGADOR_SENHA=`) entram pela entrada padrão, nunca em argumento.
+3. `novo-so/build/configurar-retroarch.sh <pasta> novo-so/build [novo-so/jogos-livres]`: modo jogos.
+4. `novo-so/build/aplicar-ajustes-do-aparelho.sh <pasta> novo-so/arquivos-do-aparelho`: tudo o que o uso real
+   provou (energia, toque, som, vigia, turbo, Wi-Fi, NetSurf, núcleos). Exige os núcleos compilados em
+   `novo-so/nucleos-compilados/` (fora do git; `compilar-nucleos.sh`), conferidos contra
+   `novo-so/nucleos-compilados.sha256`.
+5. `novo-so/build/montar-imagem.sh <pasta> <u-boot-sunxi-with-spl.bin> <saida.img>`: U-Boot no setor 16,
+   `AQ-BOOT` (FAT32, `/boot`) e `AQ-ROOT` (ext4, `/`, cresce até o fim do cartão no 1º boot).
+
+U-Boot: mainline v2025.10 com `novo-so/u-boot/Aquarius_MTC4553_defconfig` (DRAM do fex: 408 MHz) e o DTS de
+`novo-so/dts/`. Testar antes no QEMU: `novo-so/build/testar-qemu.sh`.
+
+**Gravar:** gravar primeiro o corpo da imagem e por último o 1º MiB (MBR + U-Boot), e conferir lendo de volta.
+O Windows monta as partições no meio da gravação: tirar as letras antes (`mountvol`).
+
+## Pastas
+
+| Pasta | Conteúdo |
+|---|---|
+| `novo-so/build/` | scripts da imagem, `bench/` (medidores `aquarius-bench` e `aquarius-bench-tablet`), `estabilidade/`, `wifi-rtl8xxxu/` |
+| `novo-so/arquivos-do-aparelho/` | cópia fiel dos arquivos ajustados no GPS funcionando (entram na imagem) |
+| `novo-so/dts/`, `novo-so/u-boot/` | device tree da placa e configuração do U-Boot |
+| `novo-so/jogos-livres/` | catálogo dos jogos homebrew livres (os arquivos de jogo ficam fora do git) |
+| `analise/` | hardware (`hardware.md`), porte (`mapa-port.md`), `desempenho/`, receptor `gps/`, `script.fex` de fábrica, logs |
+
+## O cartão original do iGO (backup de 2026-11-03)
+
+O cartão de 2 GB (FAT16) que estava no GPS tinha o **iGO My Way 8.4.3** (motor Amigo, Android) com o mapa do
+Brasil de 2013-09, radares de 2013, relevo 3D, POIs, voz PT-BR e as **licenças travadas ao aparelho**
+(`license/device.nng` e `.lic`). Imagem bruta (`sd-card-dump/`, sha256 `ABCFED9C…F8FC`) e cópia dos arquivos
+(`arquivos/iGO/`, 266 arquivos, 0 falhas) ficam **fora do git**. O Windows só não dava letra à partição; o cartão
+estava bom. O `dd` teve alguns erros de leitura em espaço livre, sem afetar arquivo nenhum.
+
+**Restaurar:** `dd if=aquarius-connect-5pol-full.img of=/dev/sdX bs=4M` num cartão vazio.
+
+**Atualizar mapa/radares (no modo GPS original):** o aparelho é offline. O Naviextras Toolbox oficial
+normalmente não reconhece este rebrand e o update grátis expirou. Na prática: trocar `content/map/Brazil.fbl`
+por um mapa compatível com o motor **Amigo 8.4.3** (mapa de iGO Primo/NextGen não roda) e atualizar
+`content/speedcam/speedcam.txt` (radares em texto). Com o backup, dá para testar à vontade.
