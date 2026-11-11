@@ -13,9 +13,10 @@ cp -a "$A/." "$R/"
 chmod 0755 "$R/usr/local/sbin/aquarius-vbus"
 c chown -R jogador:jogador /home/jogador
 
-# toque longo = clique direito no X (evdev); ferramentas usadas no diagnostico
+# toque longo = clique direito no X (evdev); ferramentas usadas no diagnostico; netsurf-gtk = navegador padrao do
+# tablet (abre em ~5 s; o Firefox leva ~45 s e fica num atalho "sites completos"), medido em 10/11/2026
 DEBIAN_FRONTEND=noninteractive c apt-get install -y --no-install-recommends \
-  xserver-xorg-input-evdev i2c-tools gpiod evtest grim x11-apps fio unclutter-xfixes >/dev/null
+  xserver-xorg-input-evdev i2c-tools gpiod evtest grim x11-apps fio unclutter-xfixes netsurf-gtk >/dev/null
 c glib-compile-schemas /usr/share/glib-2.0/schemas
 
 # energia sem bateria (AXP209 reg 0x30 = 0x43) antes de tudo

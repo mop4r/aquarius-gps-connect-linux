@@ -1,0 +1,4 @@
+[Default Applications]
+x-scheme-handler/http=netsurf-gtk.desktop
+x-scheme-handler/https=netsurf-gtk.desktop
+text/html=netsurf-gtk.desktop

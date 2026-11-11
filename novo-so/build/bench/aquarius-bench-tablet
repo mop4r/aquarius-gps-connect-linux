@@ -67,6 +67,8 @@ terminal|xfce4-terminal|xfce4-terminal|xfce4-terminal
 arquivos|thunar|thunar|thunar /home/jogador
 editor|mousepad|mousepad|mousepad
 navegador|firefox|firefox-esr|firefox-esr about:blank
+netsurf|NetSurf|netsurf-gtk|netsurf-gtk about:blank
+dillo|Dillo|/usr/bin/dillo|dillo about:blank
 escritorio|libreoffice|soffice|libreoffice --writer --norestore
 EOF
   echo "RAM livre no fim: $(livre) MB"

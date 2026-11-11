@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Icon=netsurf
+Type=X-XFCE-Helper
+Name=NetSurf
+StartupNotify=true
+X-XFCE-Binaries=netsurf-gtk;
+X-XFCE-Category=WebBrowser
+X-XFCE-Commands=%B;
+X-XFCE-CommandsWithParameter=%B "%s";

@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=Firefox (sites completos, abre em ~45 s)
+Comment=O navegador padrao e o NetSurf (abre em ~5 s); use o Firefox so para sites que precisam de JavaScript
+Exec=firefox-esr %u
+Icon=firefox-esr
+Terminal=false
