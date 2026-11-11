@@ -44,3 +44,18 @@ Pausado a pedido do Pedro (GPS ia ser desligado). Estado deixado no GPS: modo jo
 5. Aplicar os ajustes do RetroArch que provarem ganho; decidir se a imagem sai com turbo aprovado.
 6. Pendentes antigos: estabilidade parte 2 (rede, Wi-Fi/vigia, OOM, servicos), volume de volta a 50/63,
    log_verbosity do RetroArch, nucleos proprios na imagem.
+
+## Lista de 10/11 noite (pedido do Pedro: "o maximo de performance"; os que precisam dele perto por ultimo)
+Feito em 10/11: turbo 1104 real (performance), trava provada nas duas pontas, estabilidade longa a 1104 OK, tablet a 1104,
+log do RetroArch desligado, aquarius-bench derruba jogo travado.
+Sem risco (sozinho, medir cada um):
+1. Jogos em DRM/KMS direto sem o cage (KMS=1 no aquarius-bench) x cage: fps e CPU.
+2. Driver de som do RetroArch (alsa, alsathread, tinyalsa...): fps e CPU.
+3. Cartao: ext4 com noatime e commit maior (fstab: coberto pelo vigia? NAO, aquarius-tentar recusa /boot; fstab e raiz).
+4. Navegador leve (Netsurf/Dillo) alem do Firefox, com atalho; medir abertura.
+5. Rede: RetroArch parado em transferencia, cifra do SSH (chacha20/aes128-ctr), por que rx cai a MCS 2 com -29 dBm.
+6. Estabilidade parte 2: OOM x watchdog, queda do Wi-Fi + vigia (com rede de volta agendada por seguranca).
+Com o Pedro perto (copia do arquivo antigo, um por vez):
+7. mitigations=off na linha do kernel (Spectre v2 no A8).
+8. 1152 MHz @ 1,5 V (entre 1104 ok e 1200 que errou).
+9. DRAM mais rapida no U-Boot (unico caminho para o mgba); se falhar o GPS nao liga -> regravar o cartao no PC.
