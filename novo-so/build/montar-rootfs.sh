@@ -14,9 +14,11 @@ export GLIBC_TUNABLES=glibc.pthread.rseq=0
 # Retomavel: se o debootstrap ja terminou nesta pasta, pula para os pacotes
 if [ ! -f "$R/etc/os-release" ]; then
   [ -e "$R" ] && { echo "destino existe sem debootstrap completo: $R" >&2; exit 1; }
+  # systemd-sysv/udev/dbus NAO entram no --include: o debootstrap do Ubuntu 24.04 desempacota o systemd antes de
+  # configurar o libsystemd-shared (pre-dependencia) e falha 5x (12/11/2026, systemd 257.13). Vao pelo apt abaixo.
   debootstrap --arch=armhf --variant=minbase \
     --components=main,contrib,non-free,non-free-firmware \
-    --include=systemd-sysv,udev,dbus,apt,ca-certificates,locales,tzdata,ifupdown \
+    --include=apt,ca-certificates,locales,tzdata,ifupdown \
     trixie "$R" "$MIRROR"
 else
   echo "rootfs ja existe, retomando: $R"
@@ -31,6 +33,9 @@ EOF
 
 # Pacotes que cobrem cada item do mapa (analise/mapa-port.md)
 PKGS=(
+  systemd-sysv udev dbus                                    # init (fora do debootstrap, ver acima)
+  apt ca-certificates locales tzdata ifupdown               # o --include de novo: a retomada (dpkg --configure -a)
+                                                            # nao garante o que o debootstrap nao chegou a desempacotar
   linux-image-armmp initramfs-tools u-boot-tools            # kernel + boot
   firmware-realtek wpasupplicant iw wireless-regdb rfkill   # Wi-Fi RTL8188CUS
   systemd-resolved systemd-timesyncd openssh-server         # rede + SSH
