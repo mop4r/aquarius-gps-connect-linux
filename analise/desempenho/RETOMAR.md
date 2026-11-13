@@ -91,3 +91,11 @@ Nao ha mais item de desempenho pendente. Opcional: religar o RetroArch se cair p
 - A imagem nova sai com o turbo 1104 APROVADO (aplicar-ajustes-do-aparelho.sh grava /var/lib/aquarius-turbo/aprovado);
   o 1o boot nao reinicia (o resize2fs e online), entao a trava nao desaprova a toa.
 - README da raiz reescrito para o projeto inteiro (SO novo, desempenho, turbo, vigia, Wi-Fi, montagem da imagem).
+
+## 13/11/2026: imagem publicada (pré-release v2026.11.13)
+- Montagem do zero feita com os scripts do repo (o qemu-user travou 4x; correções em `configurar-rootfs`, `configurar-retroarch`,
+  `aplicar-ajustes`; roteiro que repete etapa parada). Imagem genérica (`generalizar-rootfs.sh` + `aquarius.txt` no 1º boot).
+- Achado e corrigido: a cópia de `arquivos-do-aparelho` deixava `/`, `/etc`, `/usr` e serviços root com 777 e dono jogador.
+- Travadinhas no jogo (12/11 à noite): eram o `apt-daily-upgrade` comendo ~50% da CPU; agora com prioridade ociosa.
+- Pendente: boot desta imagem no QEMU (o teste foi morto por falta de memória do PC) para tirar o pré-release; conferir as
+  permissões no GPS em uso; levar o `aquarius-vigia` novo para o GPS.
