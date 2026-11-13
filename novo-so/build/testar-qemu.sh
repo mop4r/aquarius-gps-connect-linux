@@ -52,4 +52,7 @@ $S 'echo "== kernel"; uname -r; echo "== modelo"; tr -d "\0" < /proc/device-tree
     echo "== aquarius.txt (imagem generica: tem de ter sido aplicado e apagado)"; ls /boot/aquarius*.txt 2>&1
     journalctl -b -u aquarius-config-inicial --no-pager -o cat | grep config-inicial
     echo "== vigia"; journalctl -b -u aquarius-vigia --no-pager -o cat | tail -3
-    echo "== turbo"; aquarius-turbo estado'
+    echo "== turbo"; aquarius-turbo estado
+    echo "== atualizacao ociosa (espera 5 = idle)"; systemctl show apt-daily-upgrade.service -p CPUSchedulingPolicy
+    echo "== sistema gravavel por outros ou do uid 1000 fora do /home (espera 0)"
+    find / -xdev \( -path /home -o -path /tmp -o -path /var/tmp \) -prune -o \( -perm -o+w ! -type l ! \( -type d -perm -1000 \) -print \) -o \( -uid 1000 -print \) 2>/dev/null | wc -l'
