@@ -3,6 +3,10 @@
 # ajustes para o A10 (Cortex-A8 + Mali-400, 800x480), controles USB e saida para o modo tablet.
 # uso: configurar-retroarch.sh <rootfs> <pasta-com-aquarius-listas-jogos.py> [pasta-jogos-livres]
 set -euo pipefail
+# qemu-user trava (futex) no dpkg-deb e em programas com rseq: as mesmas protecoes do montar-rootfs.sh valem em
+# toda etapa que roda apt/dpkg no chroot (sem elas o configurar travou duas vezes em 12/11/2026)
+export DPKG_DEB_THREADS_MAX=1
+export GLIBC_TUNABLES=glibc.pthread.rseq=0
 R=${1:?rootfs}; B=${2:?pasta do build}; JL=${3:-}
 [ -d "$R/etc" ] && [ -f "$B/aquarius-listas-jogos.py" ] || { echo "argumento invalido" >&2; exit 1; }
 

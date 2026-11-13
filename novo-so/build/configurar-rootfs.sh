@@ -3,6 +3,10 @@
 # uso: configurar-rootfs.sh <rootfs> <dtb> <chave-ssh.pub>  < credenciais (WIFI_SSID=, WIFI_PSK=, ROOT_SENHA=, JOGADOR_SENHA=)
 # Os segredos chegam pela entrada padrao: nunca em argumento, nunca impressos.
 set -euo pipefail
+# qemu-user trava (futex) no dpkg-deb e em programas com rseq: as mesmas protecoes do montar-rootfs.sh valem em
+# toda etapa que roda apt/dpkg no chroot (sem elas o configurar travou duas vezes em 12/11/2026)
+export DPKG_DEB_THREADS_MAX=1
+export GLIBC_TUNABLES=glibc.pthread.rseq=0
 
 R=${1:?rootfs}; DTB=${2:?dtb}; PUB=${3:?chave publica}
 [ -d "$R/etc" ] && [ -f "$DTB" ] && [ -f "$PUB" ] || { echo "argumento invalido" >&2; exit 1; }
@@ -25,6 +29,19 @@ done
 grep -qE '^ssh-ed25519 [A-Za-z0-9+/=]+( .*)?$' "$PUB" || { echo "chave publica invalida" >&2; exit 1; }
 
 c() { chroot "$R" "$@"; }
+# senha: hash SHA-512 feito no host (a senha entra pela entrada padrao do openssl, nunca em argumento) e gravado com
+# "chpasswd -e", que nao passa pelo PAM: o chpasswd comum chama o unix_chkpwd, que travou preso no qemu-user (12/11/2026)
+senha() {
+  local h; h=$(printf '%s' "$2" | openssl passwd -6 -stdin)
+  [[ $h == '$6$'* ]] || { echo "hash de senha falhou" >&2; exit 1; }
+  printf '%s:%s\n' "$1" "$h" | c chpasswd -e
+}
+# retomavel: uma rodada anterior cortada no meio (o qemu-user ja travou um sed do keyboard-configuration, 12/11/2026)
+# deixa pacote desempacotado sem configurar e dependencia que nem chegou a desempacotar: "dpkg --configure -a" sozinho
+# falha nessa dependencia; o "apt-get -f install" baixa/instala o que falta e configura o resto, mas recusa rodar
+# ("dpkg was interrupted") ate o dpkg terminar o que ficou pela metade: os dois, nessa ordem
+DEBIAN_FRONTEND=noninteractive c dpkg --configure -a || true
+DEBIAN_FRONTEND=noninteractive c apt-get -f install -y
 
 # --- identidade e idioma
 echo aquarius > "$R/etc/hostname"
@@ -110,7 +127,7 @@ PermitRootLogin prohibit-password
 PasswordAuthentication no
 KbdInteractiveAuthentication no
 EOF
-printf 'root:%s\n' "$ROOT_SENHA" | c chpasswd
+senha root "$ROOT_SENHA"
 # chaves de host novas no primeiro boot (a imagem nao carrega chave de host fixa)
 rm -f "$R"/etc/ssh/ssh_host_*
 install -m 0644 /dev/stdin "$R/etc/systemd/system/aquarius-sshkeys.service" <<'EOF'
@@ -243,7 +260,7 @@ autologin-user-timeout=0
 user-session=xfce
 EOF
 c groupadd -f autologin; c usermod -aG autologin,sudo,netdev jogador
-printf 'jogador:%s\n' "$JOGADOR_SENHA" | c chpasswd
+senha jogador "$JOGADOR_SENHA"
 # Tela de 5" com 800x480: DPI maior, painel e icones grandes para o dedo
 J="$R/home/jogador/.config/xfce4/xfconf/xfce-perchannel-xml"; install -d "$J"
 cat > "$J/xsettings.xml" <<'EOF'

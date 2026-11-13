@@ -92,8 +92,9 @@ while true; do
     ruim_desde=""; bom_desde=""
   fi
 
-  # --- rede, sempre ---
-  if [ "$r" = 1 ]; then
+  # --- rede, sempre (menos sem Wi-Fi cadastrado: imagem generica antes do aquarius.txt nao tem roteador a esperar e
+  # reiniciaria a toa; 13/11/2026) ---
+  if [ "$r" = 1 ] || ! grep -qs '^type=wifi' /etc/NetworkManager/system-connections/*.nmconnection; then
     rede_ruim_desde=""; rede_reiniciada=0
     if [ -f "$D/reinicios-rede" ]; then
       ok_desde=$(sed -n 's/^ok_desde=//p' "$D/reinicios-rede.ok" 2>/dev/null)

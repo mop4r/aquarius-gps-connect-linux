@@ -22,7 +22,11 @@ dtc -q -I dts -O dtb -o "$T/teste.dtb" "$T/teste.pre"
 export MTOOLS_SKIP_CHECK=1; P="$T/teste.img@@1048576"
 DTBP=$(mtype -i "$P" ::/extlinux/extlinux.conf | sed -n 's/^\tfdt //p' | head -1)
 mcopy -o -i "$P" "$T/teste.dtb" "::$DTBP"
-mtype -i "$P" ::/extlinux/extlinux.conf | sed 's/loglevel=7/loglevel=7 modprobe.blacklist=sun4i_ss/' > "$T/ext.conf"
+# qualquer loglevel (a imagem sai com "quiet loglevel=3": o "s/loglevel=7/" antigo nao casava, o sun4i_ss ficava ligado
+# e o kernel reiniciava em laco sem mensagem, 13/11/2026); kernel falante na serial do teste
+mtype -i "$P" ::/extlinux/extlinux.conf | sed -E 's/ quiet / /; s/loglevel=[0-9]/loglevel=7 modprobe.blacklist=sun4i_ss,sunxi_wdt/' > "$T/ext.conf"
+# sunxi_wdt: o watchdog (systemd, 12 s; no GPS real provado) estourava no QEMU lento do 1o boot e reiniciava a VM
+grep -q 'modprobe.blacklist=sun4i_ss' "$T/ext.conf" || { echo "FALHA: nao consegui desligar o sun4i_ss no extlinux" >&2; exit 1; }
 mcopy -o -i "$P" "$T/ext.conf" ::/extlinux/extlinux.conf
 
 qemu-system-arm -M cubieboard -m 512 -display none -daemonize -pidfile "$T/qemu.pid" \
@@ -44,4 +48,8 @@ $S 'echo "== kernel"; uname -r; echo "== modelo"; tr -d "\0" < /proc/device-tree
     echo "== drivers"; lsmod | grep -E -c "sun4i_drm|edt_ft5x06|axp20x|sun4i_codec|rtl8xxxu|sun4i_lradc|lima|pwm_sun4i"
     echo "== troca de modo"; aquarius-trocar-modo tablet; sleep 20; systemctl is-active lightdm aquarius-retroarch
     aquarius-trocar-modo jogos; sleep 10; systemctl is-active lightdm aquarius-retroarch
-    echo "== relatorio"; ls /boot/logs/ 2>&1'
+    echo "== relatorio"; ls /boot/logs/ 2>&1
+    echo "== aquarius.txt (imagem generica: tem de ter sido aplicado e apagado)"; ls /boot/aquarius*.txt 2>&1
+    journalctl -b -u aquarius-config-inicial --no-pager -o cat | grep config-inicial
+    echo "== vigia"; journalctl -b -u aquarius-vigia --no-pager -o cat | tail -3
+    echo "== turbo"; aquarius-turbo estado'

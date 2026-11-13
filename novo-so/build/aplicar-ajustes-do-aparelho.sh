@@ -4,14 +4,31 @@
 # aparelho funcionando). Detalhes e motivos: skill aquarius-gps.
 # uso: aplicar-ajustes-do-aparelho.sh <rootfs> <pasta arquivos-do-aparelho>
 set -euo pipefail
+# qemu-user trava (futex) no dpkg-deb e em programas com rseq: as mesmas protecoes do montar-rootfs.sh valem em
+# toda etapa que roda apt/dpkg no chroot (sem elas o configurar travou duas vezes em 12/11/2026)
+export DPKG_DEB_THREADS_MAX=1
+export GLIBC_TUNABLES=glibc.pthread.rseq=0
 R=${1:?rootfs}; A=${2:?arquivos-do-aparelho}
 [ -d "$R/etc" ] && [ -f "$A/usr/local/sbin/aquarius-vbus" ] || { echo "argumento invalido" >&2; exit 1; }
 c() { chroot "$R" "$@"; }
 
-# copia fiel (energia, Wi-Fi, botao, RetroArch, touch, som, boot)
-cp -a "$A/." "$R/"
-chmod 0755 "$R/usr/local/sbin/aquarius-vbus"
+# copia fiel (energia, Wi-Fi, botao, RetroArch, touch, som, boot) SEM as permissoes de origem: vinda do Windows
+# (/mnt/c) cada arquivo e pasta e 777 com dono uid 1000 = jogador, e o "cp -a" antigo deixava /, /etc, /usr, /var e os
+# scripts que rodam como root graváveis pelo jogador (13/11/2026). Agora: dono root, pastas 755, arquivos 644 e 755 so
+# para script (#!); o /home/jogador e do jogador. O laco tambem conserta uma raiz ja estragada por uma rodada antiga.
+tar -C "$A" -cf - . | tar -C "$R" -xf - --no-same-owner --no-same-permissions
+(cd "$A" && find . -mindepth 0) | while IFS= read -r p; do
+  d="$R/${p#./}"; [ "$p" = . ] && d=$R
+  if [ -d "$d" ] && [ ! -L "$d" ]; then m=0755
+  elif [ "$(head -c2 "$d" 2>/dev/null)" = '#!' ]; then m=0755
+  else m=0644; fi
+  chown -h 0:0 "$d"; [ -L "$d" ] || chmod "$m" "$d"
+done
 c chown -R jogador:jogador /home/jogador
+# conferencia: nada do sistema gravavel por outros nem de dono comum
+ruim=$(find "$R" -xdev \( -path "$R/home" -o -path "$R/tmp" -o -path "$R/var/tmp" -o -path "$R/proc" -o -path "$R/sys" -o -path "$R/dev" -o -path "$R/run" \) -prune -o \
+  \( -perm -o+w ! -type l ! \( -type d -perm -1000 \) -print \) -o \( -uid 1000 -print \) | head -5)
+[ -z "$ruim" ] || { echo "permissao errada na raiz: $ruim" >&2; exit 1; }
 
 # toque longo = clique direito no X (evdev); ferramentas usadas no diagnostico; netsurf-gtk = navegador padrao do
 # tablet (abre em ~5 s; o Firefox leva ~45 s e fica num atalho "sites completos"), medido em 10/11/2026
@@ -31,7 +48,8 @@ while read -r _ so; do
   install -m 0644 "$NC/$so" "$LR/$so"
 done < "$NC.sha256"
 for n in desmume gambatte genesis_plus_gx mgba nestopia snes9x; do
-  [ -e "$LR/${n}_libretro.so" ] || ln -s "/usr/lib/arm-linux-gnueabihf/libretro/${n}_libretro.so" "$LR/${n}_libretro.so"
+  # -L tambem: o link aponta para um caminho do aparelho, que visto do host nao existe ([ -e ] da falso e a 2a rodada falhava)
+  [ -e "$LR/${n}_libretro.so" ] || [ -L "$LR/${n}_libretro.so" ] || ln -s "/usr/lib/arm-linux-gnueabihf/libretro/${n}_libretro.so" "$LR/${n}_libretro.so"
 done
 
 # energia sem bateria (AXP209 reg 0x30 = 0x43) antes de tudo
@@ -49,7 +67,7 @@ sed -i 's/loglevel=[0-9]/quiet loglevel=3/' "$R/etc/default/u-boot"
 grep -q 'quiet loglevel=3' "$R/etc/default/u-boot" || { echo "u-boot: loglevel nao trocado" >&2; exit 1; }
 
 # volta automatica (aquarius-vigia + aquarius-tentar) e watchdog de hardware pelo systemd
-chmod 0755 "$R/usr/local/sbin/aquarius-vigia" "$R/usr/local/sbin/aquarius-tentar"
+chmod 0755 "$R/usr/local/sbin/aquarius-vigia" "$R/usr/local/sbin/aquarius-tentar" "$R/usr/local/sbin/aquarius-config-inicial"
 c systemctl enable aquarius-vigia.service >/dev/null 2>&1
 
 # turbo 1104 MHz (turbo-mode no DTB) com governador performance: so liga com /var/lib/aquarius-turbo/aprovado, e

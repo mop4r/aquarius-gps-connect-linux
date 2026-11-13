@@ -8,6 +8,26 @@ O GPS **Aquarius Connect 5.0** (placa MTC4553, Allwinner **A10** Cortex-A8 a 1 G
 2. **A análise do aparelho** (`analise/`): mapa do hardware, porte item a item, desempenho e o receptor GPS.
 3. **O backup do cartão original** do iGO (fora do git; descrito no fim).
 
+## Instalar (imagem pronta)
+
+1. Baixe `aquarius-gps-<data>.img.xz` (e o `.sha256`) da página **Releases** deste repositório. A imagem não tem
+   rede, senha nem chave de ninguém: tudo isso entra pelo passo 3.
+2. Grave num microSD de **8 GB ou mais** com o Raspberry Pi Imager ou o balenaEtcher ("usar imagem própria"; os dois
+   aceitam o `.xz` direto). No Linux: `xz -dc aquarius-gps-*.img.xz | sudo dd of=/dev/sdX bs=4M conv=fsync`.
+3. Tire e ponha o cartão de novo no PC. Na unidade **AQ-BOOT**, copie `aquarius-exemplo.txt` para `aquarius.txt` e
+   preencha: Wi-Fi de 2,4 GHz (`WIFI_NOME`, `WIFI_SENHA`), senha do usuário `jogador` (`SENHA`) e, se quiser entrar
+   pela rede, a sua chave pública SSH (`CHAVE_SSH`). No boot o GPS aplica e **apaga** o arquivo. Para trocar o Wi-Fi
+   depois, crie outro `aquarius.txt`. Campo inválido fica registrado em `journalctl -u aquarius-config-inicial`.
+4. Ponha o cartão no GPS e ligue. O 1º boot aumenta a partição até o fim do cartão. Entra no modo jogos.
+
+- Senha padrão do `jogador` (modo tablet, `sudo`) até o `aquarius.txt` trocar: **`aquarius`**. O SSH não aceita senha,
+  só a chave do `aquarius.txt` (usuário `root`).
+- Desligar: segure o botão de ligar **~5 s** e solte (desliga certo), ou "Desligar" no menu do RetroArch. Não segure
+  até 10 s (corte de energia) nem puxe o fio com ele ligado.
+- Wi-Fi: a imagem sai com o driver `rtl8192cu` do Debian, que funciona. O `rtl8xxxu` (~10x mais rápido para enviar)
+  se compila no próprio GPS com `/usr/local/share/aquarius/wifi-rtl8xxxu/compilar.sh` (veja "Wi-Fi" abaixo).
+- Jogos: só homebrew de licença livre, com o arquivo de licença ao lado de cada um (`novo-so/jogos-livres/CATALOGO.md`).
+
 ## O que o GPS faz com o SO novo
 
 | Modo | O que é | Como entra |
@@ -16,7 +36,7 @@ O GPS **Aquarius Connect 5.0** (placa MTC4553, Allwinner **A10** Cortex-A8 a 1 G
 | **Tablet** | XFCE com toque (rolagem com o dedo, toque longo = clique direito), NetSurf, arquivos, terminal, editor | sair do RetroArch; ou `aquarius-trocar-modo tablet` |
 
 Jogos: só homebrew de licença livre (`novo-so/jogos-livres/CATALOGO.md`); nenhum ROM comercial no repo.
-Acesso: SSH por chave (root) pelo Wi-Fi de casa, configurado na montagem da imagem.
+Acesso: SSH por chave (root) pelo Wi-Fi, os dois configurados pelo `aquarius.txt` (veja "Instalar").
 
 ## Desempenho (medido no aparelho, 06–11/11/2026)
 
@@ -57,7 +77,7 @@ O `aquarius-wifi-driver` (chamado pelo modprobe no lugar do `rtl8192cu`) usa o `
 `0bda:8176` quando o kernel em uso tem esse módulo, e senão o `rtl8192cu`: atualização de kernel nunca deixa o GPS
 sem Wi-Fi. Recompilar para um kernel novo, no próprio GPS: `novo-so/build/wifi-rtl8xxxu/compilar.sh`.
 
-## Montar a imagem do cartão
+## Montar a imagem do zero (opcional: a pronta está nas Releases)
 
 No WSL (Ubuntu), como root, com `qemu-user-static` (binfmt) e o toolchain `arm-linux-gnueabihf`:
 
@@ -69,8 +89,18 @@ No WSL (Ubuntu), como root, com `qemu-user-static` (binfmt) e o toolchain `arm-l
    provou (energia, toque, som, vigia, turbo, Wi-Fi, NetSurf, núcleos). Exige os núcleos compilados em
    `novo-so/nucleos-compilados/` (fora do git; `compilar-nucleos.sh`), conferidos contra
    `novo-so/nucleos-compilados.sha256`.
-5. `novo-so/build/montar-imagem.sh <pasta> <u-boot-sunxi-with-spl.bin> <saida.img>`: U-Boot no setor 16,
+5. `novo-so/build/generalizar-rootfs.sh <pasta>`: **só para a imagem que vai ser distribuída**. Tira Wi-Fi, chave SSH e
+   senhas de quem montou, põe o `jogador` com a senha padrão e liga o `aquarius-config-inicial` (lê `/boot/aquarius.txt`).
+   Pulando este passo, a imagem sai já configurada para a sua casa (não publique essa).
+6. `novo-so/build/montar-imagem.sh <pasta> <u-boot-sunxi-with-spl.bin> <saida.img>`: U-Boot no setor 16,
    `AQ-BOOT` (FAT32, `/boot`) e `AQ-ROOT` (ext4, `/`, cresce até o fim do cartão no 1º boot).
+7. Publicar: `xz -T0 -9 <saida.img>`, `sha256sum` e Release no GitHub (`gh release create`), nunca no git (6 GB).
+
+As etapas rodam programas ARM pelo `qemu-user`, que às vezes trava um processo no kernel (nem `kill -9` tira): nesse
+caso `wsl --terminate <distro>`, religar o `binfmt` (`mount -t binfmt_misc binfmt_misc /proc/sys/fs/binfmt_misc;
+/usr/lib/systemd/systemd-binfmt`) e rodar a mesma etapa de novo; todas retomam de onde pararam.
+
+Testes: `bash novo-so/build/testes/testar-config-inicial.sh` (como root no Linux/WSL) testa o `aquarius.txt`.
 
 U-Boot: mainline v2025.10 com `novo-so/u-boot/Aquarius_MTC4553_defconfig` (DRAM do fex: 408 MHz) e o DTS de
 `novo-so/dts/`. Testar antes no QEMU: `novo-so/build/testar-qemu.sh`.
@@ -92,7 +122,7 @@ O Windows monta as partições no meio da gravação: tirar as letras antes (`mo
 
 O cartão de 2 GB (FAT16) que estava no GPS tinha o **iGO My Way 8.4.3** (motor Amigo, Android) com o mapa do
 Brasil de 2013-09, radares de 2013, relevo 3D, POIs, voz PT-BR e as **licenças travadas ao aparelho**
-(`license/device.nng` e `.lic`). Imagem bruta (`sd-card-dump/`, sha256 `ABCFED9C…F8FC`) e cópia dos arquivos
+(`license/device.nng` e `.lic`). Imagem bruta (sha256 `ABCFED9C…F8FC`; desde 13/11/2026 em `D:\backups\aquarius-gps\`, `sd-card-dump/` só guarda o hash) e cópia dos arquivos
 (`arquivos/iGO/`, 266 arquivos, 0 falhas) ficam **fora do git**. O Windows só não dava letra à partição; o cartão
 estava bom. O `dd` teve alguns erros de leitura em espaço livre, sem afetar arquivo nenhum.
 

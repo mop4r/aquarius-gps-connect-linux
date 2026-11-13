@@ -1,0 +1,12 @@
+[Unit]
+Description=Aplica /boot/aquarius.txt (Wi-Fi, senha, chave SSH) e apaga o arquivo
+RequiresMountsFor=/boot
+Before=NetworkManager.service ssh.service
+ConditionPathExists=/boot/aquarius.txt
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/aquarius-config-inicial
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,79 @@
+#!/bin/bash
+# Aplica /boot/aquarius.txt (particao FAT do cartao, editavel no Windows) e apaga o arquivo. Roda no boot, antes da
+# rede, sempre que o arquivo existir: serve para o 1o boot da imagem publicada e para trocar o Wi-Fi depois.
+# Campos (NOME=valor, um por linha; os vazios sao ignorados): WIFI_NOME, WIFI_SENHA, SENHA (usuario jogador),
+# CHAVE_SSH (linha publica, para entrar como root). Nenhum valor e impresso no log.
+set -euo pipefail
+F=${AQ_ARQUIVO:-/boot/aquarius.txt}; RAIZ=${AQ_RAIZ:-}    # AQ_*: so para teste
+log() { echo "aquarius-config-inicial: $*"; }
+[ -f "$F" ] || exit 0
+[ "$(stat -c %s "$F")" -le 16384 ] || { log "arquivo grande demais, ignorado"; rm -f "$F"; exit 0; }
+
+WIFI_NOME=; WIFI_SENHA=; SENHA=; CHAVE_SSH=
+while IFS='=' read -r k v || [ -n "$k" ]; do
+  k=${k#$'\xef\xbb\xbf'}; k=${k//[[:space:]]/}; v=${v%$'\r'}     # BOM e CRLF do Bloco de Notas
+  case "$k" in
+    WIFI_NOME) WIFI_NOME=$v ;; WIFI_SENHA) WIFI_SENHA=$v ;; SENHA) SENHA=$v ;; CHAVE_SSH) CHAVE_SSH=$v ;;
+  esac
+done < "$F"
+# o arquivo tem senha em texto: sai do cartao mesmo se algum passo abaixo falhar no meio
+trap 'rm -f "$F"; sync' EXIT
+
+erro=0
+if [ -n "$WIFI_NOME" ]; then
+  # o keyfile do NetworkManager trata ; e \ como especiais e espaco nas pontas some: recusa em vez de gravar errado
+  if [ ${#WIFI_NOME} -gt 32 ] || [[ $WIFI_NOME =~ [\;\\] ]] || [[ $WIFI_NOME =~ ^[[:space:]]|[[:space:]]$ ]]; then
+    log "WIFI_NOME invalido (ate 32 caracteres, sem ; nem \\ nem espaco nas pontas)"; erro=1
+  elif [ ${#WIFI_SENHA} -lt 8 ] || [ ${#WIFI_SENHA} -gt 63 ] || [[ $WIFI_SENHA == *\\* ]]; then
+    log "WIFI_SENHA invalida (8 a 63 caracteres, sem \\)"; erro=1
+  else
+    d=$RAIZ/etc/NetworkManager/system-connections; install -d -m 700 "$d"
+    (umask 077; cat > "$d/aquarius.nmconnection.tmp" <<EOF
+[connection]
+id=aquarius
+type=wifi
+autoconnect=true
+autoconnect-priority=10
+
+[wifi]
+mode=infrastructure
+ssid=$WIFI_NOME
+
+[wifi-security]
+key-mgmt=wpa-psk
+psk=$WIFI_SENHA
+
+[ipv4]
+method=auto
+dhcp-hostname=aquarius
+
+[ipv6]
+method=auto
+EOF
+    )
+    mv -f "$d/aquarius.nmconnection.tmp" "$d/aquarius.nmconnection"
+    log "Wi-Fi gravado"
+  fi
+fi
+
+if [ -n "$SENHA" ]; then
+  if [ ${#SENHA} -lt 4 ] || [ ${#SENHA} -gt 128 ]; then log "SENHA invalida (4 a 128 caracteres)"; erro=1
+  else
+    # hash pelo openssl (senha pela entrada padrao) + "chpasswd -e": sem PAM, igual no aparelho e no teste
+    h=$(printf '%s' "$SENHA" | openssl passwd -6 -stdin 2>/dev/null) || h=
+    if [[ $h == '$6$'* ]] && printf 'jogador:%s\n' "$h" | chpasswd -e ${RAIZ:+-R "$RAIZ"}; then log "senha do jogador trocada"
+    else log "falhou trocar a senha do jogador"; erro=1; fi
+  fi
+fi
+
+if [ -n "$CHAVE_SSH" ]; then
+  if [[ $CHAVE_SSH =~ ^(ssh-ed25519|ssh-rsa|ecdsa-sha2-nistp(256|384|521))\ [A-Za-z0-9+/=]{40,}(\ [^[:cntrl:]]{0,200})?$ ]]; then
+    install -d -m 700 "$RAIZ/root/.ssh"; k=$RAIZ/root/.ssh/authorized_keys; touch "$k"; chmod 600 "$k"
+    grep -qxF "$CHAVE_SSH" "$k" || printf '%s\n' "$CHAVE_SSH" >> "$k"
+    log "chave SSH do root acrescentada"
+  else log "CHAVE_SSH invalida (uma linha ssh-ed25519/ssh-rsa/ecdsa ...)"; erro=1; fi
+fi
+
+# o trap apaga o arquivo; o que estava invalido fica no log (journalctl -u aquarius-config-inicial) para corrigir
+[ "$erro" = 0 ] && log "aplicado e apagado" || log "aplicado em parte; corrija o campo invalido num aquarius.txt novo"
+exit 0
