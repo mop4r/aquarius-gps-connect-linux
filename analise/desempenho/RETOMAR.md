@@ -99,3 +99,7 @@ Nao ha mais item de desempenho pendente. Opcional: religar o RetroArch se cair p
 - Travadinhas no jogo (12/11 à noite): eram o `apt-daily-upgrade` comendo ~50% da CPU; agora com prioridade ociosa.
 - Pendente: boot desta imagem no QEMU (o teste foi morto por falta de memória do PC) para tirar o pré-release; conferir as
   permissões no GPS em uso; levar o `aquarius-vigia` novo para o GPS.
+- 13/11 noite: imagem refeita sem o nome da rede (estava no XML do painel copiado do aparelho), com a chave .pub do
+  Windows aceita no `aquarius.txt`; boot no QEMU OK (SSH pela chave do aquarius.txt, arquivo aplicado e apagado,
+  permissões 0, atualização ociosa). Histórico do git reescrito (nome de rede, BSSID, serial do SoC); repo público.
+  Backup do cartão iGO num repo privado separado. O systemd abortou 1 vez em 4 boots no QEMU (não reproduzido depois).
