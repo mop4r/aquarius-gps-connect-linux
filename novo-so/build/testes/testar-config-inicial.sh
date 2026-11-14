@@ -26,6 +26,10 @@ grep -q '^jogador:\*' $T/etc/shadow && ok "senha curta recusada" || ruim "senha 
 echo "$o" | grep -q 'aplicado em parte' && ok "avisa o que falhou" || ruim "nao avisou"
 novo; printf 'WIFI_NOME=CasaX\nWIFI_SENHA=1234567\n' > $T/boot/aquarius.txt; roda >/dev/null
 [ ! -e $T/etc/NetworkManager/system-connections/aquarius.nmconnection ] && ok "psk de 7 recusada" || ruim "psk de 7 aceita"
+# 4 chave .pub feita no Windows (CRLF) colada no arquivo CRLF:  no fim, e espaco sobrando
+novo; printf 'CHAVE_SSH=ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFakeFakeFakeFakeFakeFakeFakeFakeFakeFake2 eu@pc  
+' > $T/boot/aquarius.txt; roda >/dev/null
+grep -qx "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFakeFakeFakeFakeFakeFakeFakeFakeFakeFake2 eu@pc" $T/root/.ssh/authorized_keys 2>/dev/null && ok "chave com CRLF duplo e espaco" || ruim "chave com CRLF duplo e espaco"
 # 3 falha no meio (sem /etc/shadow): o arquivo com senha sai do cartao mesmo assim
 novo; rm $T/etc/shadow; printf 'SENHA=abcd1234\n' > $T/boot/aquarius.txt; roda >/dev/null 2>&1
 [ ! -e $T/boot/aquarius.txt ] && ok "falha no meio: arquivo apagado" || ruim "falha no meio: arquivo ficou"

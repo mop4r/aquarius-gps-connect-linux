@@ -11,7 +11,9 @@ log() { echo "aquarius-config-inicial: $*"; }
 
 WIFI_NOME=; WIFI_SENHA=; SENHA=; CHAVE_SSH=
 while IFS='=' read -r k v || [ -n "$k" ]; do
-  k=${k#$'\xef\xbb\xbf'}; k=${k//[[:space:]]/}; v=${v%$'\r'}     # BOM e CRLF do Bloco de Notas
+  # BOM e CRLF do Bloco de Notas; corta do 1o \r em diante (chave .pub feita no Windows ja traz \r e o arquivo poe outro:
+  # tirar um so deixava a CHAVE_SSH invalida, achado no boot de teste de 13/11/2026)
+  k=${k#$'\xef\xbb\xbf'}; k=${k//[[:space:]]/}; v=${v%%$'\r'*}
   case "$k" in
     WIFI_NOME) WIFI_NOME=$v ;; WIFI_SENHA) WIFI_SENHA=$v ;; SENHA) SENHA=$v ;; CHAVE_SSH) CHAVE_SSH=$v ;;
   esac
@@ -67,6 +69,7 @@ if [ -n "$SENHA" ]; then
 fi
 
 if [ -n "$CHAVE_SSH" ]; then
+  CHAVE_SSH=${CHAVE_SSH%"${CHAVE_SSH##*[![:space:]]}"}    # espaco no fim de chave colada
   if [[ $CHAVE_SSH =~ ^(ssh-ed25519|ssh-rsa|ecdsa-sha2-nistp(256|384|521))\ [A-Za-z0-9+/=]{40,}(\ [^[:cntrl:]]{0,200})?$ ]]; then
     install -d -m 700 "$RAIZ/root/.ssh"; k=$RAIZ/root/.ssh/authorized_keys; touch "$k"; chmod 600 "$k"
     grep -qxF "$CHAVE_SSH" "$k" || printf '%s\n' "$CHAVE_SSH" >> "$k"
