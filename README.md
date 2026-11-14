@@ -6,7 +6,7 @@ O GPS **Aquarius Connect 5.0** (placa MTC4553, Allwinner **A10** Cortex-A8 a 1 G
 1. **O SO novo** (`novo-so/`): Debian 13 (trixie) armhf rodando de um **microSD separado**, sem tocar na NAND
    do aparelho (tirou o cartão, volta a ser o GPS original). Kernel do Debian com DTS próprio, U-Boot mainline.
 2. **A análise do aparelho** (`analise/`): mapa do hardware, porte item a item, desempenho e o receptor GPS.
-3. **O backup do cartão original** do iGO (fora do git; descrito no fim).
+3. **O backup do cartão original** do iGO (só em repositório privado; descrito no fim).
 
 ## Instalar (imagem pronta)
 
@@ -122,8 +122,10 @@ O Windows monta as partições no meio da gravação: tirar as letras antes (`mo
 
 O cartão de 2 GB (FAT16) que estava no GPS tinha o **iGO My Way 8.4.3** (motor Amigo, Android) com o mapa do
 Brasil de 2013-09, radares de 2013, relevo 3D, POIs, voz PT-BR e as **licenças travadas ao aparelho**
-(`license/device.nng` e `.lic`). Imagem bruta (sha256 `ABCFED9C…F8FC`; desde 13/11/2026 em `D:\backups\aquarius-gps\`, `sd-card-dump/` só guarda o hash) e cópia dos arquivos
-(`arquivos/iGO/`, 266 arquivos, 0 falhas) ficam **fora do git**. O Windows só não dava letra à partição; o cartão
+(`license/device.nng` e `.lic`). Imagem bruta (sha256 `ABCFED9C…F8FC`) e cópia dos arquivos (`arquivos/iGO/`,
+266 arquivos, 0 falhas) ficam **fora deste repositório**, que é público: são software e mapas comerciais. A imagem
+está guardada num repositório **privado** do dono (Release `cartao-original-2026-11-03` de
+`mop4r/aquarius-gps-igo-backup`) e numa cópia local. O Windows só não dava letra à partição; o cartão
 estava bom. O `dd` teve alguns erros de leitura em espaço livre, sem afetar arquivo nenhum.
 
 **Restaurar:** `dd if=aquarius-connect-5pol-full.img of=/dev/sdX bs=4M` num cartão vazio.
