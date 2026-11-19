@@ -1,3 +1,4 @@
 * text=auto eol=lf
 *.png binary
 *.jpg binary
+novo-so/build/wifi-rtl8xxxu/fonte/** -text

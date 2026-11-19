@@ -53,6 +53,9 @@ $S 'echo "== kernel"; uname -r; echo "== modelo"; tr -d "\0" < /proc/device-tree
     journalctl -b -u aquarius-config-inicial --no-pager -o cat | grep config-inicial
     echo "== vigia"; journalctl -b -u aquarius-vigia --no-pager -o cat | tail -3
     echo "== turbo"; aquarius-turbo estado
+    echo "== wi-fi: rtl8xxxu por dkms com o 0bda:8176 (espera 1) e rtl8192cu bloqueado (espera install /bin/false)"
+    modinfo rtl8xxxu | grep -ci "^alias:.*v0BDAp8176"; modinfo -n rtl8xxxu; modprobe -n -v rtl8192cu 2>&1 | tail -1; dkms status
+    echo "== certificado snakeoil refeito no 1o boot (espera o arquivo)"; ls /etc/ssl/private/ssl-cert-snakeoil.key 2>&1
     echo "== atualizacao ociosa (espera 5 = idle)"; systemctl show apt-daily-upgrade.service -p CPUSchedulingPolicy
     echo "== sistema gravavel por outros ou do uid 1000 fora do /home (espera 0)"
     find / -xdev \( -path /home -o -path /tmp -o -path /var/tmp \) -prune -o \( -perm -o+w ! -type l ! \( -type d -perm -1000 \) -print \) -o \( -uid 1000 -print \) 2>/dev/null | wc -l'

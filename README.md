@@ -24,8 +24,7 @@ O GPS **Aquarius Connect 5.0** (placa MTC4553, Allwinner **A10** Cortex-A8 a 1 G
   só a chave do `aquarius.txt` (usuário `root`).
 - Desligar: segure o botão de ligar **~5 s** e solte (desliga certo), ou "Desligar" no menu do RetroArch. Não segure
   até 10 s (corte de energia) nem puxe o fio com ele ligado.
-- Wi-Fi: a imagem sai com o driver `rtl8192cu` do Debian, que funciona. O `rtl8xxxu` (~10x mais rápido para enviar)
-  se compila no próprio GPS com `/usr/local/share/aquarius/wifi-rtl8xxxu/compilar.sh` (veja "Wi-Fi" abaixo).
+- Wi-Fi: já sai com o driver rápido (`rtl8xxxu`), que se recompila sozinho a cada kernel novo (veja "Wi-Fi" abaixo).
 - Jogos: só homebrew de licença livre, com o arquivo de licença ao lado de cada um (`novo-so/jogos-livres/CATALOGO.md`).
 
 ## O que o GPS faz com o SO novo
@@ -73,9 +72,13 @@ RAM a 480 MHz (trava com a memória cheia; fica 408, o valor de fábrica), `vide
 
 ### Wi-Fi
 
-O `aquarius-wifi-driver` (chamado pelo modprobe no lugar do `rtl8192cu`) usa o `rtl8xxxu` compilado com o id
-`0bda:8176` quando o kernel em uso tem esse módulo, e senão o `rtl8192cu`: atualização de kernel nunca deixa o GPS
-sem Wi-Fi. Recompilar para um kernel novo, no próprio GPS: `novo-so/build/wifi-rtl8xxxu/compilar.sh`.
+Só o `rtl8xxxu` (com o id `0bda:8176` do RTL8188CUS ligado), ~10x mais rápido para enviar que o `rtl8192cu` do kernel,
+que fica bloqueado (`/etc/modprobe.d/aquarius-wifi.conf`). Vai por **DKMS** (`novo-so/build/wifi-rtl8xxxu/instalar.sh`,
+fonte do kernel 6.12.115 em `fonte/`, conferida por sha256): a imagem já sai com ele compilado, e cada kernel novo
+da atualização automática é compilado sozinho. Se a compilação falhar, o gancho `zz-aquarius-wifi` impede o kernel
+novo de virar o padrão do boot: o GPS continua no anterior, com Wi-Fi. Num GPS já instalado:
+`novo-so/build/wifi-rtl8xxxu/instalar.sh` (como root), depois de copiar `arquivos-do-aparelho/etc/modprobe.d` e
+`etc/kernel/postinst.d/zz-aquarius-wifi`.
 
 ## Montar a imagem do zero (opcional: a pronta está nas Releases)
 

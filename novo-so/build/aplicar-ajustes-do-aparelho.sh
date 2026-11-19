@@ -79,13 +79,10 @@ c systemctl enable aquarius-turbo.service aquarius-turbo-confirmar.timer >/dev/n
 install -d -m 0755 "$R/var/lib/aquarius-turbo"
 echo 1104000 > "$R/var/lib/aquarius-turbo/aprovado"; rm -f "$R/var/lib/aquarius-turbo/sem-confirmar"
 
-# Wi-Fi: o modprobe chama o aquarius-wifi-driver no lugar do rtl8192cu; ele usa o rtl8xxxu com o id 0bda:8176 se o
-# kernel tiver o modulo (novo-so/build/wifi-rtl8xxxu/compilar.sh, no GPS) e senao o rtl8192cu: a imagem sai funcionando
-# com o driver antigo e fica ~10x mais rapida de enviar depois de compilar.
-chmod 0755 "$R/usr/local/sbin/aquarius-wifi-driver"
-install -d "$R/usr/local/share/aquarius/wifi-rtl8xxxu"
-install -m 0755 "$(dirname "$0")/wifi-rtl8xxxu/compilar.sh" "$R/usr/local/share/aquarius/wifi-rtl8xxxu/compilar.sh"
-install -m 0644 "$(dirname "$0")"/wifi-rtl8xxxu/fontes-*.sha256 "$R/usr/local/share/aquarius/wifi-rtl8xxxu/"
+# Wi-Fi: so o rtl8xxxu com o 0bda:8176 (~10x mais rapido que o rtl8192cu, que fica bloqueado), compilado aqui por DKMS
+# para o kernel da imagem e, sozinho, para cada kernel novo; sem ele o kernel novo nao vira o padrao do boot
+# (etc/kernel/postinst.d/zz-aquarius-wifi). Desde 19/11/2026 (antes a imagem saia com o rtl8192cu).
+bash "$(dirname "$0")/wifi-rtl8xxxu/instalar.sh" "$R"
 
 # atalho "Modo jogos" confiavel: o xfce so aceita marcar com a sessao aberta -> roda no 1o login
 install -m 0755 /dev/stdin "$R/usr/local/bin/aquarius-confiar-atalhos" <<'EOF'

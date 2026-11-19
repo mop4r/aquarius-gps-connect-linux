@@ -13,6 +13,15 @@ c() { chroot "$R" "$@"; }
 # Wi-Fi e chave SSH de quem montou
 rm -f "$R"/etc/NetworkManager/system-connections/*
 rm -f "$R/root/.ssh/authorized_keys" "$R"/root/.bash_history "$R"/home/jogador/.bash_history
+# chave privada de assinatura de modulos que o DKMS cria ao compilar o Wi-Fi: cada aparelho gera a sua na proxima
+# compilacao (o A10 nao tem boot seguro, mas chave privada igual em toda copia da imagem nao se distribui)
+rm -f "$R/var/lib/dkms/mok.key" "$R/var/lib/dkms/mok.pub"
+# certificado "snakeoil" do pacote ssl-cert (gerado na montagem: igual em toda copia): sai e e refeito no 1o boot,
+# junto com as chaves de host do SSH (aquarius-sshkeys roda uma vez so)
+rm -f "$R/etc/ssl/private/ssl-cert-snakeoil.key" "$R/etc/ssl/certs/ssl-cert-snakeoil.pem"
+install -d "$R/etc/systemd/system/aquarius-sshkeys.service.d"
+printf '[Service]\nExecStart=-/usr/sbin/make-ssl-cert generate-default-snakeoil --force-overwrite\n' \
+  > "$R/etc/systemd/system/aquarius-sshkeys.service.d/snakeoil.conf"
 # root sem senha de console (so entra pela chave do aquarius.txt; "*" e nao "!", que o sshd trata como conta travada)
 c usermod -p '*' root
 # jogador: senha padrao "aquarius" (documentada no README; o SSH nao aceita senha) ate o aquarius.txt trocar
@@ -38,5 +47,8 @@ EOF
 [ -z "$(ls -A "$R/etc/NetworkManager/system-connections" 2>/dev/null)" ] || { echo "sobrou conexao de rede" >&2; exit 1; }
 [ ! -e "$R/root/.ssh/authorized_keys" ] || { echo "sobrou authorized_keys" >&2; exit 1; }
 grep -q '^root:\*:' "$R/etc/shadow" || { echo "root ainda com senha" >&2; exit 1; }
+[ ! -e "$R/var/lib/dkms/mok.key" ] || { echo "sobrou a chave do DKMS" >&2; exit 1; }
+chaves=$(grep -rlE 'BEGIN ([A-Z]+ )?PRIVATE KEY-----$' "$R/etc" "$R/root" "$R/home" "$R/var/lib" "$R/usr/local" "$R/boot" 2>/dev/null || true)
+[ -z "$chaves" ] || { echo "sobrou chave privada: $chaves" >&2; exit 1; }
 [ -L "$R/etc/systemd/system/multi-user.target.wants/aquarius-config-inicial.service" ] || { echo "servico nao ligado" >&2; exit 1; }
 echo "rootfs generalizado (sem Wi-Fi, sem chave SSH; jogador com a senha padrao)"

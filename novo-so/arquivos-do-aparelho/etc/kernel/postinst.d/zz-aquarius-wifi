@@ -1,0 +1,12 @@
+#!/bin/sh
+# $1 = versao do kernel recem-instalado. Roda depois do hook "dkms" (que compila o rtl8xxxu) e antes do
+# zz-u-boot-menu (ordem alfabetica). Sem o rtl8xxxu com o 0bda:8176 para este kernel, falha: o menu de boot nao e
+# refeito e o GPS continua no kernel anterior, que tem Wi-Fi (o rtl8192cu esta bloqueado). A proxima rodada da
+# atualizacao (dpkg --configure -a) tenta de novo, ja com o linux-headers no lugar.
+v=$1
+tem() { modinfo -k "$v" rtl8xxxu 2>/dev/null | grep -qi '^alias:.*v0BDAp8176'; }
+tem && exit 0
+dkms autoinstall -k "$v" >/dev/null 2>&1 || true
+tem && exit 0
+echo "aquarius: kernel $v sem o Wi-Fi rtl8xxxu (DKMS nao compilou; falta linux-headers-$v?); o boot fica no kernel anterior" >&2
+exit 1
