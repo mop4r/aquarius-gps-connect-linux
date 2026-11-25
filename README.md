@@ -8,6 +8,8 @@ O GPS **Aquarius Connect 5.0** (placa MTC4553, Allwinner **A10** Cortex-A8 a 1 G
 2. **A análise do aparelho** (`analise/`): mapa do hardware, porte item a item, desempenho e o receptor GPS.
 3. **O backup do cartão original** do iGO (só em repositório privado; descrito no fim).
 
+> *English summary:* **Debian 13 (Trixie, armhf)** running from a separate microSD card on a Brazilian **Aquarius Connect 5.0** car GPS (**MTC4553** board, **Allwinner A10 / sun4i** Cortex-A8 1 GHz, Mali-400, 512 MB RAM, 800×480 touchscreen, **RTL8188CUS** Wi-Fi), leaving the stock Android 4.0.3 / iGO 8.4.3 NAND untouched. Boots straight into **RetroArch** (cage/Wayland) or switches to an **XFCE** touchscreen tablet mode, with mainline **U-Boot**, custom **DTS**, safe **1104 MHz turbo** with automatic fallback, hardware watchdog, and fast **rtl8xxxu** Wi-Fi via DKMS. Ready-to-flash image available in Releases.
+
 ## Instalar (imagem pronta)
 
 1. Baixe `aquarius-gps-<data>.img.xz` (e o `.sha256`) da página **Releases** deste repositório. A imagem não tem
@@ -137,3 +139,11 @@ estava bom. O `dd` teve alguns erros de leitura em espaço livre, sem afetar arq
 normalmente não reconhece este rebrand e o update grátis expirou. Na prática: trocar `content/map/Brazil.fbl`
 por um mapa compatível com o motor **Amigo 8.4.3** (mapa de iGO Primo/NextGen não roda) e atualizar
 `content/speedcam/speedcam.txt` (radares em texto). Com o backup, dá para testar à vontade.
+
+## Palavras-chave / search keywords
+
+Aquarius Connect 5.0, GPS Aquarius, Guia Quatro Rodas, MTC4553, Allwinner A10, sun4i, sunxi, linux-sunxi,
+Cortex-A8, Mali-400, Debian 13, Debian Trixie, armhf, armv7, U-Boot mainline, device tree, DTS, DTB,
+script.bin, script.fex, RetroArch, cage, Wayland, XFCE, NetSurf, RTL8188CUS, rtl8xxxu, rtl8192cu, DKMS,
+0bda:8176, embedded Linux, car GPS Linux, retro gaming handheld, console retrô no GPS, Linux em GPS automotivo,
+iGO My Way 8.4.3, iGO Amigo, Android 4.0.3 NAND dual-boot microSD.
