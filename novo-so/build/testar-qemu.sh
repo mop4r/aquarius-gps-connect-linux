@@ -52,7 +52,8 @@ $S 'echo "== kernel"; uname -r; echo "== modelo"; tr -d "\0" < /proc/device-tree
     echo "== aquarius.txt (imagem generica: tem de ter sido aplicado e apagado)"; ls /boot/aquarius*.txt 2>&1
     journalctl -b -u aquarius-config-inicial --no-pager -o cat | grep config-inicial
     echo "== vigia"; journalctl -b -u aquarius-vigia --no-pager -o cat | tail -3
-    echo "== turbo (espera desligado / aprovado=nenhum)"; aquarius-turbo estado
+    echo "== cpu/turbo (espera OPP 1056 MHz no DTB, turbo-mode ausente, aprovado=nenhum)"; aquarius-turbo estado
+    cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_available_frequencies 2>/dev/null || true
     echo "== journald cap (espera SystemMaxUse=32M)"; grep SystemMaxUse /etc/systemd/journald.conf.d/aquarius.conf
     echo "== display-manager ausente (espera ausente + hook apt presente)"
     [ ! -e /etc/systemd/system/display-manager.service ] && echo "display-manager=ausente" || echo "FALHA: display-manager presente"

@@ -73,8 +73,9 @@ grep -q 'quiet loglevel=3' "$R/etc/default/u-boot" || { echo "u-boot: loglevel n
 chmod 0755 "$R/usr/local/sbin/aquarius-vigia" "$R/usr/local/sbin/aquarius-tentar" "$R/usr/local/sbin/aquarius-config-inicial"
 c systemctl enable aquarius-vigia.service >/dev/null 2>&1
 
-# CPU fica em 1008 MHz (padrao de fabrica): 1104 MHz @ 1,45 V corrompeu sha256 acima de ~72,7 C sob carga mista
-# (27/11/2026), 1152 corrompeu disco e 1200 errou conta. O turbo fica desabilitado e sem aprovacao.
+# CPU vai ate 1056 MHz @ 1,45 V como OPP nativo do DTB (120/120 OK mesmo em 1,40 V e 75/75 em 1,45 V sob
+# GPU 100%, 27/11/2026); 1104 corrompeu >72,7 C, 1152 corrompeu disco e 1200 errou conta. O servico aquarius-turbo
+# (antigo toggle de boost 1104) fica desabilitado.
 chmod 0755 "$R/usr/local/sbin/aquarius-turbo"
 c systemctl disable aquarius-turbo.service aquarius-turbo-confirmar.timer >/dev/null 2>&1 || true
 rm -f "$R/var/lib/aquarius-turbo/aprovado" "$R/var/lib/aquarius-turbo/sem-confirmar"

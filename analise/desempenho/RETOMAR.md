@@ -122,4 +122,13 @@ Nao ha mais item de desempenho pendente. Opcional: religar o RetroArch se cair p
   `systemd-journal-flush` levar 22 s. Criado `/etc/systemd/journald.conf.d/aquarius.conf` (`SystemMaxUse=32M`,
   `SystemMaxFileSize=8M`, `MaxRetentionSec=14day`).
 - **GPS real atualizado:** kernel `6.12.118+deb13-armmp`, permissões conferidas limpas, Wi-Fi `rtl8xxxu` por DKMS
-  instalado (lento `rtl8192cu` bloqueado), `aquarius-vigia` novo, CPU 1008 MHz, `journald` limitado a 32M.
+  instalado (lento `rtl8192cu` bloqueado), `aquarius-vigia` novo, `journald` limitado a 32M, `99aquarius-sem-display-manager`
+  (impede upgrade do `lightdm` de recriar `display-manager.service` e disputar DRM com o `cage`).
+- **CPU intermediária (27/11 tarde/noite) — 1056 MHz @ 1,45 V APROVADO como OPP padrão:**
+  - `1056 MHz @ 1,40 V`: **120/120** `sha256sum` (50 MB) + 3× `gzip` + `xz` OK sob `glmark2` 100% (até 72,5 °C).
+  - **`1056 MHz @ 1,45 V`:** **75/75** `sha256sum` + `gzip` + `xz` OK sob `glmark2` 100% (até 73,9 °C; +50 mV de margem
+    acima de 1,40 V já estável e 48 MHz abaixo do 1104). Jogos (`aquarius-bench`): `snes9x2010` 56,2 → **58,5/60,5 fps**
+    (+3,4 fps), `snes9x2005p` 59,7 → **59,3/59,8 fps**, `mgba` 50,9 → **52,0/52,1 fps** (+1,2 fps).
+  - `1080 MHz @ 1,40 V`: **REPROVADO** (corrompeu na 1ª rodada a 64,0 °C); em `1,45 V` passou 75/75 até 73,1 °C mas ganha
+    só +0,4 fps sobre 1056 MHz e fica a 24 MHz do limite onde 1104 corrompe.
+  - Adotado **`1056 MHz @ 1,45 V`** como OPP nativo (sem `turbo-mode`) no DTS, no GPS real e na imagem da Release.

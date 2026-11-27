@@ -43,16 +43,17 @@ Acesso: SSH por chave (root) pelo Wi-Fi, os dois configurados pelo `aquarius.txt
 
 | O quê | Antes | Agora |
 |---|---|---|
-| Processador | 1008 MHz | **1008 MHz** (padrão de fábrica; 100% íntegro mesmo acima de 74 °C) |
+| Processador | 1008 MHz | **1056 MHz** @ 1,45 V (OPP nativo no DTB; +4,8%, 120/120 íntegro mesmo em 1,40 V) |
 | GPU (Mali-400 / lima) | 320 MHz no Android | **384 MHz** (padrão mainline; teto estável a 1,25 V sem ganho acima) |
-| SNES pesado (`Pink_Wall`) | 35,8 fps (`snes9x` Debian) | **57–58 fps** (`snes9x2005_plus` compilado p/ Cortex-A8/NEON) |
-| GBA pesado (`Skyland`) | 49 fps (`mgba`) | **58–60 fps** (`gpSP` compilado p/ Cortex-A8/NEON) |
+| SNES pesado (`Pink_Wall`) | 35,8 fps (`snes9x` Debian) | **59–60 fps** (`snes9x2005_plus` / `snes9x2010` compilados p/ Cortex-A8/NEON) |
+| GBA pesado (`Skyland`) | 49 fps (`mgba`) | **58–60 fps** (`gpSP`) · **52 fps** (`mgba`) |
 | Área de trabalho do tablet / usável | 45 s / 78 s | **35 s / 57 s** (compositor desligado, autostart enxuto, zram) |
 | Navegador | Firefox ~45 s para abrir | **NetSurf 4–7 s** (Firefox fica num atalho para sites pesados) |
 | Envio do GPS pela rede | 0,2 MB/s (`rtl8192cu`) | **2–2,9 MB/s** (`rtl8xxxu` por DKMS) |
 | Boot | 1 min 34 s | **~51–57 s** (`journald` limitado a 32 MB) |
 
 Testado e **reprovado** (não usar):
+- **CPU 1080 MHz:** corrompe na 1ª rodada em 1,40 V (64 °C); em 1,45 V ganha só +0,4 fps sobre 1056 MHz e fica a 24 MHz do limite do 1104.
 - **CPU 1104 MHz @ 1,45 V:** passa em teste frio (≤ 72,3 °C), mas **corrompe silenciosamente acima de ~72,7 °C** (6/8 `sha256sum` errados em 50 MB entre 73,5–76,7 °C com RetroArch aberto; a 1008 MHz, 8/8 íntegros mesmo a 74,7 °C).
 - **CPU 1152 MHz @ 1,50 V:** corrompe dados gravados no cartão (2/3 falhas em 400 MB).
 - **CPU 1200 MHz @ 1,50 V:** erra contas (`stress-ng --verify` e `memtester`).
