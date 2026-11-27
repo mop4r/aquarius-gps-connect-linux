@@ -103,3 +103,23 @@ Nao ha mais item de desempenho pendente. Opcional: religar o RetroArch se cair p
   Windows aceita no `aquarius.txt`; boot no QEMU OK (SSH pela chave do aquarius.txt, arquivo aplicado e apagado,
   permissões 0, atualização ociosa). Histórico do git reescrito (nome de rede, BSSID, serial do SoC); repo público.
   Backup do cartão iGO num repo privado separado. O systemd abortou 1 vez em 4 boots no QEMU (não reproduzido depois).
+
+## 27/11/2026: 1104 MHz reprovado sob calor, varredura da GPU Mali-400 e correção do boot lento
+- **CPU 1104 MHz @ 1,45 V REPROVADO (volta 1008 MHz padrão):** durante `apt-get update`, um arquivo de 53 MB íntegro em
+  disco deu `Hash Sum incorreto`. Teste controlado com RetroArch aberto (carga mista CPU+GPU):
+  - **1008 MHz @ 1,40 V (72,3–74,7 °C):** 8/8 `sha256sum` em 50 MB idênticos.
+  - **1104 MHz @ 1,45 V (73,5–76,7 °C):** 6/8 `sha256sum` corrompidos (limiar de falha em ~72,7 °C; a estabilidade de
+    10/11 havia parado em 72,3 °C sem RetroArch rodando junto).
+  - Removido do DTS e desabilitado na imagem (`aplicar-ajustes-do-aparelho.sh`).
+- **GPU Mali-400 (lima, `pll-ve`, `vdd-int-dll` 1,25 V) — varredura limpa (CPU 1008 MHz, via módulo temporário):**
+  - `288 MHz`: glmark2 **183**, snes9x2010 51,5/52,7, snes9x2005p 57,2/57,1, mgba 46,2/47,1, gambatte 60,5/59,2.
+  - **`384 MHz` (padrão mainline, +20% acima do Android):** glmark2 **212**, snes9x2010 52,7/52,4, snes9x2005p 57,8/56,6, mgba 49,1/48,4, gambatte 60,0/59,3.
+  - `408 MHz`: glmark2 **218** (+2,8%), jogos **0 fps de ganho** (snes9x2010 53,0/52,5, snes9x2005p 56,6/56,7, mgba 48,6/48,8, gambatte 60,3/60,2).
+  - `416 MHz`: glmark2 **218** (+2,8%), jogos **0 fps de ganho** (snes9x2010 52,4/53,2, snes9x2005p 55,9/58,1, mgba 48,5/47,5, gambatte 60,6/59,2).
+  - `432 MHz`: **TRAVOU A GPU** (`gp/pp0 job timeout` no `glmark2`).
+  - **Decisão:** manter **384 MHz**.
+- **Boot lento (1 min 31 s):** `journald` sem limite acumulou 169 MB (18 arquivos, 13 `.journal~` sujos), fazendo
+  `systemd-journal-flush` levar 22 s. Criado `/etc/systemd/journald.conf.d/aquarius.conf` (`SystemMaxUse=32M`,
+  `SystemMaxFileSize=8M`, `MaxRetentionSec=14day`).
+- **GPS real atualizado:** kernel `6.12.118+deb13-armmp`, permissões conferidas limpas, Wi-Fi `rtl8xxxu` por DKMS
+  instalado (lento `rtl8192cu` bloqueado), `aquarius-vigia` novo, CPU 1008 MHz, `journald` limitado a 32M.

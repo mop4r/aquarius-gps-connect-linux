@@ -63,21 +63,18 @@ c systemctl disable exim4 lm-sensors networking e2scrub_reap avahi-daemon.servic
 c systemctl disable unattended-upgrades.service man-db.timer exim4-base.timer e2scrub_all.timer >/dev/null 2>&1 || true
 c systemctl mask fwupd.service fwupd-refresh.timer fwupd-refresh.service udisks2.service >/dev/null 2>&1 || true
 # kernel calado na tela (a 115200 o console serial atrasava o boot e o texto aparecia por cima do jogo)
-sed -i 's/loglevel=[0-9]/quiet loglevel=3/' "$R/etc/default/u-boot"
+sed -i -E 's/(quiet )?loglevel=[0-9]/quiet loglevel=3/' "$R/etc/default/u-boot"
 grep -q 'quiet loglevel=3' "$R/etc/default/u-boot" || { echo "u-boot: loglevel nao trocado" >&2; exit 1; }
 
 # volta automatica (aquarius-vigia + aquarius-tentar) e watchdog de hardware pelo systemd
 chmod 0755 "$R/usr/local/sbin/aquarius-vigia" "$R/usr/local/sbin/aquarius-tentar" "$R/usr/local/sbin/aquarius-config-inicial"
 c systemctl enable aquarius-vigia.service >/dev/null 2>&1
 
-# turbo 1104 MHz (turbo-mode no DTB) com governador performance: so liga com /var/lib/aquarius-turbo/aprovado, e
-# desaprova sozinho se um boot com turbo nao confirmar (9 min de turbo; timer em 11 min). Desde 11/11/2026 a imagem
-# sai APROVADA (1104 provado: estabilidade longa, disco, trava nas duas pontas; o 1o boot nao reinicia).
-# 1152 e 1200 NAO: corrompem dados / erram conta. Para sair sem turbo: aquarius-turbo desligar.
+# CPU fica em 1008 MHz (padrao de fabrica): 1104 MHz @ 1,45 V corrompeu sha256 acima de ~72,7 C sob carga mista
+# (27/11/2026), 1152 corrompeu disco e 1200 errou conta. O turbo fica desabilitado e sem aprovacao.
 chmod 0755 "$R/usr/local/sbin/aquarius-turbo"
-c systemctl enable aquarius-turbo.service aquarius-turbo-confirmar.timer >/dev/null 2>&1
-install -d -m 0755 "$R/var/lib/aquarius-turbo"
-echo 1104000 > "$R/var/lib/aquarius-turbo/aprovado"; rm -f "$R/var/lib/aquarius-turbo/sem-confirmar"
+c systemctl disable aquarius-turbo.service aquarius-turbo-confirmar.timer >/dev/null 2>&1 || true
+rm -f "$R/var/lib/aquarius-turbo/aprovado" "$R/var/lib/aquarius-turbo/sem-confirmar"
 
 # Wi-Fi: so o rtl8xxxu com o 0bda:8176 (~10x mais rapido que o rtl8192cu, que fica bloqueado), compilado aqui por DKMS
 # para o kernel da imagem e, sozinho, para cada kernel novo; sem ele o kernel novo nao vira o padrao do boot

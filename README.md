@@ -8,7 +8,7 @@ O GPS **Aquarius Connect 5.0** (placa MTC4553, Allwinner **A10** Cortex-A8 a 1 G
 2. **A análise do aparelho** (`analise/`): mapa do hardware, porte item a item, desempenho e o receptor GPS.
 3. **O backup do cartão original** do iGO (só em repositório privado; descrito no fim).
 
-> *English summary:* **Debian 13 (Trixie, armhf)** running from a separate microSD card on a Brazilian **Aquarius Connect 5.0** car GPS (**MTC4553** board, **Allwinner A10 / sun4i** Cortex-A8 1 GHz, Mali-400, 512 MB RAM, 800×480 touchscreen, **RTL8188CUS** Wi-Fi), leaving the stock Android 4.0.3 / iGO 8.4.3 NAND untouched. Boots straight into **RetroArch** (cage/Wayland) or switches to an **XFCE** touchscreen tablet mode, with mainline **U-Boot**, custom **DTS**, safe **1104 MHz turbo** with automatic fallback, hardware watchdog, and fast **rtl8xxxu** Wi-Fi via DKMS. Ready-to-flash image available in Releases.
+> *English summary:* **Debian 13 (Trixie, armhf)** running from a separate microSD card on a Brazilian **Aquarius Connect 5.0** car GPS (**MTC4553** board, **Allwinner A10 / sun4i** Cortex-A8 1 GHz, Mali-400, 512 MB RAM, 800×480 touchscreen, **RTL8188CUS** Wi-Fi), leaving the stock Android 4.0.3 / iGO 8.4.3 NAND untouched. Boots straight into **RetroArch** (cage/Wayland) or switches to an **XFCE** touchscreen tablet mode, with mainline **U-Boot**, custom **DTS**, hardware watchdog, auto-rollback daemon, and fast **rtl8xxxu** Wi-Fi via DKMS. Ready-to-flash image available in Releases.
 
 ## Instalar (imagem pronta)
 
@@ -39,31 +39,28 @@ O GPS **Aquarius Connect 5.0** (placa MTC4553, Allwinner **A10** Cortex-A8 a 1 G
 Jogos: só homebrew de licença livre (`novo-so/jogos-livres/CATALOGO.md`); nenhum ROM comercial no repo.
 Acesso: SSH por chave (root) pelo Wi-Fi, os dois configurados pelo `aquarius.txt` (veja "Instalar").
 
-## Desempenho (medido no aparelho, 06–11/11/2026)
+## Desempenho (medido no aparelho, 06–27/11/2026)
 
 | O quê | Antes | Agora |
 |---|---|---|
-| Processador | 1008 MHz, `schedutil` | **1104 MHz turbo** com `performance` (aprovado por padrão, com trava) |
-| SNES pesado (snes9x2010) | 53 fps | **57–60 fps** |
-| Área de trabalho do tablet / usável | 45 s / 78 s | **33 s / 54 s** |
+| Processador | 1008 MHz | **1008 MHz** (padrão de fábrica; 100% íntegro mesmo acima de 74 °C) |
+| GPU (Mali-400 / lima) | 320 MHz no Android | **384 MHz** (padrão mainline; teto estável a 1,25 V sem ganho acima) |
+| SNES pesado (`Pink_Wall`) | 35,8 fps (`snes9x` Debian) | **57–58 fps** (`snes9x2005_plus` compilado p/ Cortex-A8/NEON) |
+| GBA pesado (`Skyland`) | 49 fps (`mgba`) | **58–60 fps** (`gpSP` compilado p/ Cortex-A8/NEON) |
+| Área de trabalho do tablet / usável | 45 s / 78 s | **35 s / 57 s** (compositor desligado, autostart enxuto, zram) |
 | Navegador | Firefox ~45 s para abrir | **NetSurf 4–7 s** (Firefox fica num atalho para sites pesados) |
-| LibreOffice Writer (quente) | 21 s | **18 s** |
-| Envio do GPS pela rede | 0,2 MB/s | **2–2,9 MB/s** (driver `rtl8xxxu`) |
-| Boot | 1 min 34 s | 51 s |
+| Envio do GPS pela rede | 0,2 MB/s (`rtl8192cu`) | **2–2,9 MB/s** (`rtl8xxxu` por DKMS) |
+| Boot | 1 min 34 s | **~51–57 s** (`journald` limitado a 32 MB) |
 
-Testado e **reprovado** (não usar): 1152 MHz (corrompe dados gravados no cartão), 1200 MHz (erra conta),
-RAM a 480 MHz (trava com a memória cheia; fica 408, o valor de fábrica), `video_threaded` do RetroArch
-(trava o jogo), RetroArch direto no DRM sem o cage (perde quadros). Detalhes e números:
-`analise/desempenho/RETOMAR.md`.
+Testado e **reprovado** (não usar):
+- **CPU 1104 MHz @ 1,45 V:** passa em teste frio (≤ 72,3 °C), mas **corrompe silenciosamente acima de ~72,7 °C** (6/8 `sha256sum` errados em 50 MB entre 73,5–76,7 °C com RetroArch aberto; a 1008 MHz, 8/8 íntegros mesmo a 74,7 °C).
+- **CPU 1152 MHz @ 1,50 V:** corrompe dados gravados no cartão (2/3 falhas em 400 MB).
+- **CPU 1200 MHz @ 1,50 V:** erra contas (`stress-ng --verify` e `memtester`).
+- **RAM 480 MHz:** trava sob `memtester` (fica **408 MHz**, o valor de fábrica).
+- **GPU 408 / 416 / 432 MHz (1,25 V):** 408 e 416 MHz dão **0 fps de ganho em jogos 2D** (+2,8% no `glmark2` 3D), e **432 MHz trava a Mali-400** (`gp/pp0 job timeout`).
+- **`video_threaded` do RetroArch** (trava o jogo) e **RetroArch direto no DRM sem o cage** (perde quadros e o multitoque).
 
-### Turbo (1104 MHz) e a trava
-
-- O DTB lista 1104 MHz como `turbo-mode`. O kernel só usa com `boost=1`, e todo boot **começa em até 1008**.
-- O serviço `aquarius-turbo` liga o turbo no boot (com governador `performance`: o `schedutil` ignora o turbo)
-  **só se aprovado** em `/var/lib/aquarius-turbo/aprovado`. A imagem sai aprovada em 1104.
-- **Trava:** cada boot com turbo precisa ficar 9 min de pé para confirmar (timer de 11 min). Se o GPS travar ou
-  reiniciar antes, o boot seguinte desaprova sozinho e fica em 1008.
-- Comandos: `aquarius-turbo estado | aprovar 1104000 | desligar`.
+Detalhes e números: `analise/desempenho/RETOMAR.md`.
 
 ### Volta automática (`aquarius-vigia`)
 

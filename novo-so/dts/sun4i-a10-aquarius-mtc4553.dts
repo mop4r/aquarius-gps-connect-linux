@@ -91,51 +91,20 @@
 };
 
 /*
- * Mesma tabela do sun4i-a10.dtsi (624-1008 MHz) no formato v2, mais 1104 MHz como "turbo-mode":
- * o kernel so usa com /sys/devices/system/cpu/cpufreq/boost = 1, que nasce desligado (todo boot
- * comeca em ate 1008). Quem liga e o aquarius-turbo, com trava (06/11/2026).
- * 1200 MHz @ 1,5 V (o maximo do regulador) ERRA CONTA: stress-ng --verify 1 falha e memtester
- * 17 falhas em 06/11/2026. Nao acrescentar.
- * 1152 MHz @ 1,5 V tambem NAO: passa no stress-ng --verify, memtester e 30 min de jogo, mas CORROMPE o que vai para o
- * cartao (400 MB gravados e relidos sem cache: sha256 diferente em 2 de 3; a 1104, igual em 3 de 3), 11/11/2026.
+ * CPU fica na tabela padrao do sun4i-a10.dtsi (624-1008 MHz @ ate 1,40 V), 100% estavel mesmo acima de 74 C.
+ * Overclocks testados e REPROVADOS neste A10 (nao acrescentar):
+ * - 1104 MHz @ 1,45 V: passa em carga fria (<=72,3 C), mas CORROMPE silenciosamente acima de ~72,7 C
+ *   (6/8 sha256sum errados em arquivo de 50 MB entre 73,5-76,7 C com RetroArch aberto; a 1008 MHz, 8/8 OK a 74,7 C), 27/11/2026.
+ * - 1152 MHz @ 1,50 V: passa no stress-ng --verify, memtester e 30 min de jogo, mas CORROMPE o que vai para o
+ *   cartao (400 MB gravados e relidos sem cache: sha256 diferente em 2 de 3), 11/11/2026.
+ * - 1200 MHz @ 1,50 V: ERRA CONTA (stress-ng --verify 1 falha e memtester 17 falhas), 06/11/2026.
+ *
+ * GPU Mali-400 (lima) tambem fica no padrao mainline de 384 MHz (pll-ve, vdd-int-dll 1,25 V; ja +20% acima dos
+ * 320 MHz do Android): varredura limpa de 288-432 MHz em 27/11/2026 mostrou 0 fps de ganho em jogos 2D a 408/416 MHz
+ * (+2,8% no glmark2 3D) e travamento da GPU (gp/pp0 job timeout) em 432 MHz.
  */
-/ {
-	cpu0_opp: opp-table-cpu {
-		compatible = "operating-points-v2";
-
-		opp-624000000 {
-			opp-hz = /bits/ 64 <624000000>;
-			opp-microvolt = <1250000>;
-			clock-latency-ns = <244144>;
-		};
-		opp-864000000 {
-			opp-hz = /bits/ 64 <864000000>;
-			opp-microvolt = <1300000>;
-			clock-latency-ns = <244144>;
-		};
-		opp-912000000 {
-			opp-hz = /bits/ 64 <912000000>;
-			opp-microvolt = <1350000>;
-			clock-latency-ns = <244144>;
-		};
-		opp-1008000000 {
-			opp-hz = /bits/ 64 <1008000000>;
-			opp-microvolt = <1400000>;
-			clock-latency-ns = <244144>;
-		};
-		opp-1104000000 {
-			opp-hz = /bits/ 64 <1104000000>;
-			opp-microvolt = <1450000>;
-			clock-latency-ns = <244144>;
-			turbo-mode;
-		};
-	};
-};
-
 &cpu0 {
 	cpu-supply = <&reg_dcdc2>;
-	/delete-property/ operating-points;
-	operating-points-v2 = <&cpu0_opp>;
 };
 
 &de {
