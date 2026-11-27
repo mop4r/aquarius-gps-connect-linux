@@ -62,6 +62,9 @@ c systemctl disable exim4 lm-sensors networking e2scrub_reap avahi-daemon.servic
 # a atualizacao segue pelo timer) e timers inuteis. Boot medido: 1 min 34 s -> 51 s.
 c systemctl disable unattended-upgrades.service man-db.timer exim4-base.timer e2scrub_all.timer >/dev/null 2>&1 || true
 c systemctl mask fwupd.service fwupd-refresh.timer fwupd-refresh.service udisks2.service >/dev/null 2>&1 || true
+# lightdm.postinst recria display-manager.service a cada upgrade do pacote (27/11/2026);
+# 99aquarius-sem-display-manager remove apos cada apt, e garantimos aqui tambem.
+rm -f "$R/etc/systemd/system/display-manager.service"
 # kernel calado na tela (a 115200 o console serial atrasava o boot e o texto aparecia por cima do jogo)
 sed -i -E 's/(quiet )?loglevel=[0-9]/quiet loglevel=3/' "$R/etc/default/u-boot"
 grep -q 'quiet loglevel=3' "$R/etc/default/u-boot" || { echo "u-boot: loglevel nao trocado" >&2; exit 1; }

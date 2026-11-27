@@ -1,0 +1,3 @@
+// O modo (jogos ou tablet) e escolhido pelo aquarius-modo.service; o postinst do lightdm
+// recria /etc/systemd/system/display-manager.service a cada atualizacao do pacote.
+DPkg::Post-Invoke { "rm -f /etc/systemd/system/display-manager.service"; };

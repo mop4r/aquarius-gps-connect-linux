@@ -54,6 +54,9 @@ $S 'echo "== kernel"; uname -r; echo "== modelo"; tr -d "\0" < /proc/device-tree
     echo "== vigia"; journalctl -b -u aquarius-vigia --no-pager -o cat | tail -3
     echo "== turbo (espera desligado / aprovado=nenhum)"; aquarius-turbo estado
     echo "== journald cap (espera SystemMaxUse=32M)"; grep SystemMaxUse /etc/systemd/journald.conf.d/aquarius.conf
+    echo "== display-manager ausente (espera ausente + hook apt presente)"
+    [ ! -e /etc/systemd/system/display-manager.service ] && echo "display-manager=ausente" || echo "FALHA: display-manager presente"
+    grep -q 'display-manager.service' /etc/apt/apt.conf.d/99aquarius-sem-display-manager && echo "hook-apt=ok"
     echo "== wi-fi: rtl8xxxu por dkms com o 0bda:8176 (espera 1) e rtl8192cu bloqueado (espera install /bin/false)"
     modinfo rtl8xxxu | grep -ci "^alias:.*v0BDAp8176"; modinfo -n rtl8xxxu; modprobe -n -v rtl8192cu 2>&1 | tail -1; dkms status
     echo "== certificado snakeoil refeito no 1o boot (espera o arquivo)"; ls /etc/ssl/private/ssl-cert-snakeoil.key 2>&1
